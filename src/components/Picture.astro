@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  src: string;
+  alt: string;
+  size: number;
+  class?: string;
+}
+
+const { src, alt, size, class: classList } = Astro.props;
+---
+
+<Image
+  class:list={[
+    "aspect-square object-cover border-white border-2 rounded-2xl shadow-xs shadow-gray-900/60",
+    [classList],
+  ]}
+  src={src}
+  alt={alt}
+  decoding="async"
+  loading="eager"
+  width={size}
+  height={size}
+/>
