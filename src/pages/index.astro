@@ -1,11 +1,41 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "@/layouts/Layout.astro";
+import Section from "@/layouts/Section.astro";
+import Title from "@/components/Title.astro";
+import Nav from "@/components/Nav.astro";
+import Canvas from "@/components/Canvas/Canvas.astro";
+import Meteors from "@/components/Meteors/Meteors.tsx";
 ---
 
 <Layout>
-	<Welcome />
+  <Section
+    class="flex flex-col justify-between items-center gap-10 md:gap-15 relative"
+  >
+    <div class="w-full h-full absolute">
+      <Meteors
+        client:load
+        amout={15}
+        minDelay={0.2}
+        maxDelay={1.2}
+        minDuration={2}
+        maxDuration={30}
+        angle={215}
+      />
+    </div>
+    <Nav />
+    <Title />
+    <a
+      href="mailto:diego5614yt@gmail.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% to-[#ff5833] to-20% border-2 border-action shadow-glow"
+    >
+      Send me an Email
+    </a>
+    <Canvas />
+  </Section>
+  <Section class="flex flex-col justify-between items-center">
+    <Nav />
+    <Canvas />
+  </Section>
 </Layout>
