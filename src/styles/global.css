@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #262626;
+  --color-default: #0f0f0f;
+  --color-action: #ff5833;
+  --color-grey: #ededed;
+  --shadow-glow: #ffffff 0px -10px 25px -12px inset;
+  --shadow-nav:
+    rgba(0, 0, 0, 0.19) 0px 0.602187px 1.32481px -1.5px,
+    rgba(0, 0, 0, 0.158) 0px 2.28853px 5.03477px -3px,
+    rgba(0, 0, 0, 0.022) 0px 10px 22px -4.5px;
+  --animate-meteor: meteor 5s linear infinite;
+}
+
+.fraunces {
+  font-family: "Fraunces", serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "SOFT" 50,
+    "WONK" 1;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.inter {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  word-wrap: break-word;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.rounded-picture {
+  border-radius: 12px 12px 12px 12px / 8px 8px 8px 8px;
+}
+
+.nav-items > li {
+  @apply transition-colors duration-300 py-1 px-2 cursor-pointer;
+}
+
+.nav-items > li:hover {
+  @apply text-[#313336] bg-[#ededed] rounded-md;
+}
+
+.appear {
+  opacity: 0;
+  translate: 0 -20px;
+  animation: 500ms linear forwards appear;
+}
+
+@keyframes appear {
+  100% {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes meteor {
+  0% {
+    transform: rotate(var(--angle)) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--angle)) translateX(-700px);
+    opacity: 0;
+  }
+}
