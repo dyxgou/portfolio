@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+---
+
+<header class="flex w-full justify-between py-7 px-10 lg:px-30">
+  <div
+    class="flex items-center gap-4 bg-grey text-zinc-800 pr-4 rounded-xl shadow-sm shadow-black/20"
+  >
+    <Image
+      src="/duck.png"
+      alt="Profile"
+      width={40}
+      decoding="async"
+      loading="eager"
+      height={40}
+      class="rounded-xl object-cover aspect-square"
+    />
+    <h2 class="text-base">Colombia 🇨🇴</h2>
+  </div>
+  <nav class="md:flex gap-3 hidden">
+    <ul
+      class="flex shadow-nav rounded-xl py-1 px-4 border-1 border-gray-200 text-sm gap-6 items-center justify-between inter text-stone-500 nav-items"
+    >
+      <li><a href="#" target="_blank" rel="noopener noreferrer">Resume</a></li>
+      <li>
+        <a href="#" target="_blank" rel="noopener noreferrer">Linkedin</a>
+      </li>
+      <li>
+        <a
+          href="https://github.com/dyxgou"
+          target="_blank"
+          rel="noopener noreferrer">Github</a
+        >
+      </li>
+    </ul>
+
+    <a
+      href="mailto:diego5614yt@gmail.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="grid place-items-center rounded-[10px] bg-default text-white text-sm py-2.5 px-4 hover:text-black hover:bg-gray-200 transition-colors duration-300"
+    >
+      Email me
+    </a>
+  </nav>
+</header>
