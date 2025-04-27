@@ -1,0 +1,56 @@
+<div class="w-full min-h-[120px] h-fit relative">
+  <div
+    class="w-full h-full bg-linear-to-b from-white from-10% to-transparent absolute aspect-video"
+  >
+  </div>
+  <canvas id="canvas" class="object-contain rounded-b-3xl bg-gray-700/20"
+  ></canvas>
+</div>
+
+<script>
+  import Canvas from "./canvas.ts";
+
+  const SCREEN_HEIGTH = 170;
+  const MOBILE_HEIGHT = 120;
+  const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+  const container = canvas.parentElement!;
+
+  const resizeCanvas = (width: number, height: number) => {
+    canvas.width = width;
+    canvas.height = height;
+  };
+
+  let width = container.clientWidth;
+  let height = SCREEN_HEIGTH;
+  resizeCanvas(width, height);
+
+  const ctx = canvas.getContext("2d")!;
+  const cellSize = 7;
+  const sep = 4;
+  const minCells = 10;
+  const effect = new Canvas({
+    ctx,
+    cellSize,
+    width,
+    height,
+    sep,
+    minCells,
+  });
+
+  window.addEventListener("resize", () => {
+    width = container.clientWidth;
+
+    if (width < 800) {
+      height = MOBILE_HEIGHT;
+    }
+
+    resizeCanvas(width, height);
+    effect.setSize(width, height);
+    effect.drawSquares();
+  });
+
+  effect.drawSquares();
+  setInterval(() => {
+    effect.drawSquares();
+  }, 500);
+</script>

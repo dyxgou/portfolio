@@ -28,7 +28,6 @@ const Meteors = ({
   const [meteorStyles, setMeteorStyles] = useState<Array<CSSProperties>>([]);
 
   useEffect(() => {
-    console.log("Im here");
     const styles = [...new Array(amout)].map(() => ({
       "--angle": -angle + "deg",
       top: "-5%",

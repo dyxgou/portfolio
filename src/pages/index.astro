@@ -8,10 +8,9 @@ import Meteors from "@/components/Meteors/Meteors.tsx";
 ---
 
 <Layout>
-  <Section
-    class="flex flex-col justify-between items-center gap-10 md:gap-15 relative"
-  >
-    <div class="w-full h-full absolute">
+  <Section class="flex flex-col justify-between items-center gap-10 relative">
+    <Nav />
+    <div class="w-full h-full absolute motion-reduce:hidden">
       <Meteors
         client:load
         amout={15}
@@ -22,7 +21,6 @@ import Meteors from "@/components/Meteors/Meteors.tsx";
         angle={215}
       />
     </div>
-    <Nav />
     <Title />
     <a
       href="mailto:diego5614yt@gmail.com"
@@ -36,6 +34,6 @@ import Meteors from "@/components/Meteors/Meteors.tsx";
   </Section>
   <Section class="flex flex-col justify-between items-center">
     <Nav />
-    <Canvas />
+    <Title />
   </Section>
 </Layout>
