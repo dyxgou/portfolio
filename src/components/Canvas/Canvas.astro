@@ -1,6 +1,6 @@
 <div class="w-full min-h-[120px] h-fit relative">
   <div
-    class="w-full h-full bg-linear-to-b from-white from-15% to-transparent absolute aspect-video"
+    class="w-full h-full bg-linear-to-b from-white from-10% to-transparent absolute aspect-video"
   >
   </div>
   <canvas id="canvas" class="object-contain rounded-b-3xl bg-gray-700/20"
@@ -27,7 +27,7 @@
   const ctx = canvas.getContext("2d")!;
   const cellSize = 7;
   const sep = 4;
-  const minCells = 25;
+  const minCells = 10;
   const effect = new Canvas({
     ctx,
     cellSize,
@@ -49,8 +49,8 @@
     effect.drawSquares();
   });
 
+  effect.drawSquares();
   setInterval(() => {
-    console.log("draw");
     effect.drawSquares();
-  }, 300);
+  }, 500);
 </script>
