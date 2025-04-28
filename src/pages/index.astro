@@ -5,6 +5,7 @@ import Title from "@/components/Title.astro";
 import Nav from "@/components/Nav.astro";
 import Canvas from "@/components/Canvas/Canvas.astro";
 import Meteors from "@/components/Meteors/Meteors.tsx";
+import Projects from "@/components/Projects.astro";
 ---
 
 <Layout>
@@ -32,8 +33,6 @@ import Meteors from "@/components/Meteors/Meteors.tsx";
     </a>
     <Canvas />
   </Section>
-  <Section class="flex flex-col justify-between items-center">
-    <Nav />
-    <Title />
-  </Section>
+
+  <Projects />
 </Layout>

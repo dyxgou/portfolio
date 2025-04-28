@@ -27,7 +27,7 @@
   const ctx = canvas.getContext("2d")!;
   const cellSize = 7;
   const sep = 4;
-  const minCells = 10;
+  const minCells = 20;
   const effect = new Canvas({
     ctx,
     cellSize,
@@ -52,5 +52,5 @@
   effect.drawSquares();
   setInterval(() => {
     effect.drawSquares();
-  }, 500);
+  }, 400);
 </script>
