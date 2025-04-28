@@ -1,0 +1,26 @@
+---
+import Section from "@/layouts/Section.astro";
+
+import LayoutButton from "./LayoutButton.astro";
+import Grid from "@/assets/icons/Grid.astro";
+import Row from "@/assets/icons/Row.astro";
+---
+
+<Section class="flex flex-col gap-10 relative px-10 lg:px-30 py-10">
+  <header class="w-full flex justify-between text-4xl md:text-5xl">
+    <h2 class="fraunces tracking-tighter">Feautured Project</h2>
+    <div
+      class="border-1 border-[#e8e8e8] rounded-xl bg-white flex text-neutral-400 shadow-md shadow-gray-200"
+    >
+      <LayoutButton id="button-grid" isActive><Grid /></LayoutButton>
+      <LayoutButton id="button-row"><Row /></LayoutButton>
+    </div>
+  </header>
+
+  <section>
+    <article>Redis</article>
+    <article>Programming Language</article>
+    <article>Paint</article>
+    <article>nvim</article>
+  </section>
+</Section>

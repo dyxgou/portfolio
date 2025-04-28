@@ -21,7 +21,6 @@
   font-variation-settings:
     "SOFT" 50,
     "WONK" 1;
-  white-space: pre-wrap;
   word-wrap: break-word;
   word-break: break-word;
   line-height: 1.2;
@@ -74,4 +73,8 @@
     transform: rotate(var(--angle)) translateX(-700px);
     opacity: 0;
   }
+}
+
+.button-active[data-active="true"] {
+  @apply bg-grey border-1 border-[#e3e3e3] text-black;
 }

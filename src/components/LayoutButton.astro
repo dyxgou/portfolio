@@ -1,0 +1,15 @@
+---
+interface Props {
+  id: string;
+  isActive?: boolean;
+}
+
+const { id, isActive = false } = Astro.props;
+---
+
+<button
+  id={id}
+  data-active={isActive}
+  class="cursor-pointer px-4 rounded-xl border-1 border-transparent transition-colors duration-300 hover:text-black button-active"
+  ><slot />
+</button>
