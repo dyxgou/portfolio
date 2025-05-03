@@ -51,7 +51,7 @@
 .appear {
   opacity: 0;
   translate: 0 -20px;
-  animation: 500ms linear forwards appear;
+  animation: 500ms ease-in forwards appear;
 }
 
 @keyframes appear {
@@ -77,4 +77,12 @@
 
 .button-active[data-active="true"] {
   @apply bg-grey border-1 border-[#e3e3e3] text-black;
+}
+
+.projects-layout {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-10;
+
+  &[data-layout="row"] {
+    @apply grid-cols-1;
+  }
 }
