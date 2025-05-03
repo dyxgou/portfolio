@@ -1,38 +1,13 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Section from "@/layouts/Section.astro";
-import Title from "@/components/Title.astro";
-import Nav from "@/components/Nav.astro";
-import Canvas from "@/components/Canvas/Canvas.astro";
-import Meteors from "@/components/Meteors/Meteors.tsx";
-import Projects from "@/components/Projects.astro";
+import Projects from "@/components/Projects/Projects.astro";
+import Hero from "@/components/Hero.astro";
+import CanvasProvider from "@/components/Canvas/CanvasProvider.astro";
 ---
 
 <Layout>
-  <Section class="flex flex-col justify-between items-center gap-10 relative">
-    <Nav />
-    <div class="w-full h-full absolute motion-reduce:hidden">
-      <Meteors
-        client:load
-        amout={15}
-        minDelay={0.2}
-        maxDelay={1.2}
-        minDuration={2}
-        maxDuration={30}
-        angle={215}
-      />
-    </div>
-    <Title />
-    <a
-      href="mailto:diego5614yt@gmail.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% to-[#ff5833] to-20% border-2 border-action shadow-glow"
-    >
-      Send me an Email
-    </a>
-    <Canvas />
-  </Section>
-
-  <Projects />
+  <CanvasProvider class="flex flex-col gap-2">
+    <Hero />
+    <Projects />
+  </CanvasProvider>
 </Layout>
