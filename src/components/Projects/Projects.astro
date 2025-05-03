@@ -1,0 +1,103 @@
+---
+import Section from "@/layouts/Section.astro";
+
+import Canvas from "@/components/Canvas/Canvas.astro";
+import LayoutButton from "./LayoutButton.astro";
+import Card from "./Card.astro";
+import Grid from "@/assets/icons/Grid.astro";
+import Row from "@/assets/icons/Row.astro";
+---
+
+<Section>
+  <main class="w-full flex flex-col gap-15 px-5 md:px-10 lg:px-20 py-15">
+    <header class="w-full flex justify-between text-4xl md:text-5xl appear">
+      <h2 class="fraunces tracking-tighter">Feautured Project</h2>
+      <div
+        class="border-1 border-[#e8e8e8] rounded-xl bg-white hidden lg:flex text-neutral-400 shadow-md shadow-gray-200"
+      >
+        <LayoutButton label="Set Grid Layout" id="button-grid" isActiveDefault
+          ><Grid />
+        </LayoutButton>
+        <LayoutButton label="Set Row Layout" id="button-row"
+          ><Row />
+        </LayoutButton>
+      </div>
+    </header>
+
+    <section id="projects" class="projects-layout inter">
+      <Card
+        src="/duck.png"
+        href="/projects/redis"
+        alt="redis"
+        size={800}
+        text="A fully functional and powerfull Redis Clone"
+      />
+      <Card
+        src="/duck.png"
+        href="/projects/language"
+        alt="programming language"
+        size={800}
+        text="A programming language built form the ground up"
+      />
+      <Card
+        src="/duck.png"
+        href="/projects/paint"
+        alt="redis"
+        size={800}
+        text="A fully functional Paint Clone"
+      />
+      <Card
+        src="/duck.png"
+        href="/projects/nvim"
+        alt="nvim editor"
+        size={800}
+        text="My own nvim distro"
+      />
+    </section>
+  </main>
+
+  <Canvas isGraySquare />
+</Section>
+
+<script>
+  const BUTTON_ATTR = "data-active";
+  const PROJECTS_ATTR = "data-layout";
+
+  const btnGrid = document.getElementById("button-grid") as HTMLButtonElement;
+  const btnRow = document.getElementById("button-row") as HTMLButtonElement;
+  const projects = document.getElementById("projects")!;
+
+  const isActive = (btn: HTMLButtonElement) => {
+    return btn.getAttribute(BUTTON_ATTR) == "true";
+  };
+
+  const setLayout = (value: "row" | "grid") => {
+    projects.setAttribute(PROJECTS_ATTR, value);
+  };
+
+  const setActiveValue = (btn: HTMLButtonElement, value: "true" | "false") => {
+    btn.setAttribute(BUTTON_ATTR, value);
+  };
+
+  const onClickBtn = (
+    btnActive: HTMLButtonElement,
+    btnInactive: HTMLButtonElement,
+  ) => {
+    if (isActive(btnActive)) {
+      return;
+    }
+
+    setActiveValue(btnInactive, "false");
+    setActiveValue(btnActive, "true");
+  };
+
+  btnGrid.addEventListener("click", () => {
+    setLayout("grid");
+    onClickBtn(btnGrid, btnRow);
+  });
+
+  btnRow.addEventListener("click", () => {
+    setLayout("row");
+    onClickBtn(btnRow, btnGrid);
+  });
+</script>

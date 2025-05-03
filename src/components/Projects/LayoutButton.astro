@@ -1,0 +1,18 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  isActiveDefault?: boolean;
+}
+
+const { id, label, isActiveDefault = false } = Astro.props;
+---
+
+<button
+  id={id}
+  aria-labelledby={label}
+  title={label}
+  data-active={isActiveDefault}
+  class="cursor-pointer px-4 rounded-xl border-1 border-transparent transition-colors duration-300 hover:text-black button-active"
+  ><slot />
+</button>

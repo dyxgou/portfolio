@@ -1,0 +1,28 @@
+---
+import type { ComponentProps } from "astro/types";
+import Picture from "../Picture.astro";
+
+interface Props extends ComponentProps<typeof Picture> {
+  text: string;
+  href: string;
+}
+
+const { text, href, ...picture } = Astro.props;
+---
+
+<article>
+  <a
+    href={href}
+    class="cursor-pointer flex flex-col relative transition-transform duration-700 hover:scale-95 hover:rotate-x-10 hover:duration-300"
+  >
+    <Picture
+      {...picture}
+      class="w-full aspect-square sm:aspect-video border-4"
+    />
+    <div
+      class="w-full absolute bottom-0 left-0 text-white text-xl md:text-2xl p-10"
+    >
+      <p class="w-full md:w-2/3">{text}</p>
+    </div>
+  </a>
+</article>
