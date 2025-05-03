@@ -1,5 +1,7 @@
 import Grid from "./grid";
 
+export type Color = `#${string}`;
+
 type CanvasParams = {
   ctx: CanvasRenderingContext2D;
   width: number;
@@ -16,6 +18,8 @@ class Canvas {
   cellsSize: number;
   sep: number;
   grid: Grid;
+  gridColor: Color = "#f8f8f8";
+  squareColor: Color = "#fe9178";
 
   constructor({ ctx, width, height, cellSize, sep, minCells }: CanvasParams) {
     this.ctx = ctx;
@@ -27,12 +31,16 @@ class Canvas {
     this.grid = new Grid(this.getRows(), this.getCols(), minCells);
   }
 
+  setSquareColor(color: Color) {
+    this.squareColor = color;
+  }
+
   setSize(width: number, height: number) {
     this.width = width;
     this.height = height;
   }
 
-  setColor(color: `#${string}`) {
+  setColor(color: Color) {
     this.ctx.fillStyle = color;
   }
 
@@ -55,7 +63,7 @@ class Canvas {
         const index = this.grid.getIndex(x, y);
 
         if (this.grid.getValue(index)) {
-          this.setColor("#fe9178");
+          this.setColor(this.squareColor);
         } else {
           this.setColor("#f8f8f8");
         }

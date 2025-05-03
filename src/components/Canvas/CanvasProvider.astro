@@ -1,0 +1,25 @@
+---
+interface Props {
+  class: string;
+}
+
+const { class: classList } = Astro.props;
+---
+
+<div id="canvas-provider" class={classList}>
+  <slot />
+</div>
+
+<script>
+  import setCanvas from "./setCanvas.ts";
+
+  const PROVIDER_ID = "canvas-provider" as const;
+  const CANVAS_ID = "#canvas-effect" as const;
+
+  const provider = document.getElementById(PROVIDER_ID);
+  const canvases = provider.querySelectorAll(CANVAS_ID);
+
+  for (const canvas of canvases) {
+    setCanvas(canvas);
+  }
+</script>
