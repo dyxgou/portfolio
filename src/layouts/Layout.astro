@@ -1,5 +1,9 @@
 ---
 import "@/styles/global.css";
+
+interface Props {
+  title: string;
+}
 ---
 
 <!doctype html>
@@ -22,9 +26,11 @@ import "@/styles/global.css";
       href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap"
       rel="stylesheet"
     />
-    <title>Alejandro's Portfolio</title>
+    <title>{Astro.props.title}</title>
   </head>
-  <body class="bg-background w-screen h-screen flex flex-col gap-2 p-2 pb-4">
+  <body
+    class="bg-background w-screen h-screen flex flex-col gap-2 p-2 pb-4 overflow-x-hidden"
+  >
     <slot />
   </body>
 </html>
