@@ -1,0 +1,38 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  title: string;
+  href: string;
+  label: string;
+  image: string;
+}
+
+const { title, label, href, image } = Astro.props;
+---
+
+<article
+  class="text-base rounded-xl p-1 w-full cursor-pointer transition-transform duration-300 hover:scale-[1.005] hover:bg-[#f2f2f2]"
+>
+  <a
+    class="flex gap-4 items-center p-3 rounded-xl border-dashed border-1 border-technology/30 w-full"
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Image
+      class="object-contain aspect-square p-1"
+      src={image}
+      alt="tech"
+      loading="eager"
+      decoding="async"
+      width={50}
+      height={50}
+    />
+
+    <div>
+      <p class="text-technology mb-0.5">{title}</p>
+      <p class="text-black/60">{label}</p>
+    </div>
+  </a>
+</article>
