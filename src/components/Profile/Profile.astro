@@ -1,10 +1,22 @@
 ---
 import Section from "@/layouts/Section.astro";
 import Technologies from "./Technologies.astro";
+import Experience from "./Experience.astro";
 ---
 
 <Section class="w-full px-5 md:px-10 lg:px-20 py-15">
   <h2 class="fraunces tracking-tighter text-4xl md:text-5xl">Experience</h2>
+  <section
+    class="w-full flex flex-col gap-5 mt-10 mb-15 inter text-bae md:text-2xl"
+  >
+    <Experience
+      image="/duck.png"
+      title="Particular Programming Teacher"
+      time="2020 - NOW"
+    />
+
+    <div class="w-full rounded-full bg-stone-500/30 h-[1px]"></div>
+  </section>
 
   <h2 class="fraunces tracking-tighter text-4xl md:text-5xl my-7">My stack</h2>
   <Technologies />

@@ -1,0 +1,20 @@
+---
+import Picture from "@/components/Picture.astro";
+
+interface Props {
+  image: string;
+  title: string;
+  role?: string;
+  time: `${string} - ${string}`;
+}
+
+const { image, title, role, time } = Astro.props;
+---
+
+<article class="flex-1 flex items-center justify-between gap-4">
+  <Picture src={image} alt="experience" size={40} class="md:w-[50px]" />
+  <span class="text-black/90 flex-1">{title}</span>
+
+  {role && <p class="fraunces">{role}</p>}
+  <p class="text-neutral-500 fraunces ml-3">{time}</p>
+</article>

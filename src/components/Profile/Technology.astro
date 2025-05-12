@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import Arrow from "@/assets/Arrow.astro";
 
 interface Props {
   title: string;
@@ -12,7 +13,7 @@ const { title, label, href, image } = Astro.props;
 ---
 
 <article
-  class="text-base rounded-xl p-1 w-full cursor-pointer transition-transform duration-300 hover:scale-[1.005] hover:bg-[#f2f2f2]"
+  class="group text-base rounded-xl p-1 w-full cursor-pointer transition-transform duration-300 hover:scale-[1.005] hover:bg-[#f2f2f2]"
 >
   <a
     class="flex gap-4 items-center p-3 rounded-xl border-dashed border-1 border-technology/30 w-full"
@@ -30,9 +31,13 @@ const { title, label, href, image } = Astro.props;
       height={50}
     />
 
-    <div>
+    <div class="flex-1">
       <p class="text-technology mb-0.5">{title}</p>
       <p class="text-black/60">{label}</p>
     </div>
+
+    <Arrow
+      class="size-5 mr-4 transition-transform duration-300 -rotate-45 group-hover:rotate-0 group-hover:text-red-600"
+    />
   </a>
 </article>
