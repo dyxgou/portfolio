@@ -1,0 +1,30 @@
+---
+import Card from "./Card.astro";
+---
+
+<section class="absolute w-full h-full rounded-3xl overflow-hidden">
+  <Card
+    class="-top-10 -left-30 rotate-10 lg:translate-y-[250%] lg:-left-50 lg:-rotate-10"
+    src="/images/monkey.avif"
+    alt="programming language"
+    size={400}
+  />
+  <Card
+    class="-bottom-10 -left-30 -rotate-10"
+    src="/images/redis.avif"
+    alt="redis"
+    size={400}
+  />
+  <Card
+    class="-top-10 -right-30 -rotate-10 lg:translate-y-[250%] lg:-right-50 lg:rotate-12"
+    src="/images/paint.avif"
+    alt="paint"
+    size={400}
+  />
+  <Card
+    class="-bottom-10 -right-30 rotate-10"
+    src="/images/nvim.avif"
+    alt="nvim editor"
+    size={400}
+  />
+</section>

@@ -76,14 +76,11 @@
   }
 }
 
-.button-active[data-active="true"] {
-  @apply bg-grey border-1 border-[#e3e3e3] text-black;
-}
-
-.projects-layout {
-  @apply grid grid-cols-1 lg:grid-cols-2 gap-10;
-
-  &[data-layout="row"] {
-    @apply grid-cols-1;
-  }
+.bg-dots {
+  background-image: url("/icons/dots.svg");
+  background-repeat: repeat;
+  background-size: 32px;
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+  filter: invert(1);
 }
