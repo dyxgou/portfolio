@@ -3,26 +3,27 @@ import type { ComponentProps } from "astro/types";
 import Picture from "../Picture.astro";
 
 interface Props extends ComponentProps<typeof Picture> {
-  text: string;
+  text?: string;
+  class?: string;
   href: string;
 }
 
-const { text, href, ...picture } = Astro.props;
+const { text, href, class: classList, ...picture } = Astro.props;
 ---
 
-<article>
+<article class={classList}>
   <a
     href={href}
-    class="cursor-pointer flex flex-col relative transition-transform duration-700 hover:scale-95 hover:rotate-x-10 hover:duration-300"
+    class="cursor-pointer flex flex-col relative transition-transform duration-700 hover:scale-95 hover:rotate-x-10 hover:duration-300 border-white border-4 rounded-2xl shadow-xs shadow-gray-900/60"
   >
     <Picture
       {...picture}
-      class="w-full aspect-square sm:aspect-video border-4"
+      class="w-full aspect-square object-cover sm:aspect-video border-none"
     />
     <div
-      class="w-full absolute bottom-0 left-0 text-white text-xl md:text-2xl p-10"
+      class="w-full h-full absolute bottom-0 left-0 rounded-2xl bg-linear-to-t from-black/90 from-5% to-transparent flex text-white text-xl md:text-2xl px-7 py-7"
     >
-      <p class="w-full md:w-2/3">{text}</p>
+      {text && <p class="w-full self-end">{text}</p>}
     </div>
   </a>
 </article>
