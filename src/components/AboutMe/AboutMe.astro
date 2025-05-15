@@ -1,0 +1,45 @@
+---
+import Section from "@/layouts/Section.astro";
+import Skill from "./Skill.astro";
+import { Image } from "astro:assets";
+---
+
+<Section class="w-full flex flex-col gap-10 px-5 md:px-10 lg:px-40 py-25">
+  <div
+    class="lg:flex-3/4 max-w-full inter text-2xl text-neutral-700 prose prose-h2:text-5xl prose-h2:mb-0 prose-h3:text-5xl prose-h3:mb-13"
+  >
+    <h2 class="fraunces tracking-tighter">Solutions Engenieer</h2>
+    <h3 class="fraunces tracking-tighter text-slate-500">Lifelong learner.</h3>
+
+    <p>
+      Hey! I’m Alejandro, a fullstack developer with a passion for building
+      complex systems from scratch. My journey began with a love for mathematics
+      and understanding how things work at their core—leading me to tackle
+      ambitious projects that push my limits and deepen my knowledge.
+    </p>
+    <p>
+      I thrive on challenges that demand months of focus, whether it’s designing
+      high-performance tools, crafting languages, or refining developer
+      experiences. Each project is a deep dive into the fundamentals, teaching
+      me resilience and creativity along the way.
+    </p>
+    <p>
+      When I’m not coding, I’m sharing what I’ve learned or exploring new
+      technical frontiers—always with curiosity and a drive to build things that
+      matter.
+    </p>
+
+    <section class="grid grid-cols-4 gap-3">
+      <Skill skill="Frontend" />
+      <Skill skill="Frontend" />
+    </section>
+  </div>
+
+  <Image
+    class="lg:flex-1/4 shrink-0 w-full h-full aspect-9/10 object-cover object-top-left border-5 border-white shadow-md shadow-black/50 rounded-3xl"
+    src="/duck.png"
+    alt="me"
+    width={500}
+    height={500}
+  />
+</Section>
