@@ -5,15 +5,15 @@ import Canvas from "@/components/Canvas/Canvas.astro";
 import Card from "./Card.astro";
 ---
 
-<Section>
+<Section class="reveal">
   <main class="w-full flex flex-col gap-15 px-5 md:px-10 lg:px-20 py-15">
-    <header class="w-full flex justify-between text-4xl md:text-5xl appear">
+    <header class="w-full flex justify-between text-4xl sm:text-5xl appear">
       <h2 class="fraunces tracking-tighter">Feautured Project</h2>
     </header>
 
     <section class="inter grid grid-cols-1 xl:grid-cols-2 gap-10">
       <Card
-        src="/images/redis.avif"
+        src="/images/redis.webp"
         href="/projects/redis"
         alt="redis"
         size={800}
@@ -27,18 +27,20 @@ import Card from "./Card.astro";
         text="Introducing The Monkey Programming made from the ground up"
       />
       <Card
-        src="/images/paint.avif"
+        class="image-pixelated"
+        src="/images/paint.png"
         href="/projects/paint"
         alt="paint"
         size={800}
         text="A fully functional Paint Clone"
       />
       <Card
-        src="/images/nvim.avif"
+        src="/images/nvim.webp"
         href="/projects/nvim"
         alt="nvim editor"
         size={800}
         text="My own nvim distro"
+        center
       />
     </section>
   </main>
