@@ -1,7 +1,18 @@
 ---
 interface Props {
   skill: string;
+  class?: string;
 }
+
+const { skill, class: classList } = Astro.props;
 ---
 
-<article>{Astro.props.skill}</article>
+<article
+  class:list={[
+    "flex items-center rounded-lg w-fit flex-nowrap text-neutral-700 text-base py-2 px-4 border-neutral-400 border-dashed border-1",
+    [classList],
+  ]}
+>
+  <slot />
+  <span> {skill}</span>
+</article>

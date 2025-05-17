@@ -1,12 +1,21 @@
 ---
 import Section from "@/layouts/Section.astro";
 import Skill from "./Skill.astro";
+import Server from "@/assets/skills/Server.astro";
+import Internet from "@/assets/skills/Internet.astro";
+import Terminal from "@/assets/skills/Terminal.astro";
+import Testing from "@/assets/skills/Testing.astro";
+import Bolt from "@/assets/skills/Bolt.astro";
+import Fire from "@/assets/skills/Fire.astro";
+import Architecture from "@/assets/skills/Architecture.astro";
 import { Image } from "astro:assets";
 ---
 
-<Section class="w-full flex flex-col gap-10 px-5 md:px-10 lg:px-40 py-25">
+<Section
+  class="w-full h-fit flex flex-col xl:flex-row content-center flex-nowrap justify-between gap-15 px-5 sm:px-10 md:px-20 py-20"
+>
   <div
-    class="lg:flex-3/4 max-w-full inter text-2xl text-neutral-700 prose prose-h2:text-5xl prose-h2:mb-0 prose-h3:text-5xl prose-h3:mb-13"
+    class="w-full xl:w-5/6 flex-none text-xl text-neutral-600 prose prose-h2:text-5xl prose-h2:mb-0 prose-h3:text-5xl shrink-0 prose-h3:mb-13"
   >
     <h2 class="fraunces tracking-tighter">Solutions Engenieer</h2>
     <h3 class="fraunces tracking-tighter text-slate-500">Lifelong learner.</h3>
@@ -29,17 +38,36 @@ import { Image } from "astro:assets";
       matter.
     </p>
 
-    <section class="grid grid-cols-4 gap-3">
-      <Skill skill="Frontend" />
-      <Skill skill="Frontend" />
+    <section class="mt-20 w-full flex flex-wrap gap-5 mb-3">
+      <Skill skill="Frontend">
+        <Internet />
+      </Skill>
+      <Skill skill="Backend">
+        <Server />
+      </Skill>
+      <Skill skill="Linux">
+        <Terminal />
+      </Skill>
+      <Skill skill="Clean Architecture">
+        <Architecture />
+      </Skill>
+      <Skill skill="Performace">
+        <Bolt />
+      </Skill>
+      <Skill skill="Testing">
+        <Testing />
+      </Skill>
+      <Skill skill="Lots of Passion">
+        <Fire />
+      </Skill>
     </section>
   </div>
 
   <Image
-    class="lg:flex-1/4 shrink-0 w-full h-full aspect-9/10 object-cover object-top-left border-5 border-white shadow-md shadow-black/50 rounded-3xl"
+    class="object-cover h-full min-h-[400px] w-full aspect-video xl:w-2/5 object-center rounded-3xl border-4 border-white shadow-md shadow-black/80"
     src="/duck.png"
     alt="me"
-    width={500}
+    width={450}
     height={500}
   />
 </Section>
