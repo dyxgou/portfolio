@@ -5,21 +5,28 @@ interface Props {
   class: string;
   src: string;
   alt: string;
+  slideDirection: "left" | "right";
   size: number;
 }
 
-const { src, class: classList, alt, size } = Astro.props;
+const { src, slideDirection, class: classList, alt, size } = Astro.props;
+
+let direction = "200px";
+if (slideDirection == "left") {
+  direction = "-200px";
+}
 ---
 
 <article
+  data-slide-direction={direction}
   class:list={[
-    "absolute pointer-events-none w-[270px] md:w-[350px] lg:w-[500px]",
+    "slide-in-card absolute pointer-events-none w-[270px] md:w-[350px] lg:w-[500px]",
     [classList],
   ]}
 >
   <div class="relative rounded-3xl w-fit h-fit">
     <Image
-      class="aspect-video object-cover rounded-3xl border-5 border-white"
+      class="aspect-video object-cover rounded-3xl border-5 border-white object-top-left"
       src={src}
       alt={alt}
       width={size}
