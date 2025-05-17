@@ -4,10 +4,12 @@ import Technologies from "./Technologies.astro";
 import Experience from "./Experience.astro";
 ---
 
-<Section class="w-full px-5 md:px-10 lg:px-20 py-15">
-  <h2 class="fraunces tracking-tighter text-4xl md:text-5xl">Experience</h2>
+<Section class="w-full px-5 md:px-10 lg:px-20 py-15 reveal">
+  <h2 class="fraunces tracking-tighter text-4xl md:text-5xl appear">
+    Experience
+  </h2>
   <section
-    class="w-full flex flex-col gap-5 mt-10 mb-15 inter text-bae md:text-2xl"
+    class="w-full flex flex-col gap-5 mt-10 mb-15 inter text-bae md:text-2xl appear"
   >
     <Experience
       image="/duck.png"
@@ -18,6 +20,8 @@ import Experience from "./Experience.astro";
     <div class="w-full rounded-full bg-stone-500/30 h-[1px]"></div>
   </section>
 
-  <h2 class="fraunces tracking-tighter text-4xl md:text-5xl my-7">My stack</h2>
+  <h2 class="fraunces tracking-tighter text-4xl md:text-5xl my-7 appear">
+    My stack
+  </h2>
   <Technologies />
 </Section>

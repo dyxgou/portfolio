@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -9,6 +10,7 @@ interface Props {
 <!doctype html>
 <html lang="en">
   <head>
+    <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -29,7 +31,7 @@ interface Props {
     <title>{Astro.props.title}</title>
   </head>
   <body
-    class="bg-background w-screen h-screen flex flex-col gap-2 p-2 pb-4 overflow-x-hidden"
+    class="bg-background w-dvw h-dvh flex flex-col gap-2 p-2 pb-4 overflow-x-hidden"
   >
     <slot />
   </body>
