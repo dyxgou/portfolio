@@ -6,9 +6,11 @@ interface Props {
 const { isGraySquare = false } = Astro.props;
 ---
 
-<div class="w-full min-h-[120px] max-h-[170px] h-fit relative">
+<div
+  class="w-full min-h-[120px] max-h-[170px] h-fit relative overflow-y-hidden"
+>
   <div
-    class="w-full h-full bg-linear-to-b from-white from-10% to-transparent absolute aspect-video rounded-b-3xl"
+    class="w-full h-full bg-linear-to-b from-white from-10% to-transparent absolute rounded-b-3xl"
   >
   </div>
   <canvas

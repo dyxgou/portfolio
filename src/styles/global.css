@@ -2,7 +2,6 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --reveal-time: 200ms;
   --appear-time: 200ms;
 }
 
@@ -67,7 +66,6 @@
   animation-timeline: view();
   animation-range: entry 80%;
   animation: var(--appear-time) ease-in forwards appear;
-  animation-delay: var(--reveal-time);
 }
 
 @keyframes ping-fire {
