@@ -2,8 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 :root {
-  --reveal-time: 200ms;
-  --appear-time: 200ms;
+  --reveal-time: 100ms;
+  --appear-time: 400ms;
 }
 
 @theme {
@@ -12,6 +12,8 @@
   --color-action: #ff5833;
   --color-technology: #313336;
   --color-grey: #ededed;
+  --font-code: "Fira Code", monospace;
+  --underline-transparent: underline transparent;
   --shadow-glow: #ffffff 0px -10px 25px -12px inset;
   --shadow-nav:
     rgba(0, 0, 0, 0.19) 0px 0.602187px 1.32481px -1.5px,
@@ -33,6 +35,13 @@
   word-wrap: break-word;
   word-break: break-word;
   line-height: 1.2;
+}
+
+.code {
+  font-family: "Source Code Pro", monospace;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 .inter {
@@ -133,4 +142,10 @@
       translate: var(--slide-in-direction) 0;
     }
   }
+}
+
+.prose-settings {
+  @apply md:prose-lg lg:prose-xl prose-a:text-sky-700 prose-strong:text-slate-800 
+    prose-code:before:content-[''] prose-code:after:content-[''] md:prose-code:prose-lg
+    prose-pre:rounded-t-none prose-pre:mt-0;
 }
