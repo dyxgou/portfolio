@@ -1,0 +1,30 @@
+---
+import Github from "@/assets/articles/github.svg";
+import type { ComponentProps } from "astro/types";
+import { Code } from "astro:components";
+
+interface Props extends ComponentProps<typeof Code> {
+  title: string;
+  link: string;
+}
+
+const { link, title, ...code } = Astro.props;
+---
+
+<div>
+  <div
+    class="flex bg-[#272834] inter text-white text-base py-2 px-5 rounded-t-lg items-center justify-between"
+  >
+    <span>{title}</span>
+    <a
+      target="_blank"
+      title="See code snippet!"
+      rel="noopener noreferrer"
+      href={link}
+    >
+      <Github class="opacity-60" width={25} height={25} />
+    </a>
+  </div>
+
+  <Code {...code} wrap theme="tokyo-night" />
+</div>

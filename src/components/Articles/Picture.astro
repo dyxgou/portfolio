@@ -1,0 +1,24 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  src: string;
+  alt: string;
+  class?: string;
+  loading?: "eager" | "lazy";
+  size: number;
+}
+
+const { src, alt, size, loading = "lazy", class: classList } = Astro.props;
+---
+
+<Image
+  class:list={["object-cover w-full", [classList]]}
+  src={src}
+  alt={alt}
+  loading={loading}
+  decoding="async"
+  title={alt}
+  width={size}
+  height={size}
+/>

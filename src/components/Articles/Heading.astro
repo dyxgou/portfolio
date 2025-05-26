@@ -1,0 +1,12 @@
+---
+interface Props {
+  id?: string;
+}
+---
+
+<h2
+  id={Astro.props.id}
+  class="mb-5 scroll-my-20 scroll-pt-4 fraunces text-black/90 tracking-tighter text-3xl md:text-5xl"
+>
+  <slot />
+</h2>

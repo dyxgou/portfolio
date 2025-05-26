@@ -1,0 +1,42 @@
+---
+import Label from "./Label.astro";
+import Calendar from "@/assets/articles/calendar.svg";
+import Clock from "@/assets/articles/clock.svg";
+import Code from "@/assets/articles/code.svg";
+
+interface Props {
+  year: string;
+  readingTime: string;
+  codeLink: `https://github.com/dyxgou/${string}`;
+}
+
+const { year, readingTime, codeLink } = Astro.props;
+---
+
+<header class="w-full mb-10 flex flex-col-reverse sm:flex-col">
+  <ul
+    class="appear inter flex flex-col sm:flex-row sm:justify-center gap-2 md:gap-10"
+  >
+    <Label text={year}>
+      <Calendar />
+    </Label>
+    <Label text={readingTime}>
+      <Clock />
+    </Label>
+    <a
+      class="cursor-pointer transition-colors duration-400 text-transparent hover:underline hover:text-gray-400"
+      href={codeLink}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <Label text="Code">
+        <Code />
+      </Label>
+    </a>
+  </ul>
+  <h1
+    class="appear mb-5 fraunces text-black/90 tracking-tighter text-4xl md:text-[38px] lg:text-5xl sm:text-center"
+  >
+    <slot />
+  </h1>
+</header>
