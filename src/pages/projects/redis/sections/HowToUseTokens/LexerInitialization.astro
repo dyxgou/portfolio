@@ -1,0 +1,26 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Lexer Definition"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/24eb0b132ba0939eff210ea506a3ea3d00d3f6b3/pkg/lexer/lexer.go#L22"
+  code={`func trimInput(input string) string {
+	return strings.TrimRightFunc(input, func(r rune) bool {
+      return r == ' ' || r == '\\t'
+	})
+}
+
+func New(input string) *Lexer {
+	l := &Lexer{
+		input:   trimInput(input),
+		pos:     0,
+		readPos: 0,
+	}
+
+	l.next()
+
+	return l
+}`}
+/>

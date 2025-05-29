@@ -1,0 +1,45 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Picture from "@/components/Articles/Picture.astro";
+---
+
+<Heading id="whats-a-parser"> What is a Parser? </Heading>
+<p>
+  <strong>Definition:</strong> Parsing is the process of structuring a linear representation
+  in accordance with a given grammar.
+  <br />
+</p>
+
+<p>
+  WHAT? Even if this definition can sound a little complex, it is, in fact, is
+  pretty simple.
+  <br />
+  A <strong>Linear Representation</strong> can be either a sentence of a language,
+  a piece of music, or a Redis Command.
+  <br />
+  We have mention <strong>grammar</strong> before as the stucture of a sentence,
+  or a command, think of it as a formula to get different sentences.
+</p>
+
+<p>
+  So, applied to our use case, <strong>Parsing</strong> is the process of structuring
+  a Redis Command in accordance with a given Command <strong>Structure</strong>.
+</p>
+
+<p>
+  This is the theory, but in practice, we'll have an <strong
+    >input string</strong
+  > that we'll try to parse and the output will be a representation of the Redis
+  Command known as an <strong>Abstract Syntax Tree (AST)</strong>.
+</p>
+
+<Picture
+  src="/articles/parser-flow.svg"
+  alt="Parser control flow"
+  size={1024}
+/>
+
+<p>
+  But still we haven't implemented anything yet, and we still don't know what is
+  a <strong>Token</strong>. So...
+</p>

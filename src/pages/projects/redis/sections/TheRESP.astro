@@ -1,0 +1,21 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Picture from "@/components/Articles/Picture.astro";
+---
+
+<Heading id="the-resp"> The Redis Serialization Protocol (RESP) </Heading>
+
+<p>
+  Computers communicate like humans at a conference: they establish connections
+  (TCP handshakes) and agree on a shared language <strong>(RESP).</strong>
+</p>
+<p>
+  In our conference there's a speaker and all participants are asking questions
+  in this RESP language that the speaker answers.
+  <br />
+  Our <strong>Redis server</strong> is no different than this speaker, and all the
+  <strong>Redis clients</strong> are the participants which conversation between
+  Server and Client we call it a <strong>Connection.</strong>
+</p>
+
+<Picture src="/articles/redis-arch.svg" alt="redis arch" size={1024} />

@@ -1,0 +1,88 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Picture from "@/components/Articles/Picture.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import Tokens from "./Tokens.astro";
+import TokenStruct from "./TokenStruct.astro";
+---
+
+<Heading id="whats-a-token"> What is a Token? </Heading>
+
+<p>
+  We have been using the term <strong>words</strong>, meaning they are the
+  fundamental unit of information in Redis Commands and in texts in general, but
+  the technical term is <strong>tokens</strong>, and we will use it from now on.
+</p>
+
+<Picture src="/articles/token-example.svg" alt="Command tokens" size={1024} />
+
+<p>
+  Now that we understand what a <strong>Token</strong> is, the next step is to define
+  the various types or kinds of tokens our parser will recognize. We typically do
+  this using an <Keyword word="Enum" /> (meaning <Keyword
+    word="Enumeration"
+  />), which is a type that defines a set of named constants. This Enum will
+  list all the possible categories of tokens our Redis Parser will encounter,
+  such as <Keyword word="Commands" />, <Keyword word="Identifiers" />, <Keyword
+    word="Numbers"
+  />,
+  <Keyword word="Arguments" />, and all categories our Parser will recognize.
+</p>
+
+<Tokens />
+
+<p>
+  We first create a <Keyword word="byte" /> representation of our tokens that we
+  will name <Keyword word="TokenKind" />.
+  <br />
+  You might be wondering why we use a <Keyword word="byte" /> type instead of <Keyword
+    word="string"
+  /> or even
+  <Keyword word="int" />.
+  <br />
+  There are two main reasons:
+</p>
+
+<ol>
+  <li>
+    We will be creating a lot of Tokens, so the storing structure should be as
+    lightweight as possible.
+  </li>
+  <li>
+    Given that we won't have a lot of <Keyword word="TokenKinds" /> and knowing that
+    <Keyword word="byte" /> (an alias for <Keyword word="uint8" />) has a
+    maximum capacity of 255. So, as we won't have many tokens this make it the
+    pefect fit for our <Keyword word="TokenKind" />.
+  </li>
+</ol>
+
+<p>
+  So, let's create a <strong>Structure</strong> to contain the <Keyword
+    word="TokenKinds"
+  /> and the text they represent.
+</p>
+
+<TokenStruct />
+
+<p>
+  <strong>Fun Fact:</strong> Even thought i just said that the <Keyword
+    word="Token"
+  /> struct should be as lightweight as possible, this is not the most lightweight
+  representation for a Token.
+  <br />
+
+  The <strong>Golang Parser</strong> uses an amazing technique: instead of storing
+  a piece of text in the struct as we do, they just store the <strong
+    >indices</strong
+  > from where the piece of text beings and ends, a simple and ingenious trick if
+  you want to implement it, Check the details <a
+    target="_blank"
+    rel="noopener noreferrer"
+    href="https://github.com/golang/go/blob/3fd729b2a14a7efcf08465cbea60a74da5457f06/src/go/token/position.go#L83"
+    >here</a
+  >.
+</p>
+
+<p>
+  But now that we have defined our tokens <strong>it's time</strong> to use them!
+</p>

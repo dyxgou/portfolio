@@ -1,0 +1,67 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import LexerNext from "./LexerNext.astro";
+import LexerDefinition from "./LexerDefinition.astro";
+import LexerInitialization from "./LexerInitialization.astro";
+---
+
+<Heading id="how-to-use-tokens">How to use our Tokens: Building a Lexer</Heading
+>
+
+<p>
+  To transform raw input (like <Keyword word="SET userName Alejandro" />) into
+  tokens, we need a <strong>Lexer</strong> (also called a <strong
+    >Scanner</strong
+  >). This component scans the input text and converts it into a structured
+  stream of tokens for parsing.
+  <br />
+  <strong>Key Lexer Mechanics:</strong> For Tokens like <Keyword
+    word="userName"
+  /> we need to track:
+</p>
+
+<ol>
+  <li><Keyword word="pos" />: Start position of the current Token.</li>
+  <li>
+    <Keyword word="readPos" />: End position of the current Token. (used for
+    slicing).
+  </li>
+  <li>
+    <Keyword word="ch" />: The current character being analyzed.
+  </li>
+</ol>
+
+<p>
+  These fields enable precise <strong>substring extraction</strong> (e.g., slicing
+  <Keyword word="input[pos:readPos]" /> to isolate <Keyword word="userName" />).
+</p>
+
+<LexerDefinition />
+
+<p>
+  Now that we have defined our <strong>Lexer</strong>, we have to create it a
+  constructor to make it a relaiable API.
+</p>
+
+<LexerInitialization />
+<p>
+  The <Keyword word="New" /> constructor invokes the <Keyword word="Lexer" />'s <Keyword
+    word="next"
+  /> method, let's take a look to see what it does.
+</p>
+
+<LexerNext />
+
+<p>
+  If you have notice, the <Keyword word="New" /> has a function called <Keyword
+    word="next"
+  />, the pourpuse of this function is scan the next <Keyword
+    word="character"
+  /> of the input, it advances the positions and replace the <Keyword
+    word="ch"
+  /> variable with the current <Keyword word="character" />, if it had already
+  consumed all the input string, it sets <Keyword word="ch" /> to <Keyword
+    word="EOF"
+  /> which indicates that the inputhave been already consumed.
+</p>

@@ -1,0 +1,28 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Redis Tokens"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/2d921761fc7db940e6bfdeb5695baf1b2b4f92be/pkg/token/token.go#L3"
+  code={`type TokenKind byte
+
+// Check the source code to see all the Tokens!
+const (
+  EOF TokenKind = iota // EOF = End Of File
+  ILLEGAL
+
+  // Special
+  CRLF
+  TEXT
+  
+  // Commands
+  keyword_beg
+  IDENT
+  SET
+  GET
+  INCR
+  INCRBY
+  ...`}
+/>

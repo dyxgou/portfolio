@@ -1,0 +1,156 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import GetCommand from "./GetCommand.astro";
+import Commands from "./Commands.astro";
+import SerializeOK from "./SerializeOK.astro";
+import SerializeExampleSet from "./SerializeExampleSet.astro";
+import SerializedExampleSet from "./SerializedExampleSet.astro";
+---
+
+<Heading id="how-resp-work"> How does RESP Work? </Heading>
+
+<p>
+  Redis works with commands like <strong>GET, SET, INCR, EXISTS.</strong> Each of
+  these has its own structure, technically known as <strong>grammar.</strong>
+</p>
+<p>Let's see some examples of this grammar:</p>
+
+<GetCommand />
+
+<p>
+  As you can see, the GET command is pretty simple, just the prefix <Keyword
+    word="GET"
+  />
+  followed by a <Keyword word="key" /> argument.
+</p>
+
+<p>
+  As Redis is a <strong>key-value</strong> database, when we use the <strong
+    >GET</strong
+  > command it returns the <strong>value associated</strong> with that key or <Keyword
+    word="nil"
+  />
+  (nil means the key doesn't hold any value).
+</p>
+
+<p>Let's see some similar commands:</p>
+
+<Commands />
+
+<p>
+  These are some of the Redis commands we are going to support.
+  <br />
+  You will be amazed by how easily we can extend the available commands with the
+  help of a
+  <strong>Parser</strong>, but we'll get to that later.
+</p>
+
+<p>
+  Now that we know some commands and their grammar, it's time to serialize a
+  command!
+</p>
+
+<p>To serialize a Redis command you need to consider some key aspects:</p>
+
+<ol>
+  <li>A Command is mainly composed of words.</li>
+  <li>
+    What type of each word <strong>(e.g command, argument, number).</strong>
+  </li>
+  <li>The total number of words the command has.</li>
+  <li>The number of letters a word has.</li>
+  <li>
+    The separation of each <strong>RESP element</strong> (or part) of the command
+    is <strong>\r\n (CRLF)</strong>.
+  </li>
+</ol>
+
+<p>
+  Let's see why this is important when serializing the <strong>OK</strong> response
+</p>
+
+<SerializeOK />
+
+<p>
+  Don't let yourself be intimidated, in fact the serialization just follow the
+  last principles we just stablish, let's break it down.
+</p>
+
+<ol>
+  <li>
+    The <strong>*</strong> indicates an <strong>Array</strong>, the <Keyword
+      word="1"
+    /> after it specifies that the Array contains <strong>one element</strong>.
+  </li>
+  <li>
+    As discussed earlier <Keyword word="\\r\\n" /> known as <strong>CRLF</strong
+    > is use to separate between the elements of the command.
+  </li>
+  <li>
+    The <strong>$</strong> indicates that the actual word that follows is a <strong
+      >BulkString</strong
+    >, the <Keyword word="2" /> after it represents the BulkString has a length of
+    <strong>two letters</strong>.
+  </li>
+  <li>
+    <strong>OK</strong> is the actual string data represented by the preceding
+    <Keyword word="$2" />.
+  </li>
+  <li>
+    The final <Keyword word="\\r\\n" /> terminates the OK Bulk String element, completing
+    the serialized array.
+  </li>
+</ol>
+
+<p>Let's see one more example to understand this concept.</p>
+
+<SerializeExampleSet />
+
+<p>Let's think about it.</p>
+<ol>
+  <li>
+    The command has <strong>3 elements</strong> (<Keyword word="SET" />, <Keyword
+      word="userName"
+    />, <Keyword word="Alejandro" />) so its serialization should start with
+    <Keyword word="*3\\r\\n" />.
+  </li>
+  <li>
+    The first argument is <Keyword word="userName" />, which is a <strong
+      >Bulk String</strong
+    > of length 8 bytes. So, this part should continue with <Keyword
+      word="$8"
+    />, and the <strong>argument</strong> itself surrounded by <Keyword
+      word="\\r\\n"
+    />, being serialized as <Keyword word="$8\\r\\nuserName\\r\\n" />.
+  </li>
+  <li>
+    The second argument follows the same logic as the first one, it's a <strong
+      >Bulk String</strong
+    > of length 9 bytes. So, it'll be serialized as <Keyword
+      word="$9\\r\\nAlejandro\\r\\n"
+    />.
+  </li>
+</ol>
+
+<SerializedExampleSet />
+<p>
+  At the end we put it all together with its respective separations <strong
+    >(\r\n)</strong
+  >. If you want to explore the <strong>RESP</strong> specification further, check
+  it <a
+    target="_blank"
+    rel="noopener noreferrer"
+    href="https://redis.io/docs/latest/develop/reference/protocol-spec/">here</a
+  > ! 🚀
+</p>
+
+<p>
+  If you're wondering why we're doing all of this, remember tht computers
+  communicate with each other in a <strong>shared language</strong>.
+  <br />
+  This language had to be efficient and as expressive as possible, as this is crucial
+  to optimize the Redis <strong>Parser</strong>.
+</p>
+
+<p>But wait, what is a <strong>Parser</strong>?</p>

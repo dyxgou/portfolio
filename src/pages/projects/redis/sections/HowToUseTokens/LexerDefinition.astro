@@ -1,0 +1,16 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Lexer Initialization"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/2d921761fc7db940e6bfdeb5695baf1b2b4f92be/pkg/lexer/lexer.go#L22"
+  code={`type Lexer struct {
+  input   string   // Current command as raw text
+  pos     int
+  readPos int
+
+  ch byte
+}`}
+/>
