@@ -145,7 +145,11 @@
 }
 
 .prose-settings {
-  @apply md:prose-lg lg:prose-xl prose-a:text-sky-700 prose-strong:text-slate-800 
+  @apply md:prose-lg lg:prose-xl prose-strong:text-slate-800 
     prose-code:before:content-[''] prose-code:after:content-[''] md:prose-code:prose-lg
-    prose-pre:rounded-t-none prose-pre:mt-0;
+    prose-pre:rounded-t-none prose-pre:mt-0 prose-a:text-sky-600;
+}
+
+.content-visibility {
+  content-visibility: visible;
 }
