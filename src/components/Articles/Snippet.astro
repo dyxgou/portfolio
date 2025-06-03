@@ -18,8 +18,8 @@ const { link, title, ...code } = Astro.props;
     <span>{title}</span>
     <a
       target="_blank"
-      title="See code snippet!"
       rel="noopener noreferrer"
+      aria-label="Check the code!"
       href={link}
     >
       <Github class="opacity-60" width={25} height={25} />
