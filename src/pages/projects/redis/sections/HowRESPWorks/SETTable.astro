@@ -1,0 +1,149 @@
+---
+import Keyword from "@/components/Articles/Keyword.astro";
+---
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">RESP Element</th>
+      <th scope="col">Explanation</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <th scope="row"><Keyword word="*3" /></th>
+      <td>
+        The ( <Keyword word="*3" /> ) indicates that the command is composed of 3
+        <strong>elements</strong> (<Keyword word="SET" />, <Keyword
+          word="userName"
+        />, <Keyword word="Alejandro" />).
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="\\r\\n" /></th>
+      <td>
+        The <Keyword word="\\r\\n" /> (CRLF) is the <strong
+          >protocol's terminator</strong
+        >, which always separates its parts.
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="$3" /></th>
+
+      <td>
+        The (<Keyword word="$3" />) represents that the following <strong
+          >string literal</strong
+        > (<Keyword word="SET" />) has length of <Keyword word="3" /> letters.
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="\\r\\n" /></th>
+
+      <td>
+        We use the <strong>terminator</strong> (CRLF) to separate <Keyword
+          word="$3"
+        /> from the data it represents (<Keyword word="SET" />).
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="SET" /></th>
+
+      <td>
+        <Keyword word="SET" /> is the actual data represented by the <Keyword
+          word="$3"
+        /> before.
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="\\r\\n" /></th>
+
+      <td>
+        The terminator <Keyword word="\\r\\n" /> (CRLF) separates the actual data
+        (<Keyword word="SET" />) from the <strong>next</strong> length specifier.
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="$8" /></th>
+
+      <td>
+        The (<Keyword word="$8" />) represents that the following <strong
+          >string literal</strong
+        > (<Keyword word="userName" />) has a length of <Keyword word="8" /> letters.
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="\\r\\n" /></th>
+
+      <td>
+        (Required <strong>separation</strong>)
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="userName" /></th>
+
+      <td>
+        <Keyword word="userName" /> is the actual data represented by the <Keyword
+          word="$8"
+        /> before.
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="\\r\\n" /></th>
+
+      <td>
+        (Required <strong>separation</strong>)
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="$9" /></th>
+
+      <td>
+        The (<Keyword word="$9" />) represents that the following <strong
+          >string literal</strong
+        > (<Keyword word="Alejandro" />) has a length of <Keyword word="9" /> letters.
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="\\r\\n" /></th>
+
+      <td>
+        (Required <strong>separation</strong>)
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="Alejandro" /></th>
+
+      <td>
+        <Keyword word="Alejandro" /> is the actual data represented by the <Keyword
+          word="$9"
+        /> before.
+      </td>
+    </tr>
+
+    <tr>
+      <th><Keyword word="\\r\\n" /></th>
+
+      <td>
+        We also use <Keyword word="\\r\\n" /> to indicate that the entire Command
+        has <strong>ended.</strong></td
+      >
+    </tr>
+  </tbody>
+
+  <caption class="mt-4 caption-bottom">
+    Serializing <Keyword word="SET" /> Command.
+  </caption>
+</table>
