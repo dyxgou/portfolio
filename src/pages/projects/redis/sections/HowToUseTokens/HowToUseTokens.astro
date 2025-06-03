@@ -6,8 +6,9 @@ import LexerDefinition from "./LexerDefinition.astro";
 import LexerInitialization from "./LexerInitialization.astro";
 ---
 
-<Heading id="how-to-use-tokens">How to use our Tokens: Building a Lexer</Heading
->
+<Heading id="how-to-use-tokens">
+  How to use our Tokens: Building a Lexer
+</Heading>
 
 <p>
   To transform raw input (like <Keyword word="SET userName Alejandro" />) into
@@ -46,22 +47,27 @@ import LexerInitialization from "./LexerInitialization.astro";
 
 <LexerInitialization />
 <p>
-  The <Keyword word="New" /> constructor invokes the <Keyword word="Lexer" />'s <Keyword
-    word="next"
-  /> method, let's take a look to see what it does.
+  The <Keyword word="New()" /> constructor initializes the <Keyword
+    word="lexer"
+  /> by calling <Keyword word="next()" />, which handles character-by-character
+  advancement through the input string. Here’s how it works:
 </p>
 
 <LexerNext />
 
-<p>
-  If you have notice, the <Keyword word="New" /> has a function called <Keyword
-    word="next"
-  />, the pourpuse of this function is scan the next <Keyword
-    word="character"
-  /> of the input, it advances the positions and replace the <Keyword
-    word="ch"
-  /> variable with the current <Keyword word="character" />, if it had already
-  consumed all the input string, it sets <Keyword word="ch" /> to <Keyword
-    word="EOF"
-  /> which indicates that the inputhave been already consumed.
-</p>
+<p>As you can see the <Keyword word="next()" /> method handles two cases:</p>
+
+<ol>
+  <li>
+    If the <Keyword word="readPos" /> has <strong>exceeded</strong> the input's length
+    it sets
+    <Keyword word="ch" /> to the <Keyword word="token.EOF" /> (End Of File) TokenKind
+    that indicates that the input string has been consumed.
+  </li>
+  <li>
+    If the <Keyword word="readPos" /> has <strong>not exceeded</strong> the input's
+    length it sets <Keyword word="ch" /> to the character at the position
+    <Keyword word="readPos" /> (making it the new current character) and then advances
+    both <Keyword word="pos" /> and <Keyword word="readPos" />.
+  </li>
+</ol>
