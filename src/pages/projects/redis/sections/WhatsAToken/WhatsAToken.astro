@@ -64,8 +64,18 @@ import TokenStruct from "./TokenStruct.astro";
 
 <TokenStruct />
 
+<p>The <Keyword word="Token" /> struct is composed of:</p>
+<ol>
+  <li><Keyword word="Literal" />: Which is the slice of text of the Token.</li>
+  <li>
+    <Keyword word="Kind" />: Which is the TokenKind representing the <Keyword
+      word="Literal"
+    />.
+  </li>
+</ol>
+
 <p>
-  <strong>Fun Fact:</strong> Even thought i just said that the <Keyword
+  🔥 <strong>Fun Fact:</strong> Even thought i just said that the <Keyword
     word="Token"
   /> struct should be as lightweight as possible, this is not the most lightweight
   representation for a Token.
@@ -75,11 +85,11 @@ import TokenStruct from "./TokenStruct.astro";
   a piece of text in the struct as we do, they just store the <strong
     >indices</strong
   > from where the piece of text beings and ends, a simple and ingenious trick if
-  you want to implement it, Check the details <a
+  you want to implement it, <a
     target="_blank"
     rel="noopener noreferrer"
     href="https://github.com/golang/go/blob/3fd729b2a14a7efcf08465cbea60a74da5457f06/src/go/token/position.go#L83"
-    >here</a
+    >Check the details here</a
   >.
 </p>
 
