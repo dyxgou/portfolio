@@ -1,0 +1,22 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Utility Functions"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/2d921761fc7db940e6bfdeb5695baf1b2b4f92be/pkg/lexer/lexer.go#L52"
+  code={`func isLetter(ch byte) bool {
+	return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_'
+}
+
+func (l *Lexer) readIdent() string {
+  pos := l.pos
+
+  for isLetter(l.ch) {
+    l.next()
+  }
+
+  return l.input[pos : l.pos]
+}`}
+/>

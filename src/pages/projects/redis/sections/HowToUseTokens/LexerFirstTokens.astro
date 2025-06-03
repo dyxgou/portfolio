@@ -1,0 +1,18 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="First returned tokens"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/2d921761fc7db940e6bfdeb5695baf1b2b4f92be/pkg/token/token.go#L3"
+  code={`EmptyToken{
+  Kind: token.EOF,
+  Literal: "",
+}
+
+CRLFToken{
+  Kind : token.CRLF,
+  Literal : "\\r\\n",
+}`}
+/>

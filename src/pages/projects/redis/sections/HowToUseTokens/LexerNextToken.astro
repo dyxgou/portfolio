@@ -1,0 +1,27 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="NextToken() First Part Definition"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b001cf06b36d743462da83c59a59f8c61809184f/pkg/lexer/lexer.go#L47"
+  code={`func (l *Lexer) NextToken() token.Token {
+
+  // ( 1 ) Operation
+  if l.ch == byte(token.EOF) {
+    return token.New(token.EOF, "")
+  }
+
+  // ( 2 ) Operation
+  l.skipWhitespaces()
+
+  // ( 3 ) Operation
+  if l.ch == '\\r' && l.peekChar() == '\\n' {
+    l.next()
+    return token.New(token.CRLF, "\\r\\n")
+  }
+
+  ...
+}`}
+/>

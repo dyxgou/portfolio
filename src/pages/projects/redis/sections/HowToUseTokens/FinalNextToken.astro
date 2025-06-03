@@ -1,0 +1,24 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="NextToken() Second Part Definition"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b001cf06b36d743462da83c59a59f8c61809184f/pkg/lexer/lexer.go#L47"
+  code={`func (l *Lexer) NextToken() token.Token {
+  // ... (previous logic for EOF, whitespace, CRLF)
+
+  if isLetter(l.ch) {
+    t.Literal = l.readIdent()
+    t.Kind = token.LookupIdent(t.Literal)
+    return t
+  } 
+
+  // ... (Handeling numbers)
+
+  t.Literal = ""
+  t.Kind = token.ILLEGAL
+  return t
+}`}
+/>

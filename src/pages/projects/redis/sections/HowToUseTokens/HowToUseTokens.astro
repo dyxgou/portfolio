@@ -4,6 +4,11 @@ import Keyword from "@/components/Articles/Keyword.astro";
 import LexerNext from "./LexerNext.astro";
 import LexerDefinition from "./LexerDefinition.astro";
 import LexerInitialization from "./LexerInitialization.astro";
+import LexerNextToken from "./LexerNextToken.astro";
+import LexerFirstTokens from "./LexerFirstTokens.astro";
+import LexerUtilities from "./LexerUtilities.astro";
+import FinalNextToken from "./FinalNextToken.astro";
+import LookupIdent from "./LookupIdent.astro";
 ---
 
 <Heading id="how-to-use-tokens">
@@ -71,3 +76,112 @@ import LexerInitialization from "./LexerInitialization.astro";
     both <Keyword word="pos" /> and <Keyword word="readPos" />.
   </li>
 </ol>
+
+<p>
+  With character advancement handled by <Keyword word="next()" />, we'll now
+  implement <Keyword word="NextToken()" /> to scan and return structured tokens from
+  the input.
+  <br />
+  If you review the code implementation, you'll notice that I have skipped some code.
+  This is because the Lexer is used in both the <Keyword word="serializer" /> and
+  the <Keyword word="Parser" />. However, the ideal approach is to create
+  separate implementations for them, since this allows you to leverage the full
+  potential of RESP.
+</p>
+
+<LexerNextToken />
+
+<p>
+  The first thing you can see is that the <Keyword word="NextToken()" /> returns
+  a <Keyword word="token.Token" /> we have defined in <a href="#whats-a-token"
+    >previous section.</a
+  >
+  <br />
+  Also this method performs <strong>three key</strong> operations:
+</p>
+
+<ol>
+  <li>
+    If <Keyword word="l.ch" /> is <Keyword word="token.EOF" />, this indicates
+    that the input string has been fully consumed. In this case, an empty <Keyword
+      word="Token"
+    />
+    with its <Keyword word="Kind" /> set to <Keyword word="token.EOF" /> is returned.
+  </li>
+  <li>
+    Skips any leading whitespace characters (e.g., spaces, tabs <Keyword
+      word="\\t"
+    />, newlines <Keyword word="\\n" />).
+  </li>
+
+  <li>
+    If the current character is <Keyword word="\\r" /> and the <strong
+      >next character</strong
+    > is <Keyword word="\\n" /> (forming <Keyword word="\\r\\n" /> known as CRLF),
+    which acts as a <Keyword word="Token" /> separator, so a CRLF token is returned.
+  </li>
+</ol>
+
+<LexerFirstTokens />
+
+<p>
+  Now, we need to be able to create <Keyword word="Tokens" /> for like <Keyword
+    word="SET"
+  />, <Keyword word="userName" />, and <Keyword word="Alejandro" />. As you may
+  have noticed, what these all have in common is that they are <strong
+    >composed of letters.</strong
+  >
+  <br />
+  To handle the identification of keywords and identifiers more effectively, let's
+  create two utility functions.
+</p>
+
+<LexerUtilities />
+
+<p>
+  This is a simplified implementation, if you wanna see it whole i recommend you
+  to check the implementation details.
+  <br />
+  For now let's see what is happening here.
+</p>
+
+<ol>
+  <li>
+    <Keyword word="isLetter" />: This function checks if the given character (<Keyword
+      word="ch"
+    />) is a letter
+    <Keyword word="(a-z, A-Z)" /> or an underscore (<Keyword word="_" />).
+  </li>
+  <li>
+    <Keyword word="readIdent" />: This method reads an entire <strong
+      >identifier
+    </strong> (a sequence of letters and underscores) from the input
+  </li>
+</ol>
+
+<p>
+  Now that we have implemented these utility functions, let's finally examine
+  the second part of the <Keyword word="NextToken()" /> implementation.
+</p>
+
+<FinalNextToken />
+
+<p>
+  This completes the core logic for identifying keywords and identifiers. If the
+  lexer doesn't recognize any token (including <Keyword word="keywords" />, <Keyword
+    word="identifiers"
+  /> or <Keyword word="numbers" />), it defaults to returning a <Keyword
+    word="token.ILLEGAL"
+  />. As you may have noticed, we haven't yet defined <Keyword
+    word="token.LookupIdent"
+  />. Let's do that now.
+</p>
+
+<LookupIdent />
+
+<p>
+  As you can see this function is pretty straight forward, and with this we have
+  finished our <strong>Lexer</strong>.
+  <br />
+  So, after all of this work we can finally <strong>implement a Parser</strong>.
+</p>
