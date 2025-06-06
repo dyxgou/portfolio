@@ -1,12 +1,13 @@
 ---
 import Heading from "@/components/Articles/Heading.astro";
 import Picture from "@/components/Articles/Picture.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
 ---
 
 <Heading id="whats-a-parser"> What is a Parser? </Heading>
 <p>
-  <strong>Definition:</strong> Parsing is the process of structuring a linear representation
-  in accordance with a given grammar.
+  <Keyword word="Definition" />: Parsing is the process of structuring a linear
+  representation in accordance with a given grammar.
   <br />
 </p>
 
@@ -17,13 +18,17 @@ import Picture from "@/components/Articles/Picture.astro";
   A <strong>Linear Representation</strong> can be either a sentence of a language,
   a piece of music, or a Redis Command.
   <br />
-  We have mention <strong>grammar</strong> before as the stucture of a sentence,
+  We have mention <strong>grammar</strong> before as the structure of a sentence,
   or a command, think of it as a formula to get different sentences.
 </p>
 
 <p>
-  So, applied to our use case, <strong>Parsing</strong> is the process of structuring
-  a Redis Command in accordance with a given Command <strong>Structure</strong>.
+  So, applied to our use case.
+  <br />
+  <Keyword word="Case Definition" />: Parsing is the process of structuring a
+  <strong>Redis Command</strong> in accordance with a given Command <strong
+    >Structure</strong
+  >.
 </p>
 
 <p>
