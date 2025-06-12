@@ -1,0 +1,26 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Parse Get Function"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/parser/parser.go#L151"
+  code={`func (p *Parser) parseGetCommand() (*ast.GetCommand, error) {
+  getCmd := &ast.GetCommand{Token: p.curTok}
+
+  p.next()
+  if err := p.checkCRLF(); err != nil {
+    return nil, err
+  }
+
+  key, err := p.parseIdent()
+  if err != nil {
+    return nil, err
+  }
+
+  getCmd.Key = key
+
+  return getCmd, nil
+}`}
+/>

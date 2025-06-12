@@ -1,0 +1,256 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import ParserDefinition from "./ParserDefinition.astro";
+import ParserInitialization from "./ParserInitialization.astro";
+import ParseFunction from "./ParseFunction.astro";
+import CommandChecking from "./CommandChecking.astro";
+import ParseCommand from "./ParseCommand.astro";
+import ParseGetCommand from "./ParseGetCommand.astro";
+import SpecialFunctions from "./SpecialFunctions.astro";
+import SkipBulkString from "./SkipBulkString.astro";
+import CheckBulkString from "./CheckBulkString.astro";
+---
+
+<Heading id="implementing-a-parser"> Implementing a Parser </Heading>
+
+<p>
+  Now that we have create the Command we are going to Parse (<Keyword
+    word="GET"
+  />) it's time to create the <strong>Parser!</strong>
+</p>
+
+<p>The Parser logic is pretty similar to the Token's one, let's see why.</p>
+
+<ol>
+  <li>
+    <strong>They both use a two index approach:</strong> In the same way that the
+    <Keyword word="lexer" /> uses a <Keyword word="pos" /> and <Keyword
+      word="readPos"
+    /> the Parser uses <Keyword word="curTok" /> and <Keyword word="readTok" /> to
+    parse the incoming input string.
+  </li>
+
+  <li>
+    <strong>They both use special functions:</strong> To being able to parse a Command,
+    well create a specific function for each command that tries to parse it or throws
+    an error.
+  </li>
+</ol>
+
+<p>
+  <strong>NOTE:</strong> I'm going to present you a simplified implementation to
+  avoid boilerplate.
+</p>
+
+<p>Knowing this, let's define the Parser!</p>
+
+<ParserDefinition />
+
+<ol>
+  <li>
+    <Keyword word="*lexer.Lexer" />: The lexer contains the <Keyword
+      word="NextToken()"
+    /> method that converts raw input (like <Keyword word="SET foo bar" />) into
+    a stream of parsed tokens (like <Keyword word="SET" />, <Keyword
+      word="foo"
+    />, <Keyword word="bar" />).
+  </li>
+
+  <li>
+    <Keyword word="curTok" />: Represents the token being processed right
+    now—like the word your eyes are focused on while reading. Determines the
+    parser’s immediate action (e.g., <strong>"Is this a SET or GET?"</strong>).
+  </li>
+
+  <li>
+    <Keyword word="readTok" />: Represents the upcoming token, peeked at but not
+    yet consumed. Acts like a "sneak preview" to resolve ambiguities (e.g.,
+    seeing if the <Keyword word="SET" /> Command contains an optional argument).
+  </li>
+</ol>
+
+<p>
+  Now that we have our definition of our <Keyword word="Parser" />, it's time to
+  initialize it!
+</p>
+
+<ParserInitialization />
+
+<p>
+  The initialization of the Parser is pretty simple, let's take a brief look:
+</p>
+
+<ol>
+  <li>
+    <Keyword word="next()" />: This function <strong>advances the Tokens</strong
+    > by using the <Keyword word="NextToken()" /> method of lexer.
+  </li>
+
+  <li>
+    <Keyword word="New()" />: This method takes a <Keyword
+      word="*lexer.Lexer"
+    /> as argument and then it initializes the <Keyword word="curTok" /> and <Keyword
+      word="readTok"
+    /> by using the <Keyword word="next()" /> method.
+  </li>
+</ol>
+
+<p>
+  With this we are almost done, we just have to create a function that depending
+  on the first <Keyword word="Token" /> it selects the according parsing <Keyword
+    word="function"
+  />.
+</p>
+
+<p>
+  Before creating the function that parses the <Keyword word="GET" /> command we
+  have to create a function that Parses all the possible Commands, we will call it
+  <Keyword word="Parse" />:
+</p>
+
+<ParseFunction />
+
+<p>
+  This function can seem tough but it just handles these <strong
+    >three key</strong
+  > parts:
+</p>
+
+<ol>
+  <li>
+    <Keyword word="p.parseBegCommand()" />: Checks if the Command starts with an <Keyword
+      word="Array"
+    /> set of Tokens (e.g., <Keyword word="*2\\r\\n" />) if it does, it advances
+    the Tokens till the next set of Tokens (<Keyword word="$3\\r\\n" />).
+  </li>
+
+  <li>
+    <Keyword word="p.skipBulkString()" />: Checks if the current set of Tokens
+    denotes a <Keyword word="BulkString" /> (e.g, <Keyword word="$3\\r\\n" />),
+    advancing the Tokens as in the last point.
+  </li>
+
+  <li>
+    <Keyword word="p.parseCommand()" />: After all of the executions of the
+    previous functions, this function checks if the current <Keyword
+      word="Token"
+    /> is a <strong>command prefix</strong> (e.g, <Keyword word="SET" />, <Keyword
+      word="GET"
+    />) executing its corresponding <strong>parsing function</strong> (defined down
+    bellow).
+  </li>
+</ol>
+
+<p>
+  We do all of this because in this stage we will get the Command in a <strong
+    >RESP</strong
+  > format:
+</p>
+
+<CommandChecking />
+
+<p>
+  With this we are almost finished with Parsing, we just have to create the <Keyword
+    word="p.parseCommand()"
+  /> and <Keyword word="p.parseGetCommand()" />. So, let's do it!
+</p>
+
+<p>
+  The definition of <Keyword word="p.parseCommand()" /> is actually pretty simple.
+</p>
+
+<ParseCommand />
+
+<p>
+  As you can see the <Keyword word="p.parseCommand()" /> returns a <Keyword
+    word="ast.Command"
+  /> and a <Keyword word="error" />, then using a <Keyword word="switch" /> statement
+  we determine the corresponding <strong>Parsing Function</strong> for that respective
+  Command.
+  <br />
+  <strong>If the Command is not found:</strong> we return a "Command not supported"
+  error.
+</p>
+
+<p>
+  Knowing this, let's define <Keyword word="p.parseGetCommand()" /> and finish this
+  whole <strong>Parsing</strong> section.
+</p>
+
+<ParseGetCommand />
+
+<p>
+  As you can see the <Keyword word="parseGetCommand" /> function returns the <Keyword
+    word="*ast.GetCommand"
+  /> structure we have defined before and an <Keyword word="error" />.
+  <br />
+  There are also some <strong>special functions</strong> we will now see:
+</p>
+
+<SpecialFunctions />
+
+<p>
+  These two functions are widely used in the whole Parser, let's explain them
+  quickly:
+</p>
+
+<ol>
+  <li>
+    <Keyword word="checkCRLF" />: Checks if the current Token is <Keyword
+      word="\\r\\n"
+    /> (CRLF) and advances to the next Token, if not it returns a <strong
+      >"token expected"</strong
+    > error.
+  </li>
+
+  <li>
+    <Keyword word="parseIdent" />: It first uses the <Keyword
+      word="p.skipBulkString"
+    /> function (defined bellow) to checks if the following set of Tokens describes
+    a <Keyword word="BulkString" /> and advances the Tokens till the <strong
+      >actual text.</strong
+    >
+
+    <br />
+    Then it checks if the current Token is an <strong>Identifier</strong> (<Keyword
+      word="token.IDENT"
+    />) that contains the <strong>actual key</strong> of the <Keyword
+      word="GET"
+    /> command returning the command if parsed successfully.
+  </li>
+</ol>
+
+<p>
+  Now the only thing left is creating the <Keyword word="skipBulkString" /> function
+  which you may have seen in the last snippets.
+</p>
+
+<SkipBulkString />
+
+<p>
+  As you can see this functions just returns a <strong>error</strong> if some of
+  the operations fail. Let's see what it does:
+</p>
+
+<ol>
+  <li>
+    Checks if the <Keyword word="curTok" /> is a <Keyword word="$" /> (BulkString)
+    advancing the Tokens.
+  </li>
+
+  <li>
+    Checks if the <Keyword word="curTok" /> is a <Keyword word="Number" />
+    representing the length of the actual text and then it advances the Tokens with
+    the <Keyword word="p.next()" /> method.
+  </li>
+
+  <li>
+    Checks if the <Keyword word="curTok" /> is a <Keyword word="\\r\\n" /> (CRLF)
+    therefore checking if it's a valid BulkString.
+  </li>
+</ol>
+
+<CheckBulkString />
+
+<p>This have been a tough section, so let's do a recap.</p>

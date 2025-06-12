@@ -1,0 +1,13 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Checking BulkString"
+  lang="sh"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/parser/parser_test.go#L39"
+  code={`$    --    3    --    \\r\\n    --    key
+|          |            |            |
+Bulk     Number        CRLF        CurTok
+Str                                Ends Here`}
+/>

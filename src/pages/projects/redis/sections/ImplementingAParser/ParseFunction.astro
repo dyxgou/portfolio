@@ -1,0 +1,28 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="General Parse Function"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/parser/parser.go#L42"
+  code={`func (p *Parser) Parse() (ast.Command, error) {
+  // ( 1 ) Checks if the Command starts with a Array Representation
+  if err := p.parseBegCommand(); err != nil {
+    return nil, err
+  }
+
+  // ( 2 ) Checks if the Command continues with a BulkString
+  if err := p.skipBulkString(); err != nil {
+    return nil, err
+  }
+
+  // ( 3 ) Parses the Command
+  cmd, err := p.parseCommand()
+  if err != nil {
+    return nil, err
+  }
+
+  return cmd, nil
+}`}
+/>

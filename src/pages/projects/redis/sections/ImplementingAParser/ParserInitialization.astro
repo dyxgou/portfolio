@@ -1,0 +1,21 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Parser Initialization"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/parser/parser.go#L23"
+  code={`func (p *Parser) next() {
+  p.curTok = p.readTok
+  p.readTok = p.l.NextToken()
+}
+
+func New(l *lexer.Lexer) *Parser {
+  p := &Parser{l: l}
+  p.next()
+  p.next()
+
+  return p
+}`}
+/>

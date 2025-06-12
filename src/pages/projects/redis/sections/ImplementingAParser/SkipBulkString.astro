@@ -1,0 +1,26 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Skip BulkString Function"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/parser/parser.go#L86"
+  code={`func (p *Parser) skipBulkString() error {
+  if !p.curTokIs(token.BULKSTRING) {
+    return p.isNotBulkStringErr()
+  }
+
+  p.next()
+  if !p.curTokIs(token.NUMBER) {
+    return p.isNotNumberErr()
+  }
+
+  p.next()
+  if err := p.checkCRLF(); err != nil {
+    return err
+  }
+
+  return nil
+}`}
+/>

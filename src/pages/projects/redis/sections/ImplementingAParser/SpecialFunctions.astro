@@ -1,0 +1,40 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Parse Identifier Function"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/parser/parser.go#L137"
+  code={`func (p *Parser) checkCRLF() error {
+  // Checks if the current Token is CRLF
+  if !p.curTokIs(token.CRLF) {
+    return fmt.Errorf(
+      "token expected=%d ('CRLF'). got=%d (%s)",
+      token.CRLF,
+      p.curTok.Kind,
+      p.curTok.Literal,
+    )
+  }
+
+  p.next()
+  return nil
+}
+
+func (p *Parser) parseIdent() (string, error) {
+  if err := p.skipBulkString(); err != nil {
+    return "", err
+  }
+
+  if !p.curTokIs(token.IDENT) {
+    return "", fmt.Errorf(
+      "token expected=%d ('IDENT'). got=%d (%q)",
+      token.IDENT,
+      p.curTok.Kind,
+      p.curTok.Literal,
+    )
+  }
+
+  return p.curTok.Literal, nil
+}`}
+/>
