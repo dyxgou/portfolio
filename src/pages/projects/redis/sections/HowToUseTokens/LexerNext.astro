@@ -7,14 +7,14 @@ import Snippet from "@/components/Articles/Snippet.astro";
   lang="go"
   link="https://github.com/dyxgou/redis/blob/b001cf06b36d743462da83c59a59f8c61809184f/pkg/lexer/lexer.go#L35"
   code={`func (l *Lexer) next() {
-	if l.readPos >= len(l.input) {
-		l.ch = byte(token.EOF)
-		return
-	} else {
-		l.ch = l.input[l.readPos]
-	}
+  if l.readPos >= len(l.input) {
+    l.ch = byte(token.EOF)
+    return
+  } else {
+    l.ch = l.input[l.readPos]
+  }
 
-	l.pos = l.readPos
-	l.readPos++
+  l.pos = l.readPos
+  l.readPos++
 }`}
 />

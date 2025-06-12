@@ -47,10 +47,15 @@ import LookupIdent from "./LookupIdent.astro";
 
 <p>
   Now that we have defined our <strong>Lexer</strong>, we have to create it a
-  constructor to make it a relaiable API.
+  constructor to make it a reliable API.
 </p>
 
 <LexerInitialization />
+<p>
+  We use the <Keyword word="trimInput()" /> function to ensure that the lexer correctly
+  processes commands without being affected by trailing spaces to the right of the
+  Command.
+</p>
 <p>
   The <Keyword word="New()" /> constructor initializes the <Keyword
     word="lexer"
@@ -109,16 +114,17 @@ import LookupIdent from "./LookupIdent.astro";
     with its <Keyword word="Kind" /> set to <Keyword word="token.EOF" /> is returned.
   </li>
   <li>
-    Skips any leading whitespace characters (e.g., spaces, tabs <Keyword
-      word="\\t"
-    />, newlines <Keyword word="\\n" />).
+    Skips any leading <strong>white space</strong> characters (e.g., spaces, tabs
+    <Keyword word="\\t" />, newlines <Keyword word="\\n" />).
   </li>
 
   <li>
-    If the current character is <Keyword word="\\r" /> and the <strong
+    Using the <Keyword word="peekChar()" /> function which returns us the <strong
       >next character</strong
-    > is <Keyword word="\\n" /> (forming <Keyword word="\\r\\n" /> known as CRLF),
-    which acts as a <Keyword word="Token" /> separator, so a CRLF token is returned.
+    > without advancing <Keyword word="readPos" />, we can check if the current
+    character is <Keyword word="\\r" /> and the <strong>next character</strong> is
+    <Keyword word="\\n" /> (forming <Keyword word="\\r\\n" /> known as CRLF), which
+    acts as a <Keyword word="Token" /> separator, so a CRLF token is returned.
   </li>
 </ol>
 
@@ -165,6 +171,12 @@ import LookupIdent from "./LookupIdent.astro";
 </p>
 
 <FinalNextToken />
+
+<p>
+  <strong>NOTE:</strong> Implementing Numbers is pretty similar to the <strong
+    >characters implementation</strong
+  >.
+</p>
 
 <p>
   This completes the core logic for identifying keywords and identifiers. If the

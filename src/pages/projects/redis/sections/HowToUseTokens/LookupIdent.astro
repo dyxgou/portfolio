@@ -8,19 +8,25 @@ import Snippet from "@/components/Articles/Snippet.astro";
   link="https://github.com/dyxgou/redis/blob/2d921761fc7db940e6bfdeb5695baf1b2b4f92be/pkg/token/token.go#L116"
   code={`var keywords = map[string]TokenKind{
   "GET":    GET,
+  "GETSET": GETSET,
+  "GETEX":  GETEX,
+  "GETDEL": GETDEL,
   "SET":    SET,
+  "DEL":    DEL,
   "INCR":   INCR,
   "INCRBY": INCRBY,
-// ... ( All of the keywords )
+  "DECR":   DECR,
+  "DECRBY": DECRBY,
+  // ... (The rest of the Commands and Keywords)
 }
 
 func LookupIdent(ident string) TokenKind {
-	kw, ok := keywords[ident]
+  kw, ok := keywords[ident]
 
-	if ok {
-		return kw
-	}
+  if ok {
+    return kw
+  }
 
-	return IDENT
+  return IDENT
 }`}
 />
