@@ -1,0 +1,91 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import CommandInteface from "./CommandInterface.astro";
+---
+
+<Heading id="whats-a-command">What is a Command</Heading>
+
+<p>
+  Do you remember the <Keyword word="Case Definition" /> we proposed ? Let me give
+  you a hint.
+</p>
+
+<p>
+  <Keyword word="Case Definition" />: Parsing is the process of structuring a
+  <strong>Redis Command</strong> in accordance with a given Command <strong
+    >Structure</strong
+  >.
+</p>
+
+<p>
+  <strong>Structure</strong> and <strong>Redis Command</strong> are highlighted for
+  these a specific reason:
+</p>
+
+<ol>
+  <li>
+    To create a good <strong>Structure</strong> we have to define all of the required
+    fields that a Command <strong>must</strong> have.
+  </li>
+  <li>
+    To create a good <strong>Redis Command</strong> we'll use a function that checks
+    all of the required fields to successfully create a Command.
+  </li>
+</ol>
+
+<p>
+  To achieve the first of these requirements we are going to create a <strong
+    >Command Interface</strong
+  > which is going to identify all of the possible Commands.
+</p>
+
+<CommandInteface />
+
+<p>
+  <Keyword word="Node" /> represents any parseable unit (<Keyword
+    word="Command"
+  /> or <Keyword word="Expressions" />).
+</p>
+
+<ol>
+  <li>
+    <Keyword word="String" /> returns a Human-readable representation of the Command.
+  </li>
+  <li>
+    <Keyword word="TokenLiteral" /> returns the Literal of the prefix <Keyword
+      word="Token"
+    /> (<Keyword word="SET" />, <Keyword word="GET" />, <Keyword word="INCR" />,
+    etc.)
+  </li>
+</ol>
+<Keyword word="Command" /> marks Redis Commands nodes (GET, SET, etc.)
+<ol>
+  <li>
+    The <Keyword word="Node" /> interface is <strong>embedded</strong> into <Keyword
+      word="Command"
+    /> as Command is also a Node.
+  </li>
+
+  <li>
+    <Keyword word="cmdNode()" /> is an empty method that differentiates <strong
+      >Commands</strong
+    > from <strong>Expression</strong> (which we will see soon).
+  </li>
+</ol>
+
+<p>
+  Now that we have created our <Keyword word="Command" /> interface, we can start
+  implementing Commands.
+</p>
+
+<p>
+  <strong>NOTE:</strong> Through the rest of the article we will just implement the
+  <Keyword word="GET" /> command, but all the Command implementations are similar,
+  and you can <a
+    href="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/ast/nodes.go#L11"
+    >check them here.</a
+  >
+  <br />
+  So... Let's do it!
+</p>

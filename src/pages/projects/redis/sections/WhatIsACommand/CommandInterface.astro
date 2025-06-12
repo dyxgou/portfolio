@@ -1,0 +1,19 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Command Interface"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b001cf06b36d743462da83c59a59f8c61809184f/pkg/ast/ast.go#L4"
+  code={`type Node interface {
+  String() string
+  TokenLiteral() string
+}
+
+type Command interface {
+  Node
+
+  cmdNode()
+}`}
+/>
