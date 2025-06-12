@@ -1,0 +1,25 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="GET implementation of Command"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/ast/nodes.go#L104"
+  code={`func (gc *GetCommand) cmdNode() {}
+
+func (gc *GetCommand) TokenLiteral() string {
+  return gc.Token.Literal 
+}
+
+func (gc *GetCommand) String() string {
+  var sb strings.Builder
+
+  sb.WriteString(gc.Token.Literal)
+  sb.WriteByte(' ')
+
+  sb.WriteString(gc.Key)
+
+  return sb.String()
+}`}
+/>

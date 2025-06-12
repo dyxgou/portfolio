@@ -1,0 +1,69 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import GETStruct from "./GETStruct.astro";
+import GETImplementation from "./GETImplementation.astro";
+---
+
+<Heading id="defining-get"> Defining GET </Heading>
+
+<p>
+  <strong>GET Command Reminder:</strong> The GET Command takes a <Keyword
+    word="key"
+  /> as a parameter and returns the value associated to that <strong>key</strong
+  >.
+</p>
+
+<p>
+  To implement the Command <Keyword word="GET" /> we first have to create a <strong
+    >Structure</strong
+  > which implements the <Keyword word="Command" /> interface, then we will create
+  a function that takes a Stream of Tokens and <strong>returns</strong> a <Keyword
+    word="GetCommand"
+  />.
+</p>
+
+<GETStruct />
+
+<p>
+  As you can see the <Keyword word="GetCommand" /> structure stores all the relevant
+  information to represent the <Keyword word="GET" /> Command Structure.
+  <br />
+  But it still does not implement the <Keyword word="Command" /> interface.
+</p>
+
+<GETImplementation />
+
+<p>
+  There are a lot of thing that are happening right here so let's break it down!
+</p>
+
+<ol>
+  <li>
+    <Keyword word="cmdNode" />: This is correctly implemented as an empty method
+    to satisfy the <Keyword word="Command" /> interface, serving its purpose of differentiating
+    <strong>Commands</strong> from <strong>Expressions</strong>.
+  </li>
+
+  <li>
+    <Keyword word="TokenLiteral" />: This method returns the literal value of
+    the command's token (e.g., <Keyword word="GET" />), adhering to the <Keyword
+      word="Node"
+    />
+    interface.
+  </li>
+
+  <li>
+    <Keyword word="String" />: This method provides a human-readable
+    representation of the GET command (e.g., <Keyword word="GET mykey" />),
+    which is crucial for debugging and logging, as required by the Node
+    interface. The use of strings.Builder is a good practice for efficient
+    string concatenation in Go.
+  </li>
+</ol>
+
+<p>
+  Now that our <Keyword word="GetCommand" /> satisfies the <Keyword
+    word="Command"
+  /> interface. It's time to put it to work.
+</p>
