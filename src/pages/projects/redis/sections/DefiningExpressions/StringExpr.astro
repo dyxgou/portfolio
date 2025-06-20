@@ -1,0 +1,22 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="String Expression"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/pkg/ast/nodes.go#L260"
+  code={`type StringExpr struct {
+  Token token.Token
+}
+
+func (se *StringExpr) exprNode() {}
+
+func (se *StringExpr) TokenLiteral() string {
+  return se.Token.Literal 
+}
+
+func (se *StringExpr) String() string {
+  return se.Token.Literal
+}`}
+/>

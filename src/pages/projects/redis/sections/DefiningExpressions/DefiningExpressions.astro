@@ -1,0 +1,79 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import ExpressionDefinition from "./ExpressionDefinition.astro";
+import StringExpr from "./StringExpr.astro";
+---
+
+<Heading id="defining-expressions">Defining Expressions</Heading>
+
+<p>
+  Do you remember when we were defining <Keyword word="Commands" /> and we briefly
+  mentioned <Keyword word="Expressions" />, this is the time when we define
+  them!
+</p>
+
+<p>
+  Commands like <Keyword word="GET" /> receive a <strong>key</strong> parameter which
+  can be represented a <Keyword word="String" />. But commands like <Keyword
+    word="SET"
+  /> can receive as a parameter any value (<Keyword word="Number" />, <Keyword
+    word="String"
+  />, <Keyword word="Bool" />, etc...), we wrap all of these values as <Keyword
+    word="Expressions"
+  />.
+</p>
+
+<ExpressionDefinition />
+
+<p>
+  <Keyword word="Expression" /> is also a <Keyword word="Node" /> and it uses the
+  <Keyword word="exprNode()" /> method to differentiate from <Keyword
+    word="Commands."
+  />
+</p>
+
+<p>
+  Now that we have defined <strong>Expressions</strong> let's implement them!
+</p>
+
+<StringExpr />
+
+<p>
+  In this article we will just implement <Keyword word="StringExpr" /> as we will
+  just support <strong>strings</strong>. So, let's break it down quickly.
+</p>
+
+<ol>
+  <li>
+    <Keyword word="StringExpr" />: The <strong>string</strong> it represents is stored
+    in the <Keyword word="Token" /> field as it contains the <strong
+      >whole string.</strong
+    >
+  </li>
+  <li>
+    <Keyword word="exprNode" />: This method ensures that <Keyword
+      word="StringExpr"
+    /> implements the <Keyword word="Expression" /> interface, in the same way as
+    <Keyword word="Command" />.
+  </li>
+
+  <li>
+    <Keyword word="String" />: This method provides a <strong
+      >string representation</strong
+    > of the actual <Keyword word="Expression" />.
+  </li>
+</ol>
+
+<p>
+  If you want to know the use of Expressions in Commands i highly recommend you
+  to check out the <a
+    href="https://github.com/dyxgou/redis/blob/b4123be1b218237a06bfcf833350980e5bbc7f55/pkg/ast/nodes.go#L37"
+    target="_blank"
+    rel="noopener noreferrer">source code!</a
+  >
+</p>
+
+<p>
+  Now that we have created our <Keyword word="Values" /> it's time to store them!
+</p>
