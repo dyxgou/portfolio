@@ -1,0 +1,86 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import Picture from "@/components/Articles/Picture.astro";
+import GetStructureFilled from "./GetStructureFilled.astro";
+---
+
+<Heading id="parser-recap"> Parser Recap </Heading>
+
+<p>
+  So, we have gone a long way, don't worry if you think that you didn't get
+  Parsers, in fact, this is quite a complicated topic.
+</p>
+
+<p>So let's see how <Keyword word="Parsers" /> work in a more graphical way.</p>
+
+<p>
+  <strong>Parsers consume Tokens:</strong> To be able to Parse complex Command we
+  use a <Keyword word="curTok" /> and <Keyword word="nextToken" />.
+</p>
+
+<Picture src="/articles/parser-tokens.svg" alt="Parser tokens" size={1024} />
+
+<p>
+  As you can see by default we put the <Keyword word="curTok" /> and <Keyword
+    word="nextTok"
+  /> in the first two Tokens of the Command (in this example <strong>GET</strong
+  > and <strong>userName</strong>).
+</p>
+
+<p>
+  We use the content of this Tokens to fill the <Keyword word="GetCommand" /> structure
+  with its representing data.
+</p>
+
+<GetStructureFilled />
+
+<p>
+  You also have to remember that this is the <strong>raw</strong> representation
+  of the Command.
+  <br />
+  In fact the Parser will get something like this.
+</p>
+
+<Picture src="/articles/get-serialized.svg" alt="Get Serialized" size={1024} />
+
+<p>
+  We need to advance through the Tokens to be able to Parse the whole Command,
+  so we need a function that advances our 'two-token window' (<Keyword
+    word="curTok"
+  /> and <Keyword word="nextTok" />).
+  <br />
+
+  The <Keyword word="next()" /> method achieves this purpose each time we call it.
+</p>
+
+<p><strong>After calling <Keyword word="next()" />:</strong></p>
+
+<Picture src="/articles/after-next.svg" alt="After Calling Next" size={1024} />
+
+<p>
+  As you can see after calling <Keyword word="next()" /> now both Tokens have advances
+  one position.
+</p>
+
+<p>
+  One we encounter a <Keyword word="GET" /> token, we execute a special function
+  that parses the required fields of the Command, in this case <Keyword
+    word="parseGetCommand()"
+  />.
+</p>
+
+<Picture src="/articles/get-parsed.svg" alt="Get Parsed" size={1024} />
+
+<p>
+  <strong>NOTE:</strong> As you may have guested all of the <strong
+    >words</strong
+  > and <strong>symbols</strong> are Tokens and <strong>Parsing</strong> is the process
+  of going through them and storing the useful information.
+</p>
+
+<p>
+  With this, we are almost done with this article, we just need to <strong
+    >Evaluate Commands</strong
+  >.
+</p>
