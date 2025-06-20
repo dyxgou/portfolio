@@ -1,0 +1,135 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import StorageDefinition from "./StorageDefinition.astro";
+import Picture from "@/components/Articles/Picture.astro";
+---
+
+<Heading id="storing-values">Storing Values</Heading>
+
+<p>
+  We are going to take a simple approach when it comes to storing <Keyword
+    word="Values"
+  />, we are going to create a <strong>concurrency safe map</strong> which maps <strong
+    >string keys</strong
+  > to <Keyword word="Value" /> pointers.
+</p>
+
+<p>
+  <strong>NOTE:</strong> This implementation was written before the <Keyword
+    word="weak"
+  /> package was released, so keep in mind that now there is a better way to <a
+    href="https://pkg.go.dev/weak"
+    target="_blank"
+    rel="noopener noreferrer">implement the storage of keys.</a
+  >
+</p>
+
+<p>Knowing this, let's implement our <Keyword word="Storage" />.</p>
+
+<StorageDefinition />
+
+<p>
+  As you can see the storage is just a map of <Keyword word="Values" />, but
+  above it you can see a <Keyword word="RWMutex" />.
+  <br />
+  A Mutex <strong>(mutual exclusion)</strong> is one of the most complex and deep
+  concepts in all of computing, so let's try to explain them quickly.
+</p>
+
+<p>
+  <strong> The Problem of the Five Philosophers and the Limited Forks: </strong>
+</p>
+
+<p>
+  Imagine five brilliant philosophers sitting around a <strong
+    >circular table</strong
+  >, ready to enjoy some delicious food. Between each philosopher is a single
+  fork. To eat, a philosopher needs two forks: one from their
+  <strong>left</strong> and one from their <strong>right</strong>. The problem?
+  There are only five forks for five philosophers, and each <strong
+    >fork is a shared resource</strong
+  >.
+</p>
+
+<Picture
+  src="/articles/philosophers.webp"
+  alt="Philosophers on a table"
+  size={1024}
+/>
+
+<p>
+  Now, let's say all five philosophers get <strong
+    >hungry at the same time</strong
+  >
+  and each reaches for the fork on their left. They all succeed! But now, they're
+  stuck. Each philosopher has one fork, but they all need a second fork <strong
+    >(from their right)</strong
+  >, which is currently held by their neighbor. No one can eat, and no one can
+  release their fork because they're all waiting for another – this is a classic
+  <Keyword word="deadlock" />. They're all <strong>holding</strong> onto a resource
+  and waiting <strong>indefinitely</strong> for another resource that's also held.
+</p>
+
+<Picture
+  src="/articles/deadlock.webp"
+  class="rounded-lg"
+  alt="Philosophers on a deadlock"
+  size={1024}
+/>
+
+<p>
+  <strong
+    >Here's how a <Keyword word="mutex" /> acts as the polite, orderly "fork manager":</strong
+  >
+</p>
+
+<ul>
+  <li>
+    <strong>Acquiring the Mutex (Picking up a Fork):</strong> When a philosopher
+    wants to pick up a fork, they first try to 'lock' its <Keyword
+      word="mutex"
+    />. If the mutex is unlocked (meaning the fork is available), they
+    successfully acquire the
+    <Keyword word="mutex" /> and pick up the fork.
+  </li>
+
+  <li>
+    <strong>Mutual Exclusion Ensured:</strong> If the <Keyword word="mutex" /> is
+    already locked (meaning another philosopher is holding that fork), our hungry
+    philosopher <strong>must wait until</strong> the <Keyword word="mutex" /> is
+    released. This ensures that only one philosopher can ever hold a specific fork
+    (resource) at a time.
+  </li>
+
+  <li>
+    <strong>Releasing the Mutex (Putting down a Fork):</strong> Once a philosopher
+    finishes eating, they 'unlock' the <Keyword word="mutexes" /> for both fork they
+    were holding. This signals to any waiting philosophers that those forks are now
+    available.
+  </li>
+</ul>
+
+<p>
+  By implementing a strategy where philosophers acquire both necessary fork
+  <Keyword word="mutexes" /> before attempting to eat (or acquiring them in a specific
+  order, or acquiring a global <strong>eating permission</strong> mutex), we prevent
+  the deadlock. The mutex ensures that critical sections of code (like picking up
+  a shared fork) are accessed by only one <Keyword word="goroutine" /> (philosopher)
+  at a time, preventing <strong>race conditions</strong> and <strong
+    >resource contention</strong
+  >.
+</p>
+
+<p>
+  In our Redis clone, the <Keyword word="sync.RWMutex" /> acts precisely like these
+  fork managers, ensuring that when <strong>multiple parts</strong> of our program
+  try to read from or write to our <Keyword word="Storage" /> map simultaneously,
+  they do so in an orderly, <strong>deadlock-free fashion</strong>, just like
+  our philosophers eventually get to enjoy their food!"
+</p>
+
+<p>
+  Now that we have scratched the surface of <Keyword word="Mutexes" /> we are ready
+  to finish our <Keyword word="Storage" />!
+</p>

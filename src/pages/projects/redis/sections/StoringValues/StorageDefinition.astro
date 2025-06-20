@@ -1,0 +1,13 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Storage Definition"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/internal/storage/storage.go#L9"
+  code={`type Storage struct {
+  mu      sync.RWMutex
+  storage map[string]Value
+}`}
+/>
