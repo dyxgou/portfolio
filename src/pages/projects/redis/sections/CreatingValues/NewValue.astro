@@ -1,0 +1,20 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="NewValue definition"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b4123be1b218237a06bfcf833350980e5bbc7f55/internal/storage/values.go#L28"
+  code={`func NewValue(v ast.Expression) Value {
+
+  switch v := v.(type) {
+  case *ast.StringExpr:
+    return &String{v.String()}
+
+  // Creating the rest of the values...
+  }
+
+  return nil
+}`}
+/>

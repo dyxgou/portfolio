@@ -1,0 +1,119 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import ValueKinds from "./ValueKinds.astro";
+import ValueDefinition from "./ValueDefinition.astro";
+import ValueStructs from "./ValueStructs.astro";
+import NewValue from "./NewValue.astro";
+---
+
+<Heading id="creating-values">Creating Values</Heading>
+
+<p>
+  This is the part of the article when everything comes together, but before we
+  do that we have to create a way to store the <strong>value</strong> of our <strong
+    >keys</strong
+  >. So, let's do it!
+</p>
+
+<p>
+  All of the Values should have its corresponding kind we will focus on <Keyword
+    word="Nil"
+  /> and
+  <Keyword word="String" /> value kinds, let's define the <strong
+    >value kinds</strong
+  > first and then we will store its values.
+</p>
+
+<ValueKinds />
+
+<p>
+  If you notice this is actually pretty similar to the Token logic, in fact, it
+  is. So, let's break it down.
+</p>
+
+<ol>
+  <li>
+    <Keyword word="valueKind" />: Is an <Keyword word="Enum" /> (Enumeration) of
+    the available Value Kinds.
+  </li>
+  <li>
+    <Keyword word="StringKind" />: Represents the <Keyword word="String" /> Value
+    Kind.
+  </li>
+  <li>
+    <Keyword word="NilKind" />: This special kind signifies the absence of a
+    value if a key does not exists we will return a <Keyword word="NilVal" /> (a
+    value of <Keyword word="NilKind" />).
+  </li>
+</ol>
+
+<p>
+  We have mention a <Keyword word="Value" /> a couple of times. So, let's define
+  them too!
+</p>
+
+<ValueDefinition />
+
+<p>
+  As you can see <Keyword word="Values" /> are pretty similar to <Keyword
+    word="Tokens"
+  />.
+</p>
+
+<ol>
+  <li>
+    <Keyword word="Kind()" />: This method returns the <Keyword
+      word="valueKind"
+    /> of the value.
+  </li>
+  <li>
+    <Keyword word="String()" />: This method returns the String representation
+    of the current Value.
+  </li>
+</ol>
+
+<p>
+  As <Keyword word="Value" /> is an interface we have to create its corresponding
+  <Keyword word="struct" /> in this case <Keyword word="String" /> and <Keyword
+    word="NilVal"
+  />, this structure is going to be the way we are going to store values.
+</p>
+
+<ValueStructs />
+
+<p>
+  As you can see both <Keyword word="String" /> and <Keyword word="NilVal" /> now
+  implement the <Keyword word="Value" /> interface.
+</p>
+
+<ol>
+  <li>
+    <Keyword word="String" />: It stores a <strong>string</strong> in its <Keyword
+      word="Value"
+    /> field.
+  </li>
+  <li>
+    <Keyword word="NilVal" />: It does not represent any Value as <Keyword
+      word="Nil"
+    /> represents the absence of one.
+  </li>
+</ol>
+
+<p>
+  We are almost done with values! Let's just create a helper function to create
+  new values easily, we will call it <Keyword word="NewValue" />.
+</p>
+
+<NewValue />
+
+<p>
+  Have you notice it? This function takes a <Keyword word="Expression" /> and we
+  still have not explore what a Expression does, so let's do it.
+</p>
+
+<p>
+  Also this function uses the <strong>Expression type</strong> to decide which Value
+  should be returned, if the <strong>Expression</strong> is not supported it returns
+  <Keyword word="nil" />.
+</p>

@@ -1,0 +1,22 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Value Interface Implementation"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b4123be1b218237a06bfcf833350980e5bbc7f55/internal/storage/values.go#L45"
+  code={`type String struct {
+  Value string
+}
+
+// Returns the String Value stored
+func (s *String) String() string { return s.Value }
+func (s *String) Kind() valueKind { return StringKind }
+
+type NilVal struct{}
+
+// Retuns the (nil) String
+func (n *NilVal) String() string { return "(nil)" }
+func (n *NilVal) Kind() valueKind { return NilKind }`}
+/>

@@ -1,0 +1,16 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Value Kind Definitions"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b4123be1b218237a06bfcf833350980e5bbc7f55/internal/storage/values.go#L12"
+  code={`type valueKind byte
+
+const (
+  StringKind valueKind = iota
+  NilKind
+  // ... The rest of the Value Kinds
+)`}
+/>
