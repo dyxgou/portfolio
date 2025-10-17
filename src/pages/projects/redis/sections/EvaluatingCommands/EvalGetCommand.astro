@@ -1,0 +1,21 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Eval Get Command definition"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b001cf06b36d743462da83c59a59f8c61809184f/internal/evaluator/evaluator.go#L140"
+  code={`func (e *Evaluator) evalGetCommand(
+  gc *ast.GetCommand
+) (string, error) {
+  val, ok := e.s.Get(gc.Key)
+
+  if !ok {
+    return storage.Nil.String(), nil
+  }
+
+  return val.String(), nil
+}
+`}
+/>

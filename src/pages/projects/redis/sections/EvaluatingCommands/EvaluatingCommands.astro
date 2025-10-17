@@ -1,11 +1,44 @@
 ---
 import Heading from "@/components/Articles/Heading.astro";
 import Keyword from "@/components/Articles/Keyword.astro";
+import Evaluator from "./Evaluator.astro";
+import EvaluatorEval from "./EvaluatorEval.astro";
+import EvalGetCommand from "./EvalGetCommand.astro";
 ---
 
 <Heading id="evaluating-commands">Evaluating Commands</Heading>
 
 <p>
-  There are several ways to evaluate commands, some better than others, but we
-  will take a simple approach using the Golang concurrency features.
+  This is the <strong>last section</strong> of this article, you can't imagine how
+  <strong>excited</strong> I am!
 </p>
+
+<p>
+  <strong>Evaluating Commands</strong> can seem a little bit intimidating, but in
+  fact is pretty simple. We will first define a <Keyword word="Evaluator" /> struct
+  that contains all of our <strong>Evaluation Logic</strong>.
+</p>
+
+<Evaluator />
+
+<p>
+  As you can see <Keyword word="Evaluator" /> uses the
+  <Keyword word="Storage" /> because evaluating a command is just creating and editing
+  key-values.
+</p>
+
+<EvaluatorEval />
+
+<p>
+  <Keyword word="Evaluator" /> has a method <Keyword word="Eval" /> that depending
+  on the given command (<Keyword word="GET" />, <Keyword word="SET" />, <Keyword
+    word="INCR"
+  />) it executes its corresponding <Keyword word="eval" /> function (<Keyword
+    word="evalGetCommand()"
+  />).
+  <br />
+  Now the only thing left is define the <Keyword word="evalGetCommand()" />, so
+  let's do it!
+</p>
+
+<EvalGetCommand />

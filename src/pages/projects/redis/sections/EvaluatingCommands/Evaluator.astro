@@ -1,0 +1,18 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Evaluator Definition"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b001cf06b36d743462da83c59a59f8c61809184f/internal/evaluator/evaluator.go#L14"
+  code={`type Evaluator struct {
+  s *storage.Storage
+}
+
+func New() *Evaluator {
+  return &Evaluator{
+    s: storage.New(),
+  }
+}`}
+/>

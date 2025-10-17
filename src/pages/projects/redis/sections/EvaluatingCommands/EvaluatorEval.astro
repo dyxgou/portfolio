@@ -1,0 +1,21 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Eval method"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/b001cf06b36d743462da83c59a59f8c61809184f/internal/evaluator/evaluator.go#L14"
+  code={`func (e *Evaluator) Eval(cmd ast.Command) (string, error) {
+
+  switch cmd := cmd.(type) {
+  case *ast.GetCommand:
+    return e.evalGetCommand(cmd)
+  }
+
+  return "", fmt.Errorf(
+      "command not supported for evaluation. got=%T",
+      cmd,
+    )
+}`}
+/>
