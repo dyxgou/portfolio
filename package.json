@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@astrojs/partytown": "^2.1.4",
-    "@astrojs/preact": "4.1.0",
+    "@astrojs/preact": "4.1.1",
     "@tailwindcss/vite": "^4.1.4",
-    "astro": "5.9.3",
+    "astro": "5.14.5",
     "preact": "^10.26.5",
     "tailwindcss": "^4.1.4"
   },
