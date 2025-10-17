@@ -1,8 +1,10 @@
 ---
 import Heading from "@/components/Articles/Heading.astro";
 import Keyword from "@/components/Articles/Keyword.astro";
-import StorageDefinition from "./StorageDefinition.astro";
 import Picture from "@/components/Articles/Picture.astro";
+import StorageDefinition from "./StorageDefinition.astro";
+import StorageGet from "./StorageGet.astro";
+import StorageNew from "./StorageNew.astro";
 ---
 
 <Heading id="storing-values">Storing Values</Heading>
@@ -121,15 +123,71 @@ import Picture from "@/components/Articles/Picture.astro";
   >.
 </p>
 
+<Picture
+  src="/articles/dinner-successful.webp"
+  class="rounded-lg"
+  alt="Deadlock fixed"
+  size={1024}
+/>
+
 <p>
   In our Redis clone, the <Keyword word="sync.RWMutex" /> acts precisely like these
   fork managers, ensuring that when <strong>multiple parts</strong> of our program
   try to read from or write to our <Keyword word="Storage" /> map simultaneously,
   they do so in an orderly, <strong>deadlock-free fashion</strong>, just like
-  our philosophers eventually get to enjoy their food!"
+  our philosophers eventually get to enjoy their food!
 </p>
 
 <p>
-  Now that we have scratched the surface of <Keyword word="Mutexes" /> we are ready
-  to finish our <Keyword word="Storage" />!
+  Now that we have scratched the surface of <Keyword word="Mutexes" />, we are
+  ready to finish our <Keyword word="Storage" />!
+</p>
+
+<StorageGet />
+
+<p>
+  As you can see, the <Keyword word="Get" /> method is pretty simple, let's break
+  it down!
+</p>
+
+<ol>
+  <li>
+    <Keyword word="s.mu.RLock()" />: This method locks the <Keyword
+      word="Mutex"
+    /> to get the value from the storage.
+  </li>
+  <li>
+    <Keyword word="s.mu.RUnlock()" />: This method <strong>unlocks</strong> the Mutex,
+    freeing the value.
+  </li>
+  <li>
+    At last, if the value <strong>exists</strong>, it is returned; if not, <Keyword
+      word="nil"
+    /> is returned.
+  </li>
+</ol>
+
+<p>
+  The only thing left is creating a <Keyword word="New()" /> function that initializes
+  <Keyword word="Storage" />.
+</p>
+
+<StorageNew />
+
+<p>
+  The <Keyword word="New()" /> function creates the <Keyword word="storage" /> map;
+  we don't need to create the <Keyword word="Mutex" /> because its zero value is
+  sufficient for use. With this, we are now ready to <strong
+    >evaluate Redis Commands!</strong
+  >
+</p>
+
+<p>
+  <strong>NOTE:</strong> I highly recommend you to look up at the <a
+    target="_blank"
+    rel="noopener noreferrer"
+    href="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/internal/storage/storage.go"
+  >
+    whole implementation of Storage</a
+  > as it has all of the Command storage logic.
 </p>

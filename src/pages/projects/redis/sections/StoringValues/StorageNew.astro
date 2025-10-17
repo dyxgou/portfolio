@@ -1,0 +1,14 @@
+---
+import Snippet from "@/components/Articles/Snippet.astro";
+---
+
+<Snippet
+  title="Initializing Storage"
+  lang="go"
+  link="https://github.com/dyxgou/redis/blob/0e2f5cc51758b244bad26c091381964543c7bf97/internal/storage/storage.go#L114"
+  code={`func New() *Storage {
+  return &Storage{
+    storage: make(map[string]Value),
+  }
+}`}
+/>
