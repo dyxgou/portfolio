@@ -108,7 +108,17 @@ import NewValue from "./NewValue.astro";
 <NewValue />
 
 <p>
-  Have you notice it? This function takes a <Keyword word="Expression" /> and we
+  Have you notice it? This function takes an <Keyword word="Expression" /> as argument
+  which determines what kind of <Keyword word="Value" /> gets returned.
+  <br />
+  If the given Expression is not supported <Keyword word="nil" /> is returned, but
+  as all the <Keyword word="nil" /> values are the same so for that reason we will
+  create a <strong>general</strong>
+  <Keyword word="nil" /> value.
+</p>
+
+<p>
+  Have you notice it? This function takes an <Keyword word="Expression" /> and we
   still have not explore what a Expression does, so let's do it.
 </p>
 
