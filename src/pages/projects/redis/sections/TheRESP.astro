@@ -6,16 +6,16 @@ import Picture from "@/components/Articles/Picture.astro";
 <Heading id="the-resp"> The Redis Serialization Protocol (RESP) </Heading>
 
 <p>
-  Computers communicate like humans at a conference: they establish connections
-  (TCP handshakes) and agree on a shared language <strong>(RESP).</strong>
+  Think of computer communication like a professional conference. For
+  participants to exchange ideas effectively, they need a <strong
+    >shared language</strong
+  >. In the world of Redis, that language is <strong>RESP.</strong>
 </p>
 <p>
-  In our conference there's a speaker and all participants are asking questions
-  in this RESP language that the speaker answers.
-  <br />
-  Our <strong>Redis server</strong> is no different than this speaker, and all the
-  <strong>Redis clients</strong> are the participants which conversation between
-  Server and Client we call it a <strong>Connection.</strong>
+  In our architecture, the <strong>Redis Server</strong> acts as the keynote speaker,
+  while the <strong>Redis Clients</strong> are the participants. For them to understand
+  each other, every interaction—or <strong>connection</strong>—must follow the
+  strict rules of RESP.
 </p>
 
 <Picture src="/articles/redis-arch.svg" alt="redis arch" size={1024} />
