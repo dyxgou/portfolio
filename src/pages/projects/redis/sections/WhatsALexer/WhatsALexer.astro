@@ -72,7 +72,17 @@ import Lexer from "@/components/Lexer/Lexer";
 <Lexer client:only />
 
 <p>
-  This <strong>animation</strong> shows the basic mechanics of a <Keyword
-    word="Lexer"
-  />
+  This animation captures the "heartbeat" of our Lexer: scanning characters,
+  identifying patterns, and bundling them into structured <strong>Tokens</strong
+  >.
+  <br />
+  <strong
+    >Feel free to play with the visualization above if you have any questions
+    about the Lexer Mechanics.</strong
+  > Watching how the <Keyword word="pos" /> and <Keyword word="readPos" /> pointers
+  coordinate to "snip" out identifiers like username is often more helpful than reading
+  fifty lines of code.
+  <br />
+  Once you have a feel for the rhythm of the pointers, let's look at how we translate
+  this logic into <strong>idiomatic Go code.</strong>
 </p>
