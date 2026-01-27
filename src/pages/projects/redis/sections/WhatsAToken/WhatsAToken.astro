@@ -9,68 +9,112 @@ import TokenStruct from "./TokenStruct.astro";
 <Heading id="whats-a-token"> What is a Token? </Heading>
 
 <p>
-  We have been using the term <strong>words</strong>, meaning they are the
-  fundamental unit of information in Redis Commands and in texts in general, but
-  the technical term is <strong>tokens</strong>, and we will use it from now on.
+  A <strong>Token</strong> is the smallest atomic unit of a command. Think of them
+  as the fundamental building blocks—like verbs (<Keyword word="GET" />) and
+  nouns (<Keyword word="mykey" />) —that our parser uses to reconstruct a
+  client’s command.
 </p>
+
+<p>There are several kinds of tokens in our system:</p>
+
+<ul>
+  <li>
+    <strong>Commands:</strong> The instructions (e.g., <Keyword word="GET" />, <Keyword
+      word="SET"
+    />, <Keyword word="PING" />).
+  </li>
+
+  <li>
+    <strong>Identifiers:</strong> The keys or values (e.g., <Keyword
+      word="userName"
+    />, <Keyword word="Alejandro" />).
+  </li>
+
+  <li>
+    <strong>Numbers:</strong> Numeric values used in operations (e.g., <Keyword
+      word="100"
+    />).
+  </li>
+</ul>
 
 <Picture src="/articles/token-example.svg" alt="Command tokens" size={1024} />
 
 <p>
-  Now that we understand what a <strong>Token</strong> is, the next step is to define
-  the various types or kinds of tokens our parser will recognize. We typically do
-  this using an <Keyword word="Enum" /> (meaning <Keyword
-    word="Enumeration"
-  />), which is a type that defines a set of named constants. This Enum will
-  list all the possible categories of tokens our Redis Parser will encounter,
-  such as <Keyword word="Commands" />, <Keyword word="Identifiers" />, <Keyword
-    word="Numbers"
-  />,
-  <Keyword word="Arguments" />, and all categories our Parser will recognize.
+  As shown in the diagram above, the command <Keyword
+    word="SET userName Alejandro"
+  /> is not treated as <strong>one long string</strong>. Instead, the <strong
+    >Lexer</strong
+  >
+  identifies three distinct tokens: a specific <Keyword word="SET" /> command followed
+  by two <Keyword word="Identifiers" />.
+</p>
+
+<h3 class="underline">Defining Token Kinds</h3>
+
+<p>
+  Now that we’ve defined the concept of a Token, we need a way to categorize
+  them in our code. In Go, we do this using <Keyword word="Enums" /> (enumerated
+  constants).
+</p>
+
+<p>
+  We will create a <Keyword word="TokenKind" /> type to represent every possible
+  category our parser might encounter—such as <strong
+    >Commands, Identifiers, or Numbers.</strong
+  >
+  By using Go's <Keyword word="iota" /> keyword, we can efficiently assign unique,
+  incremental values to each kind, starting with technical markers like <Keyword
+    word="EOF"
+  /> (End of File) and <Keyword word="ILLEGAL" /> (for unknown characters).
 </p>
 
 <Tokens />
 
+<strong
+  >Why use a <Keyword word="byte" /> for <Keyword word="TokenKind" />?</strong
+>
+
 <p>
-  We first create a <Keyword word="byte" /> representation of our tokens that we
-  will name <Keyword word="TokenKind" />.
-  <br />
-  You might be wondering why we use a <Keyword word="byte" /> type instead of <Keyword
+  You might wonder why we chose a <Keyword word="byte" /> instead of a <Keyword
     word="string"
-  /> or even
-  <Keyword word="int" />.
-  <br />
-  There are two main reasons:
+  /> or a standard <Keyword word="int" />. There are two primary engineering
+  reasons:
 </p>
 
 <ol>
   <li>
-    We will be creating a lot of Tokens, so the storing structure should be as
-    lightweight as possible.
+    <strong>Memory Efficiency:</strong> Since our Lexer will generate a new instance
+    for every single <strong>word</strong> or <strong>symbol</strong> in a command,
+    using a <strong>1-byte</strong> type keeps our memory footprint as small as possible.
   </li>
   <li>
-    Given that we won't have a lot of <Keyword word="TokenKinds" /> and knowing that
-    <Keyword word="byte" /> (an alias for <Keyword word="uint8" />) has a
-    maximum capacity of 255. So, as we won't have many tokens this make it the
-    perfect fit for our <Keyword word="TokenKind" />.
+    <strong>Sufficient Capacity:</strong> A <Keyword word="byte" /> ( an alias for
+    <Keyword word="uint8" /> ) can represent up to 256 unique values. Since our Redis
+    clone will only have a few dozen command types and symbols, this is the perfect,
+    lightweight fit for our <Keyword word="TokenKind" />.
   </li>
 </ol>
 
 <p>
-  So, let's create a <strong>Structure</strong> to contain the <Keyword
-    word="TokenKinds"
-  /> and the text they represent.
+  Knowing this, we need a container to hold both the <Keyword
+    word="TokenKind"
+  /> of the token and the raw data it represents, called the <Keyword
+    word="Literal"
+  />.
 </p>
 
 <TokenStruct />
 
 <p>The <Keyword word="Token" /> struct is composed of:</p>
+
 <ol>
-  <li><Keyword word="Literal" />: Which is the slice of text of the Token.</li>
   <li>
-    <Keyword word="Kind" />: Which is the TokenKind representing the <Keyword
-      word="Literal"
-    />.
+    <Keyword word="Literal" />: The raw string value extracted from the input
+    (e.g., <Keyword word="GET" /> or <Keyword word="mykey" />).
+  </li>
+  <li>
+    <Keyword word="Kind" />: The TokenKind (our byte-sized Enum) that tells the
+    parser how to interpret that literal.
   </li>
 </ol>
 
