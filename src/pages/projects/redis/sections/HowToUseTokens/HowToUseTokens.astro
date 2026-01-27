@@ -16,69 +16,105 @@ import LookupIdent from "./LookupIdent.astro";
 </Heading>
 
 <p>
-  To transform raw input (like <Keyword word="SET userName Alejandro" />) into
-  tokens, we need a <strong>Lexer</strong> (also called a <strong
-    >Scanner</strong
-  >). This component scans the input text and converts it into a structured
-  stream of tokens for parsing.
-  <br />
-  <strong>Key Lexer Mechanics:</strong> For Tokens like <Keyword
-    word="userName"
-  /> we need to track:
+  To transform raw input like <Keyword word="SET username Alejandro" /> into a predictable
+  stream of tokens, we need a <Keyword word="Lexer" /> (often called a <Keyword
+    word="Scanner"
+  />).
+</p>
+
+<p>
+  If Tokens are the nouns of our language, the Lexer is the eye that identifies
+  them. It scans the input text and converts it into a structured stream of data
+  that our <Keyword word="Parser" /> can actually understand.
+</p>
+
+<h4 class="underline">The Engine Room: Key Lexer Mechanics</h4>
+<p>
+  To navigate through strings efficiently, our Lexer tracks its internal state
+  using three specific fields:
 </p>
 
 <ol>
-  <li><Keyword word="pos" />: Start position of the current Token.</li>
   <li>
-    <Keyword word="readPos" />: End position of the current Token. (used for
-    slicing).
+    <Keyword word="pos" />: The starting index of the character we are currently
+    examining.
   </li>
+
   <li>
-    <Keyword word="ch" />: The current character being analyzed.
+    <Keyword word="readPos" />: Our "look-ahead" pointer. It sits one step ahead
+    of pos to see what’s coming next (crucial for detecting <Keyword
+      word="\\r\\n"
+    />
+    sequences).
+  </li>
+
+  <li>
+    <Keyword word="ch" />: The actual byte value at our current position.
   </li>
 </ol>
 
 <p>
-  These fields enable precise <strong>substring extraction</strong> (e.g., slicing
-  <Keyword word="input[pos:readPos]" /> to isolate <Keyword word="userName" />).
+  By maintaining these two pointers, we can perform substring extraction with
+  zero memory waste. To isolate a word like <Keyword word="userName" />, we
+  simply "slice" the input string: <Keyword word="input[pos:readPos]" />
 </p>
 
 <LexerDefinition />
 
+<h4 class="underline">The Constructor: Initializing the API</h4>
+
 <p>
-  Now that we have defined our <strong>Lexer</strong>, we have to create it a
-  constructor to make it a reliable API.
+  To make our <Keyword word="Lexer" /> a reliable API, we have to create some <strong
+    >helper functions first</strong
+  >.
 </p>
 
+<ol>
+  <li>
+    <Keyword word="trimInput()" />: This helper removes trailing whitespaces to
+    the right of the command. This prevents the Lexer from processing "ghost"
+    characters at the end of a line.
+  </li>
+
+  <li>
+    The <Keyword word="New()" /> constructor initializes the <Keyword
+      word="lexer"
+    /> by calling <Keyword word="next()" />, which handles
+    character-by-character advancement through the input string. Here’s how it
+    works:
+  </li>
+</ol>
+
 <LexerInitialization />
+
 <p>
-  We use the <Keyword word="trimInput()" /> function to ensure that the lexer correctly
-  processes commands without being affected by trailing spaces to the right of the
-  Command.
-</p>
-<p>
-  The <Keyword word="New()" /> constructor initializes the <Keyword
-    word="lexer"
-  /> by calling <Keyword word="next()" />, which handles character-by-character
-  advancement through the input string. Here’s how it works:
+  Now that we have our <Keyword word="New()" /> constructor, we can define <Keyword
+    word="next()"
+  />.
 </p>
 
 <LexerNext />
 
-<p>As you can see the <Keyword word="next()" /> method handles two cases:</p>
+<p>
+  The <Keyword word="next()" /> method is the internal engine that drives character-by-character
+  advancement through the input string. It handles <strong
+    >two critical cases:</strong
+  >
+</p>
 
 <ol>
   <li>
-    If the <Keyword word="readPos" /> has <strong>exceeded</strong> the input's length
-    it sets
-    <Keyword word="ch" /> to the <Keyword word="token.EOF" /> (End Of File) TokenKind
-    that indicates that the input string has been consumed.
+    <strong>End of File (EOF):</strong> If <Keyword word="readPos" /> exceeds the
+    input length, <Keyword word="ch" /> is set to <Keyword word="token.EOF" /> (the
+    ASCII Null character). This signals that the input string has been fully <strong
+      >consumed</strong
+    >.
   </li>
   <li>
-    If the <Keyword word="readPos" /> has <strong>not exceeded</strong> the input's
-    length it sets <Keyword word="ch" /> to the character at the position
-    <Keyword word="readPos" /> (making it the new current character) and then advances
-    both <Keyword word="pos" /> and <Keyword word="readPos" />.
+    <strong>Advancing:</strong> Otherwise, <Keyword word="ch" /> is updated to the
+    character at <Keyword word="readPos" />. <Keyword word="pos" /> then catches
+    up to <Keyword word="readPos" />, and <Keyword word="readPos" /> increments to
+    <a href="#lexer-animation">"scout" the next index.</a>
   </li>
 </ol>
 
@@ -86,20 +122,25 @@ import LookupIdent from "./LookupIdent.astro";
   With character advancement handled by <Keyword word="next()" />, we'll now
   implement <Keyword word="NextToken()" /> to scan and return structured tokens from
   the input.
-  <br />
-  If you review the code implementation, you'll notice that I have skipped some code.
-  This is because the Lexer is used in both the <Keyword word="serializer" /> and
-  the <Keyword word="Parser" />. However, the ideal approach is to create
-  separate implementations for them, since this allows you to leverage the full
-  potential of RESP.
+</p>
+
+<p>
+  <strong>Note:</strong> If you review the <a
+    href="https://github.com/dyxgou/redis/blob/main/pkg/serializer/serializer.go"
+    target="_blank"
+    rel="noopener noreferrer">code implementation</a
+  >, you'll notice that I have skipped some code. This is because the Lexer is
+  used in both the <Keyword word="Serializer" /> and <Keyword word="Parser" />.
+  However, the ideal approach is to create separate implementations for them,
+  since this allows you to leverage the full potential of RESP.
 </p>
 
 <LexerNextToken />
 
 <p>
   The first thing you can see is that the <Keyword word="NextToken()" /> returns
-  a <Keyword word="token.Token" /> we have defined in <a href="#whats-a-token"
-    >previous section.</a
+  a <Keyword word="token.Token" /> we have defined <a href="#whats-a-token"
+    >here.</a
   >
   <br />
   Also this method performs <strong>three key</strong> operations:
