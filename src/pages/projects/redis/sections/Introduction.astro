@@ -2,76 +2,30 @@
 import Heading from "@/components/Articles/Heading.astro";
 ---
 
-<Heading> Preface </Heading>
-<ol class="fraunces text-2xl">
-  <li>
-    <a href="#introduction">Introduction</a>
-  </li>
-  <li>
-    <a href="#what-is-redis">What and Why is Redis?</a>
-  </li>
-  <li>
-    <a href="#the-resp">The Redis Serialization Protocol (RESP)</a>
-  </li>
-  <li>
-    <a href="#how-resp-work">How does RESP Work?</a>
-  </li>
-  <li>
-    <a href="#whats-a-parser">What is a Parser?</a>
-  </li>
-  <li>
-    <a href="#whats-a-token">What is a Token?</a>
-  </li>
-  <li>
-    <a href="#how-to-use-tokens">How to use our Tokens: Building a Lexer</a>
-  </li>
-  <li>
-    <a href="#whats-a-command">What is a Command</a>
-  </li>
-  <li>
-    <a href="#defining-get">Defining GET</a>
-  </li>
-  <li>
-    <a href="#implementing-a-parser">Implementing a Parser</a>
-  </li>
-  <li>
-    <a href="#parser-recap">Parser Recap</a>
-  </li>
-  <li>
-    <a href="#creating-values">Creating Values</a>
-  </li>
-  <li>
-    <a href="#defining-expressions">Defining Expressions</a>
-  </li>
-  <li>
-    <a href="#storing-values">Storing Values</a>
-  </li>
-  <li>
-    <a href="#evaluating-commands">Evaluating Commands</a>
-  </li>
-</ol>
-
 <Heading id="introduction"> Introduction </Heading>
+
 <p>
   Redis revolutionized the database world by embracing a radical idea:
-  <strong>should exist within simplicity</strong> This article is your gateway into
-  that philosophy. We'll reverse-engineer Redis starting with a simple <strong
-    >TCP Socket</strong
-  >, then implementing the Redis Serialization Protocol <strong>(RESP)</strong> and
-  supporting the evaluation of core commands all with Golang and simple <strong
-    >yet incredible solutions.</strong
+  <strong>complexity should exist within simplicity.</strong> This article serves
+  as your entry point into that philosophy. We will reverse-engineer Redis step by
+  step—starting from a simple <strong>TCP</strong> socket, implementing the Redis
+  Serialization Protocol <strong>(RESP)</strong>, and finally evaluating core
+  commands—all built in Golang using <strong
+    >elegant, minimalist solutions.</strong
   >
-  <br />
 </p>
+
 <p>
-  <strong>NOTE: </strong> 👋 This article is for anyone curious about Redis! Rather
-  than overwhelming you with 2,000+ lines of code <strong
-    >(just testing the clone)</strong
-  >, we'll focus on the key algorithms and design ideas that power this clone.
-  <br />
-  Want to explore the full project? <a
+  <strong>Note:</strong> 👋 This article is designed for anyone curious about how
+  Redis works under the hood. Instead of overwhelming you with thousands of lines
+  of code, we will focus on the essential algorithms and architectural principles
+  that power this <strong>Redis clone.</strong>
+</p>
+
+<p>
+  Want to dive deeper? Check out the full project on <a
     target="_blank"
     rel="noopener noreferrer"
-    href="https://github.com/dyxgou/redis">Check the repo here</a
+    href="https://github.com/dyxgou/redis">GitHub</a
   >! 🚀
 </p>
