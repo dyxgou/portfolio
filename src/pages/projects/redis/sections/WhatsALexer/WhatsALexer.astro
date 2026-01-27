@@ -1,0 +1,78 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import CommandExample from "./CommandExample.astro";
+import CommandTokens from "./CommandTokens.astro";
+import Lexer from "@/components/Lexer/Lexer";
+---
+
+<Heading id="whats-a-lexer"> What is a Lexer? </Heading>
+
+<p>
+  Think of the <strong>Lexer</strong> (or Scanner) as <strong
+    >"your eyes"</strong
+  > reading through a page.
+</p>
+
+<p>
+  If you read the phrase <strong>"Redis is fast"</strong>, you don't think about
+  as the 13 characters and spaces. Instead, you instantly group those characters
+  into three distinct concepts: <strong>[Redis]</strong>, <strong>[is]</strong>,
+  and <strong>[fast]</strong>.
+</p>
+
+<p>
+  In computer science, this process is known as <strong>Lexical Analysis</strong
+  > (or "Lexing"). A <Keyword word="Lexer" /> performs this exact task for our Commands:
+  it takes a unstructured string of text and transforms it into an organized list
+  of <a href="#whats-a-token">Tokens</a>.
+</p>
+
+<p>Here's an example. This command is given to the Lexer:</p>
+
+<CommandExample />
+
+<p>The output that the Lexer produces kinda looks like this:</p>
+
+<CommandTokens />
+
+<p>
+  To achieve this result we will use a <strong>Two pointer strategy</strong>.
+  <br />
+  You might wonder why we don't just use a single index to walk through the string.
+  While a single pointer can identify a single character, it cannot predict what
+  comes next. By using a <strong>"Two-Pointer"</strong> approach, we gain a <strong
+    >Lookahead of 1 (k=1):
+  </strong>
+</p>
+
+<ol>
+  <li>
+    <strong>Multi-byte Patterns:</strong> The Redis protocol <strong
+      >(RESP)</strong
+    > relies heavily on <Keyword word="\\r\\n" /> to terminate commands. With two
+    pointers, our "scout" (<Keyword word="readPos" />) can verify the <Keyword
+      word="\\n"
+    /> before our "focus" (<Keyword word="pos" />) even leaves the <Keyword
+      word="\\r"
+    />.
+  </li>
+  <li>
+    <strong>Zero-Copy Slicing:</strong> Instead of copying characters into a temporary
+    buffer as we find them, we simply track the "start" and "end" of a Token. This
+    allows us to use Go’s <Keyword word="input[pos:readPos]" /> syntax, which creates
+    a lightweight "view" of the data rather than a memory-heavy copy.
+  </li>
+</ol>
+
+<p>
+  But let's take a look at the Lexer mechanics to see how all of this apply.
+</p>
+
+<Lexer client:only />
+
+<p>
+  This <strong>animation</strong> shows the basic mechanics of a <Keyword
+    word="Lexer"
+  />
+</p>

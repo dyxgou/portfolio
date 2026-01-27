@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@import "./lexer.css";
 
 :root {
   --reveal-time: 100ms;
@@ -152,4 +153,8 @@
 
 .content-visibility {
   content-visibility: visible;
+}
+
+.command-table > tr > td {
+  vertical-align: middle;
 }

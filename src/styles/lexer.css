@@ -1,0 +1,119 @@
+:root {
+  --command-anchor-name: --SET-command;
+  --command-letter-lenght: 12px;
+}
+
+@theme {
+  --color-orange-char: oklch(0.55 0.15 45);
+}
+
+@media (width >= 40rem) {
+  :root {
+    --command-letter-lenght: 22.41px;
+  }
+
+  .read-position {
+    position: absolute;
+    position-anchor: var(--command-anchor-name);
+
+    bottom: anchor(top);
+    left: anchor(left);
+
+    translate: calc(
+      (var(--anchor-offset, 0) * var(--command-letter-lenght)) +
+        var(--command-letter-lenght) * 0.15
+    );
+  }
+}
+
+.lexer-buttons > button {
+  @apply p-1 size-8 transition-colors cursor-pointer text-slate-600 rounded-lg hover:bg-slate-200;
+}
+
+.command-anchor > :first-child {
+  anchor-name: var(--command-anchor-name);
+}
+
+.command-char-in-range {
+  @apply bg-orange-char/10 relative;
+
+  &::before {
+    @apply content-[""] absolute w-full bottom-0 left-0 right-0 h-0.5 bg-orange-char animate-pulse;
+  }
+}
+
+.char-ping-once {
+  animation: ping-once 400ms ease-in-out;
+}
+
+@keyframes ping-once {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+.position {
+  --anchor-offset: 0;
+  position: absolute;
+  position-anchor: var(--command-anchor-name);
+  top: anchor(bottom);
+
+  left: anchor(left);
+
+  translate: calc(
+    (var(--anchor-offset, 0) * var(--command-letter-lenght)) -
+      var(--command-letter-lenght) * 0.15
+  );
+}
+
+.read-position {
+  position: absolute;
+  position-anchor: var(--command-anchor-name);
+
+  bottom: anchor(top);
+  left: anchor(left);
+
+  translate: calc(
+    (var(--anchor-offset, 0) * var(--command-letter-lenght)) -
+      var(--command-letter-lenght) * 1.27
+  );
+}
+
+@media (width >= 40rem) {
+  .read-position {
+    position: absolute;
+    position-anchor: var(--command-anchor-name);
+
+    bottom: anchor(top);
+    left: anchor(left);
+
+    translate: calc(
+      (var(--anchor-offset, 0) * var(--command-letter-lenght)) -
+        var(--command-letter-lenght) * 0.8
+    );
+  }
+}
+
+.lexed-char[data-token-kind="SET"] {
+  @apply text-blue-400;
+}
+
+.lexed-char[data-token-kind="IDENTIFIER"] {
+  @apply text-slate-700;
+}
+
+.extracted-token[data-token-kind="SET"] {
+  @apply bg-orange-char/20 border-1 border-orange-char/40;
+
+  & > span:first-of-type {
+    @apply text-orange-char;
+  }
+}
+
+.extracted-token[data-token-kind="IDENTIFIER"] {
+  @apply bg-emerald-500/20 border-1 border-emerald-500/40;
+}

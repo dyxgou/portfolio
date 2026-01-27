@@ -1,10 +1,12 @@
 ---
+import Preface from "./sections/Preface.astro";
 import Introduction from "./sections/Introduction.astro";
 import WhatIsRedis from "./sections/WhatIsRedis.astro";
 import TheRESP from "./sections/TheRESP.astro";
 import HowRESPWork from "./sections/HowRESPWorks/HowRESPWork.astro";
 import WhatsAParser from "./sections/WhatsAParser.astro";
 import WhatsAToken from "./sections/WhatsAToken/WhatsAToken.astro";
+import WhatsALexer from "./sections/WhatsALexer/WhatsALexer.astro";
 import HowToUseTokens from "./sections/HowToUseTokens/HowToUseTokens.astro";
 import WhatIsACommand from "./sections/WhatIsACommand/WhatIsACommand.astro";
 import DefiningGET from "./sections/DefiningGET/DefiningGET.astro";
@@ -17,12 +19,14 @@ import EvaluatingCommands from "./sections/EvaluatingCommands/EvaluatingCommands
 ---
 
 <main class="prose prose-settings text-neutral-600 mt-20">
+  <Preface />
   <Introduction />
   <WhatIsRedis />
   <TheRESP />
   <HowRESPWork />
   <WhatsAParser />
   <WhatsAToken />
+  <WhatsALexer />
   <HowToUseTokens />
   <WhatIsACommand />
   <DefiningGET />
