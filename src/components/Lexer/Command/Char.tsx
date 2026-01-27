@@ -8,6 +8,7 @@ type CharProps = {
   readPos: number;
   tokenEnd: number;
   kind: Tokens;
+  commandLength: number;
 };
 
 const WHITE_SPACE = "\u00A0";
@@ -18,8 +19,9 @@ const Char: FunctionalComponent<CharProps> = ({
   readPos,
   tokenEnd,
   kind,
+  commandLength,
 }: CharProps) => {
-  const isTokenLexed = tokenEnd - 1 <= readPos;
+  const isTokenLexed = tokenEnd < readPos || commandLength - 1 === readPos;
   const isTokenCharSelected = !isTokenLexed && index <= readPos;
 
   return (

@@ -15,7 +15,10 @@ const Lexer: FunctionalComponent = () => {
   const allowedSteps = COMMAND.length - readPos - 1;
 
   return (
-    <div className="w-full rounded-lg border-1 border-gray-300 bg-white overflow-hidden">
+    <div
+      id="lexer-animation"
+      className="w-full rounded-lg border-1 border-gray-300 bg-white overflow-hidden"
+    >
       <Header
         restart={restart}
         setIsPlaying={setIsPlaying}
@@ -27,7 +30,11 @@ const Lexer: FunctionalComponent = () => {
 
       <div className="py-12">
         <ReadPos currentPos={readPos} />
-        <Command tokens={tokens} readPos={readPos} />
+        <Command
+          commandLength={COMMAND.length}
+          tokens={tokens}
+          readPos={readPos}
+        />
         <Pos currentPos={pos} />
       </div>
 
