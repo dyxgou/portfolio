@@ -3,8 +3,9 @@ import Snippet from "@/components/Articles/Snippet.astro";
 ---
 
 <Snippet
-  title="Try to serialize this SET Command:"
-  lang="py"
+  title="Serialized GET command"
+  lang="sh"
+  class="break-all"
   link="https://github.com/dyxgou/redis/blob/2d921761fc7db940e6bfdeb5695baf1b2b4f92be/pkg/serializer/serializer.go#L9"
-  code={`SET userName Alejandro`}
+  code={`*3\\r\\n$3\\r\\nGET\\r\\n$5\\r\\nmykey\\r\\n`}
 />

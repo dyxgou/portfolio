@@ -1,0 +1,72 @@
+---
+import Keyword from "@/components/Articles/Keyword.astro";
+import CRLF from "./CRLF.astro";
+---
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Element</th>
+      <th scope="col">Type</th>
+      <th scope="col">Data</th>
+    </tr>
+  </thead>
+
+  <caption class="mt-4 caption-bottom">
+    Serializing <Keyword word="GET" />.
+  </caption>
+
+  <tbody class="command-table">
+    <tr>
+      <th scope="row"><Keyword word="*2" /></th>
+      <td><strong>Array</strong></td>
+      <td
+        >Declares an Array with <strong>2</strong> elements ( The second element
+        is the <strong>key</strong> ).</td
+      >
+    </tr>
+
+    <CRLF />
+
+    <tr>
+      <th scope="row"><Keyword word="$3" /></th>
+      <td><strong>Bulk String</strong></td>
+      <td>
+        Declares the first element is <strong>3 bytes</strong> long.
+      </td>
+    </tr>
+
+    <CRLF />
+
+    <tr>
+      <th scope="row"><Keyword word="GET" /></th>
+      <td><strong>Data</strong></td>
+      <td
+        >The actual command the <strong>Redis Instance</strong> is going to execute.</td
+      >
+    </tr>
+
+    <CRLF />
+
+    <tr>
+      <th scope="row"><Keyword word="$5" /></th>
+      <td><strong>Bulk String</strong></td>
+      <td>
+        Declares that the argument is <strong>5 bytes</strong> long.
+      </td>
+    </tr>
+
+    <CRLF />
+
+    <tr>
+      <th scope="row"><Keyword word="mykey" /></th>
+      <td><strong>Key Argument</strong></td>
+      <td>
+        The <Keyword word="GET" /> command requires a <strong>key</strong> to look
+        up in memory. In our example, that key is <Keyword word="mykey" />.
+      </td>
+    </tr>
+
+    <CRLF text="The final terminator for the entire command." />
+  </tbody>
+</table>

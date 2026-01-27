@@ -1,0 +1,55 @@
+---
+import Keyword from "@/components/Articles/Keyword.astro";
+---
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Element</th>
+      <th scope="col">Type</th>
+      <th scope="col">Data</th>
+    </tr>
+  </thead>
+
+  <caption class="mt-4 caption-bottom">
+    Serializing <Keyword word="PING" />.
+  </caption>
+
+  <tbody class="command-table">
+    <tr>
+      <th scope="row"><Keyword word="*1" /></th>
+      <td><strong>Array</strong></td>
+      <td>Tells the server an array with 1 element is coming.</td>
+    </tr>
+    <tr>
+      <th scope="row"><Keyword word="\\r\\n" /></th>
+      <td><strong>CRLF</strong></td>
+      <td
+        >The <strong>Protocol Delimiter.</strong> It marks the end of a header or
+        data block.</td
+      >
+    </tr>
+    <tr>
+      <th scope="row"><Keyword word="$4" /></th>
+      <td><strong>Bulk String</strong></td>
+      <td>
+        Tells the server the next item is a string of <strong>4 bytes.</strong>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row"><Keyword word="\\r\\n" /></th>
+      <td><strong>CRLF</strong></td>
+      <td> Separates the length indicator from the actual data. </td>
+    </tr>
+    <tr>
+      <th scope="row"><Keyword word="PING" /></th>
+      <td><strong>Data</strong></td>
+      <td>The actual payload.</td>
+    </tr>
+    <tr>
+      <th scope="row"><Keyword word="\\r\\n" /></th>
+      <td><strong>CRLF</strong></td>
+      <td>The final terminator for the entire command.</td>
+    </tr>
+  </tbody>
+</table>

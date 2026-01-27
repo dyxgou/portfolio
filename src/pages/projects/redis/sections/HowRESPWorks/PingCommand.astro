@@ -3,10 +3,8 @@ import Snippet from "@/components/Articles/Snippet.astro";
 ---
 
 <Snippet
-  title="Get Command Structure"
-  lang="jsx"
+  title="Ping Command In RESP"
+  lang="sh"
   link="https://github.com/dyxgou/redis/blob/b001cf06b36d743462da83c59a59f8c61809184f/pkg/ast/nodes.go#L9"
-  code={`  GET       <key>
-   ▲          ▲
-Command   BulkString`}
+  code={`*1\\r\\n$4\\r\\nPING\\r\\n`}
 />

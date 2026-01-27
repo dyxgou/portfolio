@@ -1,0 +1,15 @@
+---
+import Keyword from "@/components/Articles/Keyword.astro";
+
+interface Props {
+  text?: string;
+}
+
+const { text = "Protocol Delimiter" } = Astro.props;
+---
+
+<tr>
+  <th scope="row"><Keyword word="\\r\\n" /></th>
+  <td><strong>CRLF</strong></td>
+  <td>{text}</td>
+</tr>

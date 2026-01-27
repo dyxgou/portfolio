@@ -2,80 +2,86 @@
 import Heading from "@/components/Articles/Heading.astro";
 import Keyword from "@/components/Articles/Keyword.astro";
 import GetCommand from "./GetCommand.astro";
+import PingCommand from "./PingCommand.astro";
+import PingTable from "./PingTable.astro";
 import Commands from "./Commands.astro";
-import OKTable from "./OKTable.astro";
 import SETTable from "./SETTable.astro";
-import SerializingOK from "./SerializingOK.astro";
-import OKSerialized from "./OKSerialized.astro";
 import SerializeExampleSet from "./SerializeExampleSet.astro";
 import SerializedExampleSet from "./SerializedExampleSet.astro";
+import SerializedGetCommand from "./SerializedGetCommand.astro";
+import GetTable from "./GetTable.astro";
 ---
 
 <Heading id="how-resp-work"> How does RESP Work? </Heading>
 
 <p>
-  Redis works with commands like <strong>GET, SET, INCR, EXISTS.</strong> Each of
-  these has its own structure, technically known as <strong>grammar.</strong>
+  Redis commands like <Keyword word="GET" />, <Keyword word="SET" />, and <Keyword
+    word="PING"
+  /> aren't just strings; they follow a specific <strong>grammar</strong>. Let’s
+  look at how a simple <Keyword word="PING" /> command is structured in RESP:
 </p>
-<p>Let's see some examples of this grammar:</p>
+
+<p><strong>The <Keyword word="PING" /> Command:</strong></p>
+
+<PingCommand />
+
+<p>
+  At first glance, this looks like "computer gibberish", but it’s actually a
+  highly efficient way to structure a request. In RESP, <strong
+    >every command is sent as an Array</strong
+  >, even if it only contains a single string.
+</p>
+
+<p>Here's the breakdown:</p>
+
+<PingTable />
+
+<p>
+  While <Keyword word="PING" /> is a great starting point, most Redis interactions
+  involve data. Let's see how to parse a more complex command like <Keyword
+    word="GET"
+  />.
+</p>
 
 <GetCommand />
 
 <p>
-  As you can see, the GET command is pretty simple, just the prefix <Keyword
-    word="GET"
-  />
-  followed by a <Keyword word="key" /> argument.
+  In <strong>RESP</strong>, this is represented as an array of two bulk strings:
 </p>
+
+<SerializedGetCommand />
 
 <p>
-  As Redis is a <strong>key-value</strong> database, when we use the <strong
-    >GET</strong
-  > command it returns the <strong>value associated</strong> with that key or <Keyword
-    word="nil"
-  />
-  (nil means the key doesn't hold any value).
+  At first, this looks significantly more complex, but the logic remains
+  identical. We are simply nesting more data inside our Command Array.
 </p>
 
-<p>Let's see some similar commands:</p>
+<GetTable />
+
+<p>
+  While <Keyword word="PING" /> and <Keyword word="GET" /> provide a solid foundation,
+  they only scratch the surface of what we are building.
+  <br />
+  Here are some examples of other <strong>Redis Commands:</strong>
+</p>
 
 <Commands />
 
 <p>
-  These are some of the Redis commands we are going to support.
-  <br />
-  You will be amazed by how easily we can extend the available commands with the
-  help of a
-  <strong>Parser</strong>, but we'll get to that later.
+  Later in this article, we will dedicate specific sections to implementing the
+  full range of commands. To finish our look at RESP, let's see how the protocol
+  scales with a <strong>3-part</strong> command like <Keyword word="SET" />:
 </p>
-
-<p>
-  Now that we know some commands and their grammar, it's time to <strong
-    >serialize a command!</strong
-  >
-</p>
-
-<SerializingOK />
-
-<p>
-  Don't let yourself be intimidated by the Serialization of <Keyword
-    word="OK"
-  />
-  in fact it is pretty simple.
-</p>
-
-<OKTable />
-
-<p>If you put it all together the result is:</p>
-<OKSerialized />
-
-<p>Let's see one more example to understand this concept.</p>
 
 <SerializeExampleSet />
 
+<p>Give it a try before you see the solution.</p>
+
 <SETTable />
 
-<p>It might seem a long process but we finally had come to a result.</p>
+<p>
+  It might seem a long process but gluing it all together had come to a result.
+</p>
 
 <SerializedExampleSet />
 
