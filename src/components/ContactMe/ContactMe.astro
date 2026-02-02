@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Section from "@/layouts/Section.astro";
 import Title from "./Title.astro";
 import Projects from "./Projects.astro";
+import Mail from "@/assets/Mail.astro";
 ---
 
 <Section class="mb-1">
@@ -27,9 +28,14 @@ import Projects from "./Projects.astro";
         href="mailto:alejandrofullstack@proton.me"
         target="_blank"
         rel="noopener noreferrer"
-        class="rounded-xl bg-gray-100 text-black text-xl text-center w-fit py-2.5 px-5"
+        class="relative overflow-hidden rounded-xl group bg-gray-100 text-black text-xl text-center w-fit py-2.5 px-5"
       >
-        Get in touch
+        <span class="transition-all duration-500 group-hover:blur-xs"
+          >Get in touch</span
+        >
+        <Mail
+          class="transition-transform duration-300 absolute inset-0 translate-y-10 m-auto group-hover:translate-y-0"
+        />
       </a>
     </div>
   </footer>

@@ -130,17 +130,25 @@
   animation-range: entry 50% contain;
 }
 
-@media (prefers-reduced-motion: no-prefers) {
-  .slide-in-card[data-slide-direction] {
-    --slide-in-direction: attr(data-direction);
-    animation: slide-in-card linear;
-    animation-timeline: view();
-    animation-range: entry 50% contain;
-  }
+.slide-in-cards {
+  view-timeline-name: --cards-timeline;
 
+  & > article[data-slide-direction] {
+    animation: slide-in-card linear forwards;
+    rotate: 10deg;
+    animation-timeline: --cards-timeline;
+    animation-range: entry 0% cover 30%;
+  }
+}
+
+@media (prefers-reduced-transparency: no-preference) {
   @keyframes slide-in-card {
+    from {
+      transform: translateY(-300%);
+    }
     to {
-      translate: var(--slide-in-direction) 0;
+      transform: translateX(0);
+      rotate: -5deg;
     }
   }
 }
