@@ -1,14 +1,15 @@
 ---
 interface Props {
   text: string;
+  class?: string;
 }
 
-const { text } = Astro.props;
+const { text, class: className } = Astro.props;
 ---
 
 <li class="flex items-center gap-2 text-gray-400">
   <slot />
-  <span class="text-black/90 text-xl">
+  <span class:list={["text-black/90 text-xl", className]}>
     {text}
   </span>
 </li>

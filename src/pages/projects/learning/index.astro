@@ -1,0 +1,33 @@
+---
+import Section from "@/layouts/Section.astro";
+import Layout from "@/layouts/Layout.astro";
+import BackLink from "@/components/Articles/BackLink.astro";
+import Header from "@/components/Articles/Header.astro";
+import Picture from "@/components/Picture.astro";
+import Content from "./_components/Content.astro";
+---
+
+<Layout title="My Learning">
+  <Section class="w-full flex sm:justify-center px-5 py-25">
+    <BackLink />
+    <div class="md:w-3/4 lg:w-2/3 flex flex-col items-center">
+      <Header
+        year="2025"
+        readingTime="1 minute"
+        codeLink="https://github.com/dyxgou/notes-backend"
+      >
+        From Paper to Platform: Engineering Academic Operations at Scale
+      </Header>
+
+      <Picture
+        class="appear w-full md:w-3/4 object-center aspect-square sm:aspect-video border-4"
+        loading="eager"
+        src="/images/learning.webp"
+        alt="Language"
+        size={514}
+      />
+
+      <Content />
+    </div>
+  </Section>
+</Layout>
