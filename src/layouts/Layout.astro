@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import Meta from "@/components/Meta.astro";
 
 interface Props {
   title: string;
@@ -32,6 +33,8 @@ interface Props {
       rel="stylesheet"
     />
     <title>{Astro.props.title}</title>
+
+    <Meta />
   </head>
   <body
     class="bg-background content-visibility w-dvw h-dvh flex flex-col gap-2 p-2 pb-4 overflow-x-hidden"
