@@ -166,3 +166,42 @@
 .command-table > tr > td {
   vertical-align: middle;
 }
+
+.copy-email {
+  position: relative;
+  anchor-name: --email-tooltip;
+}
+
+.copy-email[data-had-copied="true"] {
+  & > #email-copy-icon {
+    @apply transition-opacity opacity-0;
+  }
+
+  & > #email-check-icon {
+    @apply text-3xl absolute inset-0 translate-y-0 opacity-100;
+  }
+}
+
+.copy-email::after {
+  content: "Copy Email into Clipboard";
+  @apply absolute text-gray-600 text-sm bg-linear-to-t from-orange-200/50 from-5% to-white to-5% px-1.5 p-2 rounded-sm whitespace-nowrap;
+
+  position-anchor: --email-tooltip;
+
+  top: anchor(bottom);
+  left: anchor(center);
+
+  translate: -50% -80px;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+
+  opacity: 0;
+  transition:
+    opacity 200ms ease,
+    translate 200ms ease;
+  pointer-events: none;
+}
+.copy-email:hover::after {
+  @apply opacity-100;
+}

@@ -4,6 +4,9 @@ import Title from "@/components/Title.astro";
 import Nav from "@/components/Nav.astro";
 import Canvas from "@/components/Canvas/Canvas.astro";
 import Meteors from "@/components/Meteors/Meteors.tsx";
+import Mail from "@/assets/Mail.astro";
+import Copy from "@/assets/Copy.astro";
+import Check from "@/assets/Check.astro";
 ---
 
 <Section class="flex flex-col justify-between items-center gap-10 relative">
@@ -20,14 +23,52 @@ import Meteors from "@/components/Meteors/Meteors.tsx";
     />
   </div>
   <Title />
-  <a
-    href="mailto:alejandrofullstack@proton.me"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% to-[#ff5833] to-20% border-2 border-action shadow-glow"
-  >
-    Send me an Email
-  </a>
+
+  <div class="flex items-center gap-3">
+    <a
+      href="mailto:alejandrofullstack@proton.me"
+      class="group overflow-y-hidden appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% to-[#ff5833] to-20% border-2 border-action shadow-glow"
+    >
+      <span class="transition-all duration-500 group-hover:blur-xs"
+        >Send me an Email</span
+      >
+      <Mail
+        class="transition-transform text-white duration-300 absolute inset-0 translate-y-10 m-auto group-hover:translate-y-0"
+      />
+    </a>
+
+    <button
+      id="copy-email-btn"
+      data-had-copied={false}
+      class="copy-email focus:border-action appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% transition-all to-[#ff5833] to-20% border-2 border-action shadow-glow cursor-pointer overflow-hidden"
+    >
+      <Copy />
+      <Check
+        class="size-6 text-emerald-100 transition-all opacity-0 absolute inset-0 m-auto duration-300 translate-y-12"
+      />
+    </button>
+  </div>
 
   <Canvas />
 </Section>
+
+<script>
+  const COPY_EMAIL_BUTTON_ID = "copy-email-btn";
+  const ATTR_NAME = "data-had-copied";
+  const EMAIL = "alejandrofullstack@proton.me";
+
+  const copyEmailBtn = document.getElementById(
+    COPY_EMAIL_BUTTON_ID,
+  ) as HTMLButtonElement;
+
+  copyEmailBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+    } catch (e) {
+      alert(e);
+    }
+
+    copyEmailBtn.setAttribute(ATTR_NAME, String(true));
+  });
+</script>
