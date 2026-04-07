@@ -1,33 +1,28 @@
 ---
-import Section from "@/layouts/Section.astro";
-import Layout from "@/layouts/Layout.astro";
-import BackLink from "@/components/Articles/BackLink.astro";
 import Header from "@/components/Articles/Header.astro";
+import Chapter from "@/layouts/Chapter.astro";
 import Picture from "@/components/Picture.astro";
-import Content from "./_components/Content.astro";
+import Introduction from "./_components/sections/Introduction.astro";
 ---
 
-<Layout title="Redis Clone">
-  <Section class="w-full flex sm:justify-center px-5 py-25">
-    <BackLink />
-    <div class="md:w-3/4 lg:w-2/3 flex flex-col items-center">
-      <Header
-        year="2024"
-        readingTime="30-38 minutes"
-        codeLink="https://github.com/dyxgou/redis"
-      >
-        Redis: The Swiss Army Knife of Data
-      </Header>
+<Chapter title="Introduction">
+  <div class="px-1 md:w-3/4 lg:w-2/3 flex flex-col items-center">
+    <Header
+      year="2024"
+      readingTime="30-38 minutes"
+      codeLink="https://github.com/dyxgou/redis"
+    >
+      Redis: The Swiss Army Knife of Data
+    </Header>
 
-      <Picture
-        class="appear w-full md:w-3/4 aspect-square sm:aspect-video border-4"
-        loading="eager"
-        src="/images/redis.webp"
-        alt="redis"
-        size={514}
-      />
+    <Picture
+      class="appear w-full sm:w-3/4 aspect-square sm:aspect-video border-4"
+      loading="eager"
+      src="/images/redis.webp"
+      alt="redis"
+      size={514}
+    />
 
-      <Content />
-    </div>
-  </Section>
-</Layout>
+    <Introduction />
+  </div>
+</Chapter>

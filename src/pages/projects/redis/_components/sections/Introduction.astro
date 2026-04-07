@@ -1,31 +1,96 @@
 ---
 import Heading from "@/components/Articles/Heading.astro";
+import Prose from "@/components/Articles/Prose.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import Link from "@/components/Articles/Links/Link.astro";
 ---
 
-<Heading id="introduction"> Introduction </Heading>
+<Prose>
+  <Heading id="introduction"> Introduction </Heading>
 
-<p>
-  Redis revolutionized the database world by embracing a radical idea:
-  <strong>complexity should exist within simplicity.</strong> This article serves
-  as your entry point into that philosophy. We will reverse-engineer Redis step by
-  step—starting from a simple <strong>TCP</strong> socket, implementing the Redis
-  Serialization Protocol <strong>(RESP)</strong>, and finally evaluating core
-  commands—all built in Golang using <strong
-    >elegant, minimalist solutions.</strong
-  >
-</p>
+  <p>
+    Most developers use <strong>Redis</strong> every day as a
+    <span class="italic">"black box"</span> that magically makes applications faster.
+    But for an experienced engineer, the real magic is not in the usage—it’s in the
+    <strong>architecture</strong>. Redis is a masterclass in minimalism, proving
+    that the most powerful systems are often the simplest ones.
+  </p>
 
-<p>
-  <strong>Note:</strong> 👋 This article is designed for anyone curious about how
-  Redis works under the hood. Instead of overwhelming you with thousands of lines
-  of code, we will focus on the essential algorithms and architectural principles
-  that power this <strong>Redis clone.</strong>
-</p>
+  <p>
+    In this article, we aren't just <strong>building a clone</strong>; we are
+    reverse-engineering a philosophy. We will take a deep dive into the guts of
+    networked systems, moving from raw <Keyword word="TCP Sockets" /> to the implementation
+    of <Keyword word="RESP" />
+    <strong>(Redis Serialization Protocol)</strong>, and finally into the heart
+    of in-memory command evaluation.
+  </p>
 
-<p>
-  Want to dive deeper? Check out the full project on <a
-    target="_blank"
-    rel="noopener noreferrer"
-    href="https://github.com/dyxgou/redis">GitHub</a
-  >! 🚀
-</p>
+  <h3 class="fraunces">How we will build our Clone:</h3>
+
+  <p>
+    To understand this system, we will follow a <strong>bottom-up</strong> path—starting
+    with the smallest unit of data and ending with a live network interface.
+  </p>
+
+  <ul>
+    <li>
+      <strong>Tokens (The Vocabulary):</strong>
+      A Token is the smallest atomic unit of a command. Think of them as the fundamental
+      building blocks—like verbs <Keyword word="GET" /> and nouns <Keyword
+        word="mykey"
+      />.
+    </li>
+
+    <li>
+      <strong>The Lexer (The Reader):</strong> If tokens are words, the <Keyword
+        word="Lexer"
+      /> is the "eye" that <strong>scans</strong> a sentence. It takes a raw string
+      of text and groups characters together to identify the words.
+    </li>
+
+    <li>
+      <strong>The Parser (The Grammar):</strong> Knowing the words <strong
+        >isn't enough</strong
+      >; you need to understand the sentence. The Parser acts as the
+      <Keyword word="grammarian" />, organizing tokens into a structured map
+      <Keyword word="AST" /> (Abstract Syntax Tree) so the computer knows exactly
+      what the user is asking.
+    </li>
+
+    <li>
+      <strong>The Evaluator (The Brain):</strong> Once the command is understood,
+      the <Keyword word="Evaluator" /> is the <strong>decision-maker</strong>.
+      It takes the parsed intent and translates it into a specific action.
+    </li>
+
+    <li>
+      <strong>The Store (The Memory):</strong> Every system needs a place to keep
+      its data. The <Keyword word="Store" /> is our <strong>vault</strong> —a thread-safe,
+      in-memory environment where information is kept for near-instant retrieval.
+    </li>
+
+    <li>
+      <strong>TCP Implementation (The Telephone):</strong> Finally, we’ll build the
+      <strong>communication line</strong>. While there are many ways to handle
+      networking, we’ll implement raw sockets to let the outside world talk to
+      our engine.
+    </li>
+  </ul>
+
+  <p>
+    This article has been a labor of love over the past year, and it wouldn't be
+    in its current form without the support of some incredible people. I want to
+    express my deepest gratitude to my <strong>beautiful girlfriend</strong>,
+    whose feedback kept me on track. To my <strong>engineer friends</strong> and
+    <strong>my dad</strong>: thank you for your patience in reading through
+    every single iteration of this draft—your critiques were invaluable.
+    Finally, a special thanks to <strong>Thorsten Ball</strong>; his book, <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://interpreterbook.com/">Writing An Interpreter In Go</a
+    >, was the spark that inspired this entire project and provided the
+    foundation for the <strong>Redis clone</strong> we are about to build.
+  </p>
+</Prose>
+
+<Link section="requirements" />

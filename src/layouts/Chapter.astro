@@ -1,0 +1,18 @@
+---
+import Layout from "./Layout.astro";
+import Section from "./Section.astro";
+import BackLink from "@/components/Articles/BackLink.astro";
+
+interface Props {
+  title: string;
+}
+---
+
+<Layout title={Astro.props.title}>
+  <Section class="w-full flex justify-center px-5 py-25">
+    <BackLink />
+    <div class="w-full flex flex-col items-center">
+      <slot />
+    </div>
+  </Section>
+</Layout>
