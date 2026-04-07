@@ -26,7 +26,7 @@
 }
 
 .fraunces {
-  font-family: "Fraunces", serif;
+  font-family: var(--font-fraunces), serif;
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
@@ -39,14 +39,14 @@
 }
 
 .code {
-  font-family: "Source Code Pro", monospace;
+  font-family: var(--font-geist), monospace;
   font-optical-sizing: auto;
-  font-weight: 300;
+  font-weight: 400;
   font-style: normal;
 }
 
 .inter {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -202,6 +202,7 @@
     translate 200ms ease;
   pointer-events: none;
 }
+
 .copy-email:hover::after {
   @apply opacity-100;
 }

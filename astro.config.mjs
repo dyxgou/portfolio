@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -14,5 +14,28 @@ export default defineConfig({
   },
 
   integrations: [preact(), partytown()],
-});
 
+  fonts: [
+    {
+      provider: fontProviders.fontsource(),
+      name: "Fraunces",
+      cssVariable: "--font-fraunces",
+      weights: [300],
+      styles: ["normal"],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Inter",
+      cssVariable: "--font-inter",
+      weights: [400],
+      styles: ["normal"],
+    },
+    {
+      provider: fontProviders.fontsource(),
+      name: "Geist",
+      cssVariable: "--font-geist",
+      weights: [300, 400, 600],
+      styles: ["normal"],
+    },
+  ],
+});

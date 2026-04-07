@@ -1,6 +1,7 @@
 ---
 import "@/styles/global.css";
 import Meta from "@/components/Meta.astro";
+import { Font } from "astro:assets";
 
 interface Props {
   title: string;
@@ -18,20 +19,10 @@ interface Props {
       content="This is my Portfolio to promote my working skills"
     />
     <meta name="author" content="Diego Páez" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,WONK@9..144,300,1&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap"
-      rel="stylesheet"
-    />
+    <Font cssVariable="--font-fraunces" />
+    <Font cssVariable="--font-inter" />
+    <Font cssVariable="--font-geist" />
+
     <title>{Astro.props.title}</title>
 
     <Meta />
