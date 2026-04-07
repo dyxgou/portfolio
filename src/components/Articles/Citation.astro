@@ -1,0 +1,22 @@
+---
+interface Props {
+  author: string;
+  title: string;
+  url: string;
+}
+
+const { author, title, url } = Astro.props;
+---
+
+<figure>
+  <slot />
+
+  <figcaption class="text-center">
+    Source: {author}, <a
+      class="italic"
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer">"{title}"</a
+    >
+  </figcaption>
+</figure>

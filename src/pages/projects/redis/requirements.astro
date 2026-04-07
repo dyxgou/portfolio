@@ -1,0 +1,112 @@
+---
+import Heading from "@/components/Articles/Heading.astro";
+import Chapter from "@/layouts/Chapter.astro";
+import Prose from "@/components/Articles/Prose.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import Picture from "@/components/Picture.astro";
+import Citation from "@/components/Articles/Citation.astro";
+import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
+---
+
+<Chapter title="Requirements of the Project">
+  <Heading id="requirements"> Understanding the Requirements </Heading>
+  <Prose>
+    <p>
+      Before we write a single line of code, we must define our mission. <strong
+        >As senior engineers</strong
+      >, we first have to understand and plan for the problem we are going to
+      solve. To understand our requirements, we first have to understand <strong
+        >the problem</strong
+      > Redis was created to solve.
+    </p>
+
+    <h3 class="fraunces">The Problem: Disk Speed Bottleneck</h3>
+
+    <p>
+      Traditional databases are bound by the <strong>physical speed</strong> of a
+      hard drive. Even with modern <Keyword word="SSDs" />, reading from a disk
+      compared to reading from RAM is like going from the speed of a <strong
+        >turtle</strong
+      > to the speed of a <strong>supersonic jet.</strong>
+    </p>
+
+    <Citation
+      author="Branch Education"
+      title="How does Computer Memory Work? 💻🛠"
+      url="https://youtu.be/7J7X7aZvMXQ"
+    >
+      <Picture
+        class="w-full aspect-video border-4"
+        loading="eager"
+        src="/articles/DRAMvsSSD.webp"
+        alt="DRAMvsSSD"
+        size={514}
+      />
+    </Citation>
+
+    <p>
+      <strong>Redis</strong> is an in-memory database that functions as a high-speed
+      <strong>cache layer</strong> for traditional databases. It uses this performance
+      gap to its advantage, <strong
+        >storing the most frequently requested data</strong
+      > in RAM to speed up operations across the entire system.
+    </p>
+
+    <h3 class="fraunces">Our Primary Requirements: Latency & Concurrency</h3>
+
+    <p>
+      To build a successful clone, our system must excel in two specific areas:
+    </p>
+
+    <ol>
+      <li>
+        <strong>Optimized Lifecycle:</strong> Every stage of the command lifecycle
+        —<strong>from Tokenization</strong> to <strong>Storage</strong> —must be
+        as fast as possible. While we will prioritize clarity and education in our
+        implementation, I will highlight specific optimizations throughout the article
+        that you can use to push your <strong>clone's performance</strong> even further.
+      </li>
+
+      <li>
+        <strong>High Concurrency:</strong> Our server must handle <strong
+          >thousands of simultaneous connections</strong
+        >. We will use Go’s basic concurrency model for this purpose and run
+        benchmarks to verify our results. Keep in mind that while we are keeping
+        it simple for this guide, I’ll point out more advanced architectural
+        models you can use to <strong>push these limits.</strong>
+      </li>
+    </ol>
+
+    <h3 class="fraunces">Engineering Constrains</h3>
+
+    <ol>
+      <li>
+        <strong>Standard Library Only:</strong> No external dependencies. We build
+        every component ourselves to master the implementation details.
+      </li>
+
+      <li>
+        <strong>RESP Compliance:</strong> We will build our own custom Client to
+        handle <strong>serialization and communication.</strong> To ensure absolute
+        accuracy, our implementation will strictly follow the official <a
+          href="https://redis.io/docs/latest/develop/reference/protocol-spec/"
+          rel="noopener noreferer"
+          target="_blank">RESP specifications</a
+        >
+        provided by Redis. This allows us to master the protocol from both the sender
+        and receiver perspective.
+      </li>
+    </ol>
+
+    <strong>The Definition of Success:</strong> We will be done when we have a fully
+    functional Redis clone with all of its basic features implemented.
+
+    <p>
+      I hope you’re as excited as I am! We’re about to learn a lot about Redis,
+      Parsers, and even a bit of Interpreters. So, open your code editor and
+      grab a cup of coffee—<strong>this is going to be a great project!</strong>
+    </p>
+  </Prose>
+
+  <LinkContainer prevSection="introduction" nextSection="resp" />
+</Chapter>

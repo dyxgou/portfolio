@@ -1,0 +1,18 @@
+---
+import type { Sections } from "./articleSections";
+import Link from "./Link.astro";
+
+interface Props {
+  prevSection: Sections;
+  nextSection: Sections;
+}
+
+const { prevSection, nextSection } = Astro.props;
+---
+
+<nav
+  class="w-4xl flex gap-3 flex-col lg:flex-row items-center justify-centerDefining the Basic architecture of Redis"
+>
+  <Link section={prevSection} isPrevLink />
+  <Link section={nextSection} />
+</nav>
