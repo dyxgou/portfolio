@@ -27,7 +27,7 @@ import Check from "@/assets/Check.astro";
   <div class="flex items-center gap-3">
     <a
       href="mailto:alejandrofullstack@proton.me"
-      class="group overflow-y-hidden appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% to-[#ff5833] to-20% border-2 border-action shadow-glow"
+      class="group overflow-y-hidden appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% to-action to-20% border-2 border-action shadow-glow"
     >
       <span class="transition-all duration-500 group-hover:blur-xs"
         >Send me an Email</span
@@ -39,8 +39,10 @@ import Check from "@/assets/Check.astro";
 
     <button
       id="copy-email-btn"
+      aria-label="Copy Mail"
+      name="Copy Mail"
       data-had-copied={false}
-      class="copy-email focus:border-action appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% transition-all to-[#ff5833] to-20% border-2 border-action shadow-glow cursor-pointer overflow-hidden"
+      class="copy-email focus:border-action appear inter text-center text-xl text-white p-4 rounded-2xl bg-linear-to-b from-[#ff6d2c] from-5% transition-all to-action to-20% border-2 border-action shadow-glow cursor-pointer overflow-hidden"
     >
       <Copy />
       <Check
