@@ -13,38 +13,30 @@ const { chapter, href, title, subtitle } = articleSections[section];
 
 <a
   href={href}
-  class="group w-full lg:max-w-1/2 rounded-lg border border-gray-400 bg-white p-5 transition-colors duration-400 hover:border-orange-char"
+  class="relative group w-full md:max-w-1/2 flex items-center justify-between link-icon rounded-lg border border-gray-400 bg-white p-5 transition-colors duration-400 hover:border-orange-char"
+  data-is-prev-link={!!isPrevLink}
 >
-  <div
-    class:list={[
-      "flex items-center justify-between",
-      { "flex-row-reverse": !!isPrevLink },
-    ]}
-  >
-    <div class:list={[{ "text-right": !!isPrevLink }]}>
-      <span class="text-xs code uppercase tracking-wider text-gray-500">
-        Chapter {chapter}
-      </span>
+  <div>
+    <span class="text-xs code uppercase tracking-wider text-gray-500">
+      Chapter {chapter}
+    </span>
 
-      <h3
-        class="text-sm sm:text-base mt-1 font-semibold text-slate-700 group-hover:text-orange-char transition-colors truncate"
-      >
-        {title}
-      </h3>
-
-      <span
-        class="text-sm sm:text-base mt-0.5 text-gray-500 truncate text-wrap"
-      >
-        {subtitle}
-      </span>
-    </div>
-
-    <div
-      class="flex items-center justify-center w-11 h-10 bg-gray-200 rounded-full group-hover:bg-orange-500 transition-colors"
+    <h3
+      class="text-sm sm:text-base mt-1 font-semibold text-slate-700 group-hover:text-orange-char transition-colors truncate"
     >
-      <Arrow
-        class={`size-5 transition-transform duration-300 ${!isPrevLink ? "-rotate-45 group-hover:rotate-0" : "-rotate-135 group-hover:-rotate-180"} group-hover:text-white`}
-      />
-    </div>
+      {title}
+    </h3>
+
+    <span class="text-sm sm:text-base mt-0.5 text-gray-500 truncate text-wrap">
+      {subtitle}
+    </span>
   </div>
+
+  <i
+    class="absolute -top-4 -right-4 lg:static flex items-center justify-center w-11 h-10 bg-gray-200 rounded-full group-hover:bg-orange-500 transition-colors"
+  >
+    <Arrow
+      class={`size-5 transition-transform duration-300 -rotate-45 group-hover:rotate-0 group-hover:text-white`}
+    />
+  </i>
 </a>

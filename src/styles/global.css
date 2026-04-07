@@ -206,3 +206,15 @@
 .copy-email:hover::after {
   @apply opacity-100;
 }
+
+.link-icon[data-is-prev-link="true"] {
+  @apply text-right flex-row-reverse;
+
+  & > i {
+    @apply -left-4;
+
+    & > svg {
+      @apply -rotate-135 group-hover:-rotate-180;
+    }
+  }
+}
