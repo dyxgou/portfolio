@@ -13,7 +13,6 @@
   --color-action: #ff5833;
   --color-technology: #313336;
   --color-grey: #ededed;
-  --font-code: "Fira Code", monospace;
   --underline-transparent: underline transparent;
   --shadow-glow: #ffffff 0px -10px 25px -12px inset;
   --shadow-nav:
@@ -39,7 +38,7 @@
 }
 
 .code {
-  font-family: var(--font-geist), monospace;
+  font-family: var(--font-code), monospace;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -154,7 +153,7 @@
 }
 
 .prose-settings {
-  @apply md:prose-lg lg:prose-xl prose-strong:text-slate-800 
+  @apply md:prose-lg lg:prose-xl prose-strong:text-slate-900 
     prose-code:before:content-[''] prose-code:after:content-[''] md:prose-code:prose-lg
     prose-pre:rounded-t-none prose-pre:mt-0 prose-a:text-sky-600;
 }

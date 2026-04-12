@@ -32,9 +32,9 @@ export default defineConfig({
     },
     {
       provider: fontProviders.fontsource(),
-      name: "Geist",
-      cssVariable: "--font-geist",
-      weights: [300, 400, 600],
+      name: "Source Code Pro",
+      cssVariable: "--font-code",
+      weights: [400],
       styles: ["normal"],
     },
   ],
