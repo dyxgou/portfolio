@@ -1,0 +1,151 @@
+---
+import Chapter from "@/layouts/Chapter.astro";
+import Heading from "@/components/Articles/Heading.astro";
+import Prose from "@/components/Articles/Prose.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import Picture from "@/components/Articles/Picture.astro";
+import SETExample from "./_components/SETExample.astro";
+import SETTokens from "./_components/SETTokens.astro";
+import Tokens from "./_components/Tokens.astro";
+---
+
+<Chapter title="What is a Token?">
+  <Heading>How we communicate with Redis?</Heading>
+
+  <Prose>
+    <p>
+      If you have used <strong>Redis</strong> before, you know that it follows a
+      traditional <strong>Client-Server architecture.</strong> One or many Redis
+      Clients send commands like <Keyword word="GET" />, <Keyword word="SET" />,
+      or <Keyword word="DEL" /> to a single central <strong
+        >Redis Server.</strong
+      > The server reads the command from the connection, parses it, evaluates it,
+      and writes the response back to the client.
+    </p>
+
+    <p>
+      For the server to understand a command, it first needs to transform it
+      into a meaningful representation — rather than treating it as plain text.
+      That process is called <strong>Parsing.</strong>
+    </p>
+
+    <p>
+      So, before we can evaluate a Command, we are going to transform it twice
+      into more accessible representations:
+    </p>
+
+    <Picture
+      class="w-full my-40"
+      loading="eager"
+      src="/articles/commands-transformations.svg"
+      alt="DRAMvsSSD"
+      size={514}
+    />
+
+    <p>
+      The first transformation is turning our <strong>Raw Command</strong> into <Keyword
+        word="Tokens"
+      />, which are the <strong>atomic units</strong> that compose a Command Representation.
+
+      <br />
+      The process of turning raw text into meaningful Tokens is called <strong
+        >Lexical Analysis</strong
+      >, and it's done by a <Keyword word="Lexer" />.
+    </p>
+
+    <p>For example, if we feed this command to our <Keyword word="Lexer" />:</p>
+
+    <SETExample />
+
+    <p>
+      What comes out of our <Keyword word="Lexer" /> looks something like this:
+    </p>
+
+    <SETTokens />
+
+    <p>
+      Notice that not all Tokens are equal. <Keyword word="SET" /> is a <strong
+        >command token</strong
+      >
+      — it represents the operation we want to perform. <Keyword
+        word=`Identifier("userName")`
+      />
+      and <Keyword word=`Identifier("Alejandro")` /> are <strong
+        >identifier tokens</strong
+      > — they carry the arguments. Each Token knows both <strong
+        >what kind it is</strong
+      > and <strong>what it contains.</strong>
+    </p>
+
+    <p>This is the theory — let's take a look at the code!</p>
+
+    <h3 class="fraunces">Defining Tokens</h3>
+
+    <p>
+      There are <strong>several kinds</strong> of Tokens our system should handle:
+    </p>
+
+    <ul>
+      <li>
+        <strong>Commands:</strong> The instructions (e.g., <Keyword
+          word="GET"
+        />, <Keyword word="SET" />, <Keyword word="PING" />).
+      </li>
+
+      <li>
+        <strong>Identifiers:</strong> The keys or values (e.g., <Keyword
+          word="userName"
+        />, <Keyword word="Alejandro" />).
+      </li>
+
+      <li>
+        <strong>Numbers:</strong> Numeric values used in operations (e.g., <Keyword
+          word="100"
+        />).
+      </li>
+    </ul>
+
+    <Picture
+      src="/articles/token-example.svg"
+      alt="Command tokens"
+      size={1024}
+    />
+
+    <p>
+      As shown in the diagram above, the command <Keyword
+        word="SET userName Alejandro"
+      /> is not treated as one long string. Instead, the Lexer identifies <strong
+        >three distinct</strong
+      >
+      Tokens: a <Keyword word="SET" /> command token followed by two <Keyword
+        word="Identifier"
+      /> tokens.
+    </p>
+
+    <h3 class="fraunces my-20">Defining TokenKinds</h3>
+
+    <p>
+      Now that we've defined the concept of a Token, we need a way to categorize
+      them in code. We will create a <Keyword word="TokenKind" /> type to represent
+      every possible category our Lexer might encounter — such as <Keyword
+        word="Commands"
+      />, <Keyword word="Identifiers" />, or <Keyword word="Numbers" />. We'll
+      also include <strong>special</strong> TokenKinds that every Lexer needs.
+    </p>
+
+    <ul>
+      <li>
+        <Keyword word="EOF" />: Stands for <strong>End Of File</strong> and signals
+        that there is no more input to read.
+      </li>
+      <li>
+        <Keyword word="ILLEGAL" />: represents any character our Lexer doesn't
+        recognize.
+      </li>
+    </ul>
+
+    <p>Enough theory — it's time to write our first lines of code.</p>
+
+    <Tokens />
+  </Prose>
+</Chapter>

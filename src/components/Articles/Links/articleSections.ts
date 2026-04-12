@@ -1,4 +1,4 @@
-export type Sections = "introduction" | "requirements" | "resp";
+export type Sections = "introduction" | "requirements" | "resp" | "token";
 
 export type ArticleSection = {
   chapter: number;
@@ -25,6 +25,12 @@ const articleSections: Record<Sections, ArticleSection> = {
     title: "Requirements",
     href: getRedisHREF("requirements"),
     subtitle: "Defining the Basic architecture of Redis",
+  },
+  token: {
+    chapter: 3,
+    title: "How we Communicate with Redis?",
+    href: getRedisHREF("token"),
+    subtitle: "Understanding how Redis Communicates",
   },
   resp: {
     chapter: 3,
