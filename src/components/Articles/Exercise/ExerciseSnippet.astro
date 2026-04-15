@@ -1,0 +1,17 @@
+---
+import type { ComponentProps } from "astro/types";
+import { Code } from "astro:components";
+
+interface Props extends ComponentProps<typeof Code> {}
+
+const { ...code } = Astro.props;
+---
+
+<Code
+  {...code}
+  lang="actionscript-3"
+  class="code"
+  wrap
+  tabindex={-1}
+  theme="horizon-bright"
+/>

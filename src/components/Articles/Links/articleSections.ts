@@ -1,4 +1,9 @@
-export type Sections = "introduction" | "requirements" | "resp" | "token";
+export type Sections =
+  | "introduction"
+  | "requirements"
+  | "resp"
+  | "token"
+  | "lexer";
 
 export type ArticleSection = {
   chapter: number;
@@ -32,11 +37,17 @@ const articleSections: Record<Sections, ArticleSection> = {
     href: getRedisHREF("token"),
     subtitle: "Understanding how Redis Communicates",
   },
+  lexer: {
+    chapter: 4,
+    title: "Programming a Lexer",
+    href: getRedisHREF("lexer"),
+    subtitle: "Transforming Raw Commands into Tokens with a Lexer",
+  },
   resp: {
     chapter: 3,
     title: "The Redis Serialization Protocol",
     href: getRedisHREF("resp"),
-    subtitle: "Defining the Basic architecture of Redis",
+    subtitle: "Understanding the Redis Serialization Protocol",
   },
 };
 

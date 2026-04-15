@@ -7,6 +7,9 @@ import Picture from "@/components/Articles/Picture.astro";
 import SETExample from "./_components/SETExample.astro";
 import SETTokens from "./_components/SETTokens.astro";
 import Tokens from "./_components/Tokens.astro";
+import TokenStruct from "./_components/TokenStruct.astro";
+import TokensExercise from "./_components/TokensExercise.astro";
+import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 ---
 
 <Chapter title="What is a Token?">
@@ -122,12 +125,18 @@ import Tokens from "./_components/Tokens.astro";
       /> tokens.
     </p>
 
+    <p>
+      The <strong>kind</strong> of these Tokens is called <Keyword
+        word="TokenKind"
+      />, and it's the <strong>first entity</strong> that we will define in our Project!
+    </p>
+
     <h3 class="fraunces my-20">Defining TokenKinds</h3>
 
     <p>
-      Now that we've defined the concept of a Token, we need a way to categorize
-      them in code. We will create a <Keyword word="TokenKind" /> type to represent
-      every possible category our Lexer might encounter — such as <Keyword
+      Now that we've establish the concept of a Token, we need a way to
+      categorize them in code. We will create a <Keyword word="TokenKind" /> type
+      to represent every possible category our Lexer might encounter — such as <Keyword
         word="Commands"
       />, <Keyword word="Identifiers" />, or <Keyword word="Numbers" />. We'll
       also include <strong>special</strong> TokenKinds that every Lexer needs.
@@ -147,5 +156,92 @@ import Tokens from "./_components/Tokens.astro";
     <p>Enough theory — it's time to write our first lines of code.</p>
 
     <Tokens />
+
+    <strong>
+      Why use a <Keyword word="byte" /> for <Keyword word="TokenKind" />?
+    </strong>
+
+    <p>
+      You might wonder why we chose a <Keyword word="byte" /> instead of a <Keyword
+        word="string"
+      />
+      or a standard <Keyword word="int" />. There are two primary engineering
+      reasons:
+    </p>
+
+    <ol>
+      <li>
+        <strong>Memory Efficiency:</strong> Since our Lexer will generate a new instance
+        for every single word or symbol in a command, using a <strong
+          >1-byte</strong
+        > type keeps our memory footprint as small as possible.
+      </li>
+
+      <li>
+        <strong>Sufficient Capacity:</strong> A <Keyword word="byte" /> ( an alias
+        for <Keyword word="uint8" /> ) can represent up to 256 unique values. Since
+        our Redis clone will only have a few dozen command types and symbols, this
+        is the perfect, lightweight fit for our <Keyword word="TokenKind" />.
+      </li>
+    </ol>
+
+    <p>
+      With our <Keyword word="TokenKind" /> defined, we now need a container to hold
+      two things: the <strong>kind of token</strong> it is, and the <strong
+        >raw text</strong
+      > it was derived from — which we'll call the <Keyword word="Literal" />.
+    </p>
+
+    <TokenStruct />
+
+    <p>The <Keyword word="Token" /> <strong>struct</strong> is composed of:</p>
+
+    <ol>
+      <li>
+        <Keyword word="kind" />: The <Keyword word="TokenKind" /> that tells the
+        <Keyword word="Lexer" /> how to interpret the token — whether it's a command,
+        an identifier, or something else entirely.
+      </li>
+
+      <li>
+        <Keyword word="Literal" />: The <strong>raw string</strong> value extracted
+        from the input (e.g., <Keyword word="GET" /> or <Keyword
+          word="mykey"
+        />).
+      </li>
+    </ol>
+
+    <p>
+      🔥 <strong>Fun Fact:</strong> Even thought i just said that the <Keyword
+        word="Token"
+      /> struct should be as lightweight as possible, this is not the <strong
+        >most lightweight representation</strong
+      > for a Token.
+    </p>
+
+    <p>
+      The <strong>Golang Parser</strong> uses an amazing technique: instead of storing
+      a piece of text in the struct as we do, they just store the <strong
+        >indices</strong
+      > from where the piece of text beings and ends, a simple and ingenious trick
+      if you want to implement it, <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://github.com/golang/go/blob/3fd729b2a14a7efcf08465cbea60a74da5457f06/src/go/token/position.go#L83"
+        >Check the details here</a
+      >.
+    </p>
   </Prose>
+
+  <TokensExercise />
+
+  <Prose>
+    <p>
+      In the next chapter, we will build the <Keyword word="Lexer" /> — the engine
+      responsible for turning a raw <strong>Redis command</strong> into exactly these
+      <strong>tokens</strong>.
+    </p>
+  </Prose>
+
+  <LinkContainer prevSection="requirements" nextSection="lexer" />
 </Chapter>

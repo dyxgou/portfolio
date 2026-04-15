@@ -158,6 +158,12 @@
     prose-pre:rounded-t-none prose-pre:mt-0 prose-a:text-sky-600;
 }
 
+.prose-settings-md {
+  @apply prose prose-strong:text-slate-900 
+    prose-code:before:content-[''] prose-code:after:content-[''] md:prose-code:prose
+    prose-pre:rounded-t-none prose-pre:mt-0 prose-a:text-sky-600;
+}
+
 .content-visibility {
   content-visibility: visible;
 }

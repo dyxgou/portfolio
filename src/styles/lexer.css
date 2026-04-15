@@ -4,7 +4,7 @@
 }
 
 @theme {
-  --color-orange-char: oklch(0.55 0.15 45);
+  --color-orange-char: oklch(0.55 0.15 35);
 }
 
 @media (width >= 40rem) {

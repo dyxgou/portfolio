@@ -1,0 +1,40 @@
+---
+import Lightbulb from "@/assets/Lightbulb.astro";
+
+interface Props {
+  title: string;
+  exercise: number;
+}
+
+const { exercise, title } = Astro.props;
+---
+
+<aside
+  class="relative rounded-lg border-l-4 border-l-orange-char p-4 inset-shadow-sm inset-shadow-stone-200"
+  role="note"
+  aria-label="Exercise"
+>
+  {/* Header */}
+  <header class="flex items-center gap-3 mb-3">
+    <i
+      class="flex items-center justify-center p-1 rounded bg-orange-char text-white"
+    >
+      <Lightbulb />
+    </i>
+
+    <h4 class="flex items-baseline justify-center gap-2">
+      <span
+        class="text-xs sm:text-base font-bold uppercase tracking-normal sm:tracking-wider text-orange-char"
+      >
+        Exercise {exercise}
+      </span>
+      <span class="text-slate-400">—</span>
+      <span class="text-sm sm:text-base font-medium inter">{title}</span>
+    </h4>
+  </header>
+
+  {/* Content */}
+  <div class="prose-settings-md">
+    <slot />
+  </div>
+</aside>
