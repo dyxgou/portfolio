@@ -17,7 +17,7 @@ const Lexer: FunctionalComponent = () => {
   return (
     <div
       id="lexer-animation"
-      className="w-full rounded-lg border-1 border-gray-300 bg-white overflow-hidden"
+      className="rounded-lg border border-gray-300 bg-white overflow-hidden"
     >
       <Header
         restart={restart}

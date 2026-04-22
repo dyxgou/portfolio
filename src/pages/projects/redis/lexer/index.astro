@@ -1,0 +1,111 @@
+---
+import Chapter from "@/layouts/Chapter.astro";
+import Heading from "@/components/Articles/Heading.astro";
+import Prose from "@/components/Articles/Prose.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import SetExTokens from "./_components/SetExTokens.astro";
+import SetExCommand from "./_components/SetExCommand.astro";
+import SerializedExampleSet from "./_components/SerializedExampleSet.astro";
+import Lexer from "@/components/Lexer/Lexer";
+import Exercise from "@/components/Articles/Exercise/Exercise.astro";
+---
+
+<Chapter title="Implementing a Lexer for Redis">
+  <Heading>Implementing a Lexer for Redis</Heading>
+  <Prose>
+    <p>
+      Think of the <Keyword word="Lexer" /> — also called a Scanner — as <strong
+        >your eyes</strong
+      >
+      reading through a page. If you read the phrase "Redis is fast", you don't think
+      of it as 13 characters and spaces. Instead, you instantly group those characters
+      into three distinct concepts: <strong>[Redis]</strong>, <strong
+        >[is]</strong
+      >, and <strong>[fast]</strong>.
+    </p>
+
+    <p>
+      In computer science, this process is known as <strong
+        >Lexical Analysis</strong
+      > — or simply lexing. A Lexer performs this exact task for our Commands: it
+      takes a raw Command string and transforms it into an organized
+      <Keyword word="[]Token" />.
+    </p>
+
+    <p>Here's an example. This command is given to the Lexer:</p>
+
+    <SetExCommand />
+
+    <p>The output that the Lexer produces kinda looks like this:</p>
+
+    <SetExTokens />
+
+    <p>
+      To achieve this result we will use a <strong>Two-Pointer strategy</strong
+      >. Our two pointers each have a distinct role:
+    </p>
+
+    <ul>
+      <li>
+        <Keyword word="pos" /> is our <strong>focus</strong> — it points to the character
+        we are currently reading.
+      </li>
+
+      <li>
+        <Keyword word="readPos" /> is our <strong>scout</strong> — it always sits
+        one step ahead, allowing us to peek at what's coming next.
+      </li>
+    </ul>
+
+    <p>
+      The Redis Server never receives a raw command like <Keyword
+        word="SET author Alejandro"
+      />. What actually arrives is its <strong>serialized version</strong>,
+      which carries metadata about each "word" on our Command — its <Keyword
+        word="type"
+      /> and <Keyword word="length" /> — allowing the Lexer to make <strong
+        >assumptions</strong
+      > before it even begins reading a Token. For example, that same <Keyword
+        word="SET"
+      /> command looks like now serialized.
+    </p>
+
+    <SerializedExampleSet />
+
+    <p>
+      We will see exactly what assumptions this unlocks when we get to the Redis
+      Serialization Protocol (<Keyword word="RESP" />) chapter.
+    </p>
+    <Lexer client:load />
+  </Prose>
+
+  <Exercise title="Analize Lexer Mechanics" exercise={2}>
+    <p>
+      Watch the animation above <strong>carefully</strong> and ask yourself the following
+      questions before moving on:
+    </p>
+
+    <ol>
+      <li>
+        At what point does <Keyword word="pos" /> advance versus <Keyword
+          word="readPos"
+        />?
+      </li>
+      <li>
+        When does the Lexer decide that a <strong>Token</strong> is complete?
+      </li>
+      <li>
+        What happens to the pointers when the Lexer moves from <strong
+          >one Token</strong
+        > to the <strong>next?</strong>
+      </li>
+    </ol>
+
+    <p>
+      There are no wrong answers here — the goal is to build an <strong
+        >intuition</strong
+      > for the scanning process. Keep your observations in mind, because in the
+      next section we are going to implement exactly what you just watched.
+    </p>
+  </Exercise>
+</Chapter>
