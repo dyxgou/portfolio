@@ -8,10 +8,11 @@ import SetExCommand from "./_components/SetExCommand.astro";
 import SerializedExampleSet from "./_components/SerializedExampleSet.astro";
 import Lexer from "@/components/Lexer/Lexer";
 import Exercise from "@/components/Articles/Exercise/Exercise.astro";
+import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 ---
 
-<Chapter title="Implementing a Lexer for Redis">
-  <Heading>Implementing a Lexer for Redis</Heading>
+<Chapter title="Uderstanding the Lexer Mechanics">
+  <Heading>Understanding the Lexer Mechanics</Heading>
   <Prose>
     <p>
       Think of the <Keyword word="Lexer" /> — also called a Scanner — as <strong
@@ -79,7 +80,7 @@ import Exercise from "@/components/Articles/Exercise/Exercise.astro";
     <Lexer client:load />
   </Prose>
 
-  <Exercise title="Analize Lexer Mechanics" exercise={2}>
+  <Exercise class="mb-20" title="Analize Lexer Mechanics" exercise={2}>
     <p>
       Watch the animation above <strong>carefully</strong> and ask yourself the following
       questions before moving on:
@@ -108,4 +109,6 @@ import Exercise from "@/components/Articles/Exercise/Exercise.astro";
       next section we are going to implement exactly what you just watched.
     </p>
   </Exercise>
+
+  <LinkContainer prevSection="token" nextSection="lexer-implementation" />
 </Chapter>
