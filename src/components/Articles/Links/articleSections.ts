@@ -3,7 +3,8 @@ export type Sections =
   | "requirements"
   | "resp"
   | "token"
-  | "lexer";
+  | "lexer"
+  | "lexer-implementation";
 
 export type ArticleSection = {
   chapter: number;
@@ -39,15 +40,15 @@ const articleSections: Record<Sections, ArticleSection> = {
   },
   lexer: {
     chapter: 4,
-    title: "Programming a Lexer",
+    title: "Understanding how a Lexer works",
     href: getRedisHREF("lexer"),
     subtitle: "Transforming Raw Commands into Tokens with a Lexer",
   },
-  resp: {
-    chapter: 3,
-    title: "The Redis Serialization Protocol",
-    href: getRedisHREF("resp"),
-    subtitle: "Understanding the Redis Serialization Protocol",
+  "lexer-implementation": {
+    chapter: 5,
+    title: "Implementing a Lexer in Golang",
+    href: getRedisHREF("lexer-implementation"),
+    subtitle: "Finally starting Coding a Lexer",
   },
 };
 

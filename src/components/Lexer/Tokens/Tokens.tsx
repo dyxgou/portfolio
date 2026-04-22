@@ -15,9 +15,9 @@ const Tokens: FunctionalComponent<TokensProps> = ({ tokens, pos, readPos }) => {
   const { extractedTokens, state } = useExtractedTokens(tokens, pos);
 
   return (
-    <footer className="px-6 pb-2">
+    <footer className="px-6 py-2">
       <Header />
-      <section className="min-h-[80px] mt-2 flex flex-wrap gap-2 items-start">
+      <section className="min-h-20 mt-2 flex flex-wrap gap-2 items-start">
         {tokens.length === 0 ? (
           <span className="text-sm text-slate-400 italic">
             No tokens extracted yet...

@@ -3,14 +3,18 @@ import Lightbulb from "@/assets/Lightbulb.astro";
 
 interface Props {
   title: string;
+  class?: string;
   exercise: number;
 }
 
-const { exercise, title } = Astro.props;
+const { class: classList, exercise, title } = Astro.props;
 ---
 
 <aside
-  class="relative rounded-lg border-l-4 border-l-orange-char p-4 inset-shadow-sm inset-shadow-stone-200"
+  class:list={[
+    "relative rounded-lg border-l-4 border-l-orange-char p-4 inset-shadow-sm inset-shadow-stone-200",
+    classList,
+  ]}
   role="note"
   aria-label="Exercise"
 >
