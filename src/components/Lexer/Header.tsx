@@ -29,7 +29,7 @@ const Header: FunctionalComponent<HeaderProps> = ({
   };
 
   return (
-    <header className="flex items-center bg-slate-100 border-b-1 border-gray-300 justify-between px-4 py-3">
+    <header className="flex items-center bg-slate-100 border-b border-gray-300 justify-between px-4 py-3">
       <span className="text-base text-gray-700 code">Lexer Visualization</span>
       <div className="flex items-center gap-2 lexer-buttons">
         <button onClick={handleRestart}>
