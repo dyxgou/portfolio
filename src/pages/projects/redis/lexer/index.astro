@@ -72,11 +72,20 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
     </p>
 
     <SerializedExampleSet />
+    <p>
+      📝 <strong>Note:</strong> Don't worry about decoding every character — just
+      notice two things: the <Keyword word="\\r\\n" /> boundary markers appearing
+      <strong>repeatedly</strong>, and the numbers like <Keyword word="$3" /> and
+      <Keyword word="$6" /> that tell the server how long each element is before
+      it even begins reading it. We will unpack everything else when we get to the
+      RESP chapter.
+    </p>
 
     <p>
-      We will see exactly what assumptions this unlocks when we get to the Redis
-      Serialization Protocol (<Keyword word="RESP" />) chapter.
+      Before we dive into code, take a moment to <strong>internalize</strong> the
+      mechanics of a Lexer through the <strong>following animation.</strong>
     </p>
+
     <Lexer client:load />
   </Prose>
 
