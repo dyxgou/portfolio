@@ -1,7 +1,6 @@
 export type Sections =
   | "introduction"
   | "requirements"
-  | "resp"
   | "token"
   | "lexer"
   | "lexer-implementation";
@@ -23,7 +22,7 @@ const articleSections: Record<Sections, ArticleSection> = {
   introduction: {
     chapter: 1,
     title: "Introduction",
-    href: "/projects/redis/",
+    href: "/projects/redis",
     subtitle: "Brief look onto the Redis Clone",
   },
   requirements: {
