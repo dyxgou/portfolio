@@ -1,8 +1,8 @@
 import type { FunctionalComponent } from "preact";
-import RestartIcon from "./Icons/Restart";
-import PlayIcon from "./Icons/Play";
-import NextIcon from "./Icons/Next";
-import PauseIcon from "./Icons/Pause";
+import RestartIcon from "../Icons/Restart";
+import PlayIcon from "../Icons/Play";
+import NextIcon from "../Icons/Next";
+import PauseIcon from "../Icons/Pause";
 import type { Dispatch, StateUpdater } from "preact/hooks";
 
 type HeaderProps = {

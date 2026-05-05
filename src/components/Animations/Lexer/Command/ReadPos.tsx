@@ -1,5 +1,5 @@
 import type { FunctionalComponent } from "preact";
-import DownArrow from "../Icons/DownArrow";
+import DownArrow from "../../Icons/DownArrow";
 import type { PositionProps } from "./Pos";
 
 const ReadPos: FunctionalComponent<PositionProps> = ({ currentPos }) => {

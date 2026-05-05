@@ -1,5 +1,5 @@
 import type { FunctionalComponent } from "preact";
-import UpArrow from "../Icons/UpArrow";
+import UpArrow from "../../Icons/UpArrow";
 
 export type PositionProps = {
   currentPos: number;

@@ -6,7 +6,7 @@ import Keyword from "@/components/Articles/Keyword.astro";
 import SetExTokens from "./_components/SetExTokens.astro";
 import SetExCommand from "./_components/SetExCommand.astro";
 import SerializedExampleSet from "./_components/SerializedExampleSet.astro";
-import Lexer from "@/components/Lexer/Lexer";
+import Lexer from "@/components/Animations/Lexer/Lexer";
 import Exercise from "@/components/Articles/Exercise/Exercise.astro";
 import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 ---
@@ -117,6 +117,27 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       > for the scanning process. Keep your observations in mind, because in the
       next section we are going to implement exactly what you just watched.
     </p>
+
+    <h4 class="fraunces underline">Answer :</h4>
+    <p>
+      If you <strong>watched the animation</strong> carefully, you already know how
+      this works:
+    </p>
+
+    <ul>
+      <li>
+        <Keyword word="pos" /> advances through the input one character at a time.
+      </li>
+
+      <li>
+        <Keyword word="readPos" /> scouts one step ahead.
+      </li>
+
+      <li>
+        When a complete Token is identified, it gets added to the stream and
+        both pointers continue advancing forward through the input.
+      </li>
+    </ul>
   </Exercise>
 
   <LinkContainer prevSection="token" nextSection="lexer-implementation" />
