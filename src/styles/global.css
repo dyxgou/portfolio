@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @import "./lexer.css";
+@import "./infrastructure.css";
 
 :root {
   --reveal-time: 100ms;

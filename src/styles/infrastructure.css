@@ -1,0 +1,30 @@
+@theme {
+  --shadow-icon: 3px 3px 3px #d3d3d3, -3px -3px 3px #ebebeb;
+}
+
+.infrastructure-state-buttons {
+  & > button[data-is-with-redis="true"] {
+    @apply bg-slate-200;
+  }
+}
+
+.infra-icon {
+  transition-behavior: allow-discrete;
+  transition-property: opacity, visibility, width, transform;
+  transition-duration: 200ms;
+
+  @apply visible opacity-100 w-full max-w-fit;
+
+  &[data-is-on-screen="false"] {
+    @apply invisible opacity-0 w-0 p-0;
+    transform: translateY(-10px);
+  }
+}
+
+.infra-sender {
+  & > [data-is-visible="false"]:last-of-type {
+    @apply w-0 delay-200;
+    content-visibility: hidden;
+  }
+}
+

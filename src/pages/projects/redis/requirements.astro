@@ -6,6 +6,7 @@ import Keyword from "@/components/Articles/Keyword.astro";
 import Picture from "@/components/Picture.astro";
 import Citation from "@/components/Articles/Citation.astro";
 import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
+import Infrastructure from "@/components/Animations/Infrastructure/Infrastructure";
 ---
 
 <Chapter title="Requirements of the Project">
@@ -27,7 +28,7 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       hard drive. Even with modern <Keyword word="SSDs" />, reading from a disk
       compared to reading from RAM is like going from the speed of a <strong
         >turtle</strong
-      > to the speed of a <strong>supersonic jet.</strong>
+      > to the speed of a supersonic jet <strong>( 600,000x ) faster</strong>.
     </p>
 
     <Citation
@@ -51,6 +52,8 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
         >storing the most frequently requested data</strong
       > in RAM to speed up operations across the entire system.
     </p>
+
+    <Infrastructure client:load />
 
     <h3 class="fraunces">Our Primary Requirements: Latency & Concurrency</h3>
 
