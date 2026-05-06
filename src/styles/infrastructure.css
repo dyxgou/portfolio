@@ -15,10 +15,19 @@
 
   @apply visible opacity-100 w-full max-w-fit;
 
-  &[data-is-on-screen="false"] {
+  &[data-icon-is-on-screen="false"] {
     @apply invisible opacity-0 w-0 p-0;
     transform: translateY(-10px);
   }
+}
+
+@property --animation-time {
+  syntax: "<time>";
+  initial-value: 5s;
+  inherits: true;
+}
+
+.infra-icon[data-icon-is-database="true"] {
 }
 
 .infra-sender {
@@ -28,3 +37,163 @@
   }
 }
 
+.point-color {
+  @apply border-3;
+
+  &[data-point-source="browser"] {
+    @apply bg-yellow-500 border-yellow-200;
+  }
+
+  &[data-point-destination="browser"] {
+    --pointBg: var(--color-yellow-500);
+    --pointBorder: var(--color-yellow-200);
+  }
+
+  &[data-point-source="redis"] {
+    @apply bg-red-500 border-red-200;
+  }
+
+  &[data-point-destination="redis"] {
+    --pointBg: var(--color-red-500);
+    --pointBorder: var(--color-red-200);
+  }
+
+  &[data-point-source="database"] {
+    @apply bg-sky-500 border-sky-200;
+  }
+
+  &[data-point-destination="database"] {
+    --pointBg: var(--color-sky-500);
+    --pointBorder: var(--color-sky-200);
+  }
+
+  animation-duration: var(--animation-time);
+  animation-timing-function: steps(1, end);
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  --animation-base-delay: calc(var(--point-index) * 750ms);
+  animation-delay: var(--animation-base-delay);
+
+  &[data-point-is-playing="true"] {
+    animation-play-state: running;
+  }
+
+  &[data-point-is-playing="false"] {
+    animation-play-state: paused;
+  }
+
+  &[data-point-source="browser"][data-point-destination="database"] {
+    animation-name: point-direct-color-swap;
+  }
+
+  &[data-point-source="browser"][data-point-destination="redis"] {
+    animation-name: point-browser-color-swap;
+  }
+
+  &[data-point-source="redis"][data-point-destination="database"] {
+    animation-name: point-redis-color-swap;
+  }
+}
+
+@keyframes point-direct-color-swap {
+  50%,
+  51%,
+  100% {
+    background-color: var(--pointBg);
+    border-color: var(--pointBorder);
+  }
+}
+
+@keyframes point-browser-color-swap {
+  25%,
+  26%,
+  100% {
+    background-color: var(--pointBg);
+    border-color: var(--pointBorder);
+  }
+}
+
+@keyframes point-redis-color-swap {
+  25%,
+  26%,
+  100% {
+    background-color: var(--pointBg);
+    border-color: var(--pointBorder);
+  }
+}
+
+.point-animation {
+  animation-duration: var(--animation-time);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+  --animation-base-delay: calc(var(--point-index) * 750ms);
+  animation-delay: var(--animation-base-delay);
+
+  &[data-point-source="browser"][data-point-destination="database"] {
+    animation-name: point-direct-move;
+  }
+
+  &[data-point-source="browser"][data-point-destination="redis"] {
+    animation-name: point-browser-move;
+  }
+
+  &[data-point-source="redis"][data-point-destination="database"] {
+    --animation-delay: calc(var(--animation-time) / 4);
+
+    animation-delay: calc(var(--animation-delay) + var(--animation-base-delay));
+    animation-name: point-redis-move;
+  }
+
+  &[data-point-is-playing="true"] {
+    animation-play-state: running;
+  }
+
+  &[data-point-is-playing="false"] {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes point-direct-move {
+  0% {
+    transform: translateX(0%);
+  }
+
+  50% {
+    transform: translateX(calc(100% + 5rem));
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes point-redis-move {
+  0% {
+    transform: translateX(0%);
+  }
+
+  25% {
+    transform: translateX(calc(100% + 5rem));
+  }
+
+  50%,
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes point-browser-move {
+  0% {
+    transform: translateX(0%);
+  }
+
+  25%,
+  75% {
+    transform: translateX(calc(100% + 5rem));
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}

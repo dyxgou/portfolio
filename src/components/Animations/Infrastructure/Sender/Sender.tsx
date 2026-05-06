@@ -1,4 +1,5 @@
 import type { FunctionalComponent } from "preact";
+import Point from "./Point";
 import getSenderPath from "./getSenderPath";
 import {
   useLayoutEffect,
@@ -12,6 +13,7 @@ type SenderProps = {
   isPlaying: boolean;
   setIsPlaying: Dispatch<StateUpdater<boolean>>;
   isSecond?: boolean;
+  pointsAmount: number;
 };
 
 const Sender: FunctionalComponent<SenderProps> = ({
@@ -19,8 +21,10 @@ const Sender: FunctionalComponent<SenderProps> = ({
   setIsPlaying,
   isPlaying,
   isSecond = false,
+  pointsAmount,
 }) => {
   const { source, destination } = getSenderPath(isWithRedis, isSecond);
+  const points = Array.from({ length: pointsAmount });
 
   const [animationId, setAnimationId] = useState(0);
 
@@ -34,6 +38,15 @@ const Sender: FunctionalComponent<SenderProps> = ({
       data-is-visible={isWithRedis}
       className="relative transition-[visibility,width] duration-200 w-full border border-gray-300"
     >
+      {points.map((_, i) => (
+        <Point
+          index={i}
+          key={animationId + i}
+          isPlaying={isPlaying}
+          source={source}
+          destination={destination}
+        />
+      ))}
     </div>
   );
 };

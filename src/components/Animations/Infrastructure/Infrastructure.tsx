@@ -12,7 +12,7 @@ const Infrastructure: FunctionalComponent = () => {
     useRedisState();
 
   return (
-    <div className="rounded-lg border border-gray-300 bg-white overflow-hidden">
+    <div className="overflow-x-hidden rounded-lg border border-gray-300 bg-white overflow-hidden">
       <Header
         redisState={{ isWithRedis, setIsWithRedis }}
         isPlayingState={{ isPlaying, setIsPlaying }}
@@ -24,6 +24,7 @@ const Infrastructure: FunctionalComponent = () => {
         </Icon>
 
         <Sender
+          pointsAmount={5}
           setIsPlaying={setIsPlaying}
           isPlaying={isPlaying}
           isWithRedis={isWithRedis}
@@ -34,6 +35,7 @@ const Infrastructure: FunctionalComponent = () => {
         </Icon>
 
         <Sender
+          pointsAmount={1}
           isSecond
           setIsPlaying={setIsPlaying}
           isPlaying={isPlaying}
