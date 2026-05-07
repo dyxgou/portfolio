@@ -6,6 +6,7 @@ import PostgresqlIcon from "../Icons/Postgresql";
 import ChromeIcon from "../Icons/Chrome";
 import Sender from "./Sender/Sender";
 import useRedisState from "./useRedisState";
+import DatabaseBar from "./DatabaseBar";
 
 const Infrastructure: FunctionalComponent = () => {
   const { isWithRedis, setIsWithRedis, isPlaying, setIsPlaying } =
@@ -18,7 +19,7 @@ const Infrastructure: FunctionalComponent = () => {
         isPlayingState={{ isPlaying, setIsPlaying }}
       />
 
-      <div className="px-3 py-10 sm:p-12 flex justify-evenly items-center infra-sender">
+      <div className="px-3 pt-10 sm:p-12 sm:pb-0 flex justify-evenly items-center infra-sender">
         <Icon>
           <ChromeIcon />
         </Icon>
@@ -46,6 +47,8 @@ const Infrastructure: FunctionalComponent = () => {
           <PostgresqlIcon />
         </Icon>
       </div>
+
+      <DatabaseBar isPlaying={isPlaying} isWithRedis={isWithRedis} />
     </div>
   );
 };

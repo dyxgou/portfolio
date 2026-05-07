@@ -34,6 +34,12 @@
   }
 }
 
+@property --animation-initial-delay {
+  syntax: "<time>";
+  initial-value: 750ms;
+  inherits: true;
+}
+
 .point-color {
   @apply border-3;
 
@@ -68,7 +74,9 @@
   animation-timing-function: steps(1, end);
   animation-iteration-count: infinite;
   animation-play-state: paused;
-  --animation-base-delay: calc(var(--point-index) * 750ms);
+  --animation-base-delay: calc(
+    var(--point-index) * var(--animation-initial-delay)
+  );
   animation-delay: var(--animation-base-delay);
 
   &[data-point-is-playing="true"] {
@@ -191,5 +199,64 @@
 
   100% {
     transform: translateX(0%);
+  }
+}
+
+.database-progress {
+  --db-load-low: var(--color-indigo-500);
+  --db-load-mid: var(--color-amber-500);
+  --db-load-high: var(--color-red-500);
+
+  @apply rounded-lg h-full;
+
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-delay: calc(var(--animation-time) / 2);
+  width: 100%;
+
+  &[data-bar-is-playing="true"] {
+    animation-play-state: running;
+  }
+
+  &[data-bar-is-playing="false"] {
+    animation-play-state: paused;
+  }
+
+  &[data-bar-is-with-redis="false"] {
+    animation-duration: var(--animation-time);
+    animation-name: database-load-without-redis;
+  }
+
+  &[data-bar-is-with-redis="true"] {
+    animation-duration: calc(var(--animation-time) / 2);
+    animation-name: database-load-with-redis;
+  }
+}
+
+@keyframes database-load-without-redis {
+  0% {
+    transform: scaleX(0%);
+    background-color: var(--db-load-low);
+  }
+
+  50% {
+    background-color: var(--db-load-mid);
+  }
+
+  100% {
+    transform: scaleX(90%);
+    background-color: var(--db-load-high);
+  }
+}
+
+@keyframes database-load-with-redis {
+  0% {
+    transform: scaleX(0%);
+    background-color: var(--db-load-low);
+  }
+
+  100% {
+    transform: scaleX(20%);
+    background-color: var(--db-load-low);
   }
 }
