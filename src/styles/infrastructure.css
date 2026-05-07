@@ -27,9 +27,6 @@
   inherits: true;
 }
 
-.infra-icon[data-icon-is-database="true"] {
-}
-
 .infra-sender {
   & > [data-is-visible="false"]:last-of-type {
     @apply w-0 delay-200;
@@ -114,8 +111,7 @@
 }
 
 @keyframes point-redis-color-swap {
-  25%,
-  26%,
+  50%,
   100% {
     background-color: var(--pointBg);
     border-color: var(--pointBorder);
