@@ -3,14 +3,22 @@ enum Tokens {
   ILLEGAL,
   EMPTY,
 
+  // Commands
   SET,
+  INCRBY,
+
+  // Values
   IDENTIFIER,
+  NUMBER,
 }
 
 export const tokenKindsToString = new Map<Tokens, string>();
 
 tokenKindsToString.set(Tokens.SET, "SET");
+tokenKindsToString.set(Tokens.INCRBY, "INCRBY");
+
 tokenKindsToString.set(Tokens.IDENTIFIER, "IDENTIFIER");
+tokenKindsToString.set(Tokens.NUMBER, "NUMBER");
 
 export class Token {
   #kind: Tokens;

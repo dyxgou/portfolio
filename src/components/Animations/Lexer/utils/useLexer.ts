@@ -2,13 +2,18 @@ import { useLayoutEffect, useMemo, useState } from "preact/hooks";
 import CommandLexer from "./lexer";
 import Tokens, { Token } from "./tokens";
 
-const getTokens = (lexer: CommandLexer): Token[] => {
+const TOKEN_EXTRACTION_BOUND = 10;
+
+export const getTokens = (lexer: CommandLexer): Token[] => {
   let curTok = lexer.nextToken();
   const tokens = new Array<Token>();
 
-  while (curTok.getKind() != Tokens.EOF) {
+  let i = 0;
+
+  while (curTok.getKind() != Tokens.EOF && i < TOKEN_EXTRACTION_BOUND) {
     tokens.push(curTok);
     curTok = lexer.nextToken();
+    i++;
   }
 
   return tokens;

@@ -6,13 +6,18 @@ import Pos from "./Command/Pos";
 import Tokens from "./Tokens/Tokens";
 import useLexer from "./utils/useLexer";
 
-const COMMAND = "SET username Alejandro";
+export type CommandKind = "SET" | "INCRBY";
 
-const Lexer: FunctionalComponent = () => {
+type LexerProps = {
+  command: string;
+  commandKind: "SET" | "INCRBY";
+};
+
+const Lexer: FunctionalComponent<LexerProps> = ({ command, commandKind }) => {
   const { pos, readPos, step, tokens, restart, setIsPlaying, isPlaying } =
-    useLexer(COMMAND);
+    useLexer(command);
 
-  const allowedSteps = COMMAND.length - readPos - 1;
+  const allowedSteps = command.length - readPos - 1;
 
   return (
     <div className="rounded-lg border border-gray-300 bg-white overflow-hidden">
@@ -26,13 +31,14 @@ const Lexer: FunctionalComponent = () => {
       />
 
       <div className="py-12">
-        <ReadPos currentPos={readPos} />
+        <ReadPos commandKind={commandKind} currentPos={readPos} />
         <Command
-          commandLength={COMMAND.length}
+          commandKind={commandKind}
+          commandLength={command.length}
           tokens={tokens}
           readPos={readPos}
         />
-        <Pos currentPos={pos} />
+        <Pos commandKind={commandKind} currentPos={pos} />
       </div>
 
       <Tokens tokens={tokens} pos={pos} readPos={readPos} />

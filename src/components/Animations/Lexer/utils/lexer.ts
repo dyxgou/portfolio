@@ -8,12 +8,21 @@ const LOWER_Z = "z".charCodeAt(0);
 const UPPER_A = "A".charCodeAt(0);
 const UPPER_Z = "Z".charCodeAt(0);
 
+const CHAR_CODE_0 = "0".charCodeAt(0);
+const CHAR_CODE_9 = "9".charCodeAt(0);
+
 const isLetter = (char: string) => {
   const code = char.charCodeAt(0);
 
   return (
     (LOWER_A <= code && code <= LOWER_Z) || (UPPER_A <= code && code <= UPPER_Z)
   );
+};
+
+const isDigit = (char: string) => {
+  const code = char.charCodeAt(0);
+
+  return CHAR_CODE_0 <= code && code <= CHAR_CODE_9;
 };
 
 class CommandLexer {
@@ -49,6 +58,16 @@ class CommandLexer {
       token.setEnd(pos);
 
       return token;
+    } else if (isDigit(this.#ch)) {
+      const literal = this.#readNumber();
+
+      const token = new Token(Tokens.NUMBER, literal);
+      const pos = this.#pos + this.#getReadOffset();
+
+      token.setStart(Math.abs(pos - literal.length));
+      token.setEnd(pos);
+
+      return token;
     }
 
     return new Token(Tokens.ILLEGAL, "");
@@ -69,8 +88,10 @@ class CommandLexer {
 
   #lookupIdent(literal: string): Tokens {
     const SET_LITERAL = "SET";
+    const INCRBY_LITERAL = "INCRBY";
 
     if (literal === SET_LITERAL) return Tokens.SET;
+    if (literal === INCRBY_LITERAL) return Tokens.INCRBY;
 
     return Tokens.IDENTIFIER;
   }
@@ -79,6 +100,18 @@ class CommandLexer {
     const pos = this.#pos;
 
     while (isLetter(this.#ch)) {
+      this.#next();
+    }
+
+    const offset = this.#getReadOffset();
+
+    return this.#input.slice(pos, this.#pos + offset);
+  }
+
+  #readNumber(): string {
+    const pos = this.#pos;
+
+    while (isDigit(this.#ch)) {
       this.#next();
     }
 

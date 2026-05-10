@@ -7,6 +7,22 @@
   --color-orange-char: oklch(0.55 0.15 35);
 }
 
+@property --command-anchor-name {
+  syntax: "<dashed-ident>";
+  inherits: false;
+  initial-value: --none;
+}
+
+.position-anchor-name {
+  &[data-command-kind="SET"] {
+    --command-anchor-name: --SET-COMMAND;
+  }
+
+  &[data-command-kind="INCRBY"] {
+    --command-anchor-name: --INCRBY-COMMAND;
+  }
+}
+
 @media (width >= 40rem) {
   :root {
     --command-letter-lenght: 22.41px;
@@ -102,12 +118,24 @@
   @apply text-blue-400;
 }
 
+.lexed-char[data-token-kind="INCRBY"] {
+  @apply text-blue-400;
+}
+
 .lexed-char[data-token-kind="IDENTIFIER"] {
   @apply text-slate-700;
 }
 
 .extracted-token[data-token-kind="SET"] {
-  @apply bg-orange-char/20 border-1 border-orange-char/40;
+  @apply bg-orange-char/20 border border-orange-char/40;
+
+  & > span:first-of-type {
+    @apply text-orange-char;
+  }
+}
+
+.extracted-token[data-token-kind="INCRBY"] {
+  @apply bg-orange-char/20 border border-orange-char/40;
 
   & > span:first-of-type {
     @apply text-orange-char;
@@ -115,5 +143,9 @@
 }
 
 .extracted-token[data-token-kind="IDENTIFIER"] {
-  @apply bg-emerald-500/20 border-1 border-emerald-500/40;
+  @apply bg-emerald-500/20 border border-emerald-500/40;
+}
+
+.extracted-token[data-token-kind="NUMBER"] {
+  @apply bg-cyan-500/20 border border-cyan-500/40;
 }
