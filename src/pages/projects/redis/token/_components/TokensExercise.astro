@@ -6,9 +6,8 @@ import ExerciseSnippet from "@/components/Articles/Exercise/ExerciseSnippet.astr
 
 <Exercise exercise={1} title="Identifing Redis Tokens">
   <p>
-    Using what you have learned on this chapter, write down on your code all the <Keyword
-      word="Tokens"
-    /> you can identify from the following <strong>commands</strong>.
+    Using what you have learned in this chapter, define in your own code all the
+    <Keyword word="TokenKinds" /> you can identify from the following commands:
   </p>
 
   <ExerciseSnippet
@@ -19,12 +18,28 @@ SET articleRewrites 3
 INCRBY articleRewrites 1
 INCR articleRewrites`}
   />
+
   <p>
-    Do you want to check how many <Keyword word="TokenKinds" /> will have the Project?
-    <br />
-    Check out the <a
+    Notice that the commands above are <strong>not random</strong> — they were chosen
+    to cover every distinct <Keyword word="TokenKind" /> our <Keyword
+      word="Lexer"
+    /> will need to recognize. Take your time before moving on.
+  </p>
+
+  <p>
+    💡 <strong>Want to check your work?</strong> Compare your solution against the
+    <a
+      target="_blank"
+      rel="noopener noreferer"
       href="https://github.com/dyxgou/redis/blob/a2c128bd7000104b1f9bb3ecb2a7fcb7b4c4b8d4/pkg/token/token.go#L15"
       >pkg/token/token.go</a
-    > file of the source code.
+    > file in the source code. <br />
+  </p>
+  <p>
+    Have questions or want to share your solution? Reach out on <a
+      target="_blank"
+      rel="noopener noreferer"
+      href="https://www.linkedin.com/in/diego-alejandro-417357219/">LinkedIn</a
+    > — I'd love to see what you come up with.
   </p>
 </Exercise>

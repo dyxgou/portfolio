@@ -4,11 +4,11 @@ import Snippet from "@/components/Articles/Snippet.astro";
 
 <Snippet
   title="Tokens of the SET Command"
-  lang="py"
+  lang="go"
   link="https://github.com/dyxgou/redis/blob/b4123be1b218237a06bfcf833350980e5bbc7f55/pkg/serializer/serializer_test.go#L24"
-  code={`SET_Tokens = [
-  SET,
-  Identifier("userName"),
-  Identifier("Alejandro"),
-]`}
+  code={`setCommandTokens := []Token{
+  {Kind: SET,   Literal: "SET"},
+  {Kind: IDENT, Literal: "userName"},
+  {Kind: IDENT, Literal: "Alejandro"},
+}`}
 />

@@ -9,6 +9,8 @@ import SETTokens from "./_components/SETTokens.astro";
 import Tokens from "./_components/Tokens.astro";
 import TokenStruct from "./_components/TokenStruct.astro";
 import TokensExercise from "./_components/TokensExercise.astro";
+
+import TokenNew from "./_components/TokenNew.astro";
 import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 ---
 
@@ -16,20 +18,23 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
   <Heading>How we communicate with Redis?</Heading>
 
   <Prose>
-    <p>
-      If you have used <strong>Redis</strong> before, you know that it follows a
-      traditional <strong>Client-Server architecture.</strong> One or many Redis
-      Clients send commands like <Keyword word="GET" />, <Keyword word="SET" />,
-      or <Keyword word="DEL" /> to a single central <strong
-        >Redis Server.</strong
-      > The server reads the command from the connection, parses it, evaluates it,
-      and writes the response back to the client.
-    </p>
+    <strong>Redis</strong> follows a traditional <strong
+      >Client-Server architecture.</strong
+    > One or many Redis Clients send commands like <Keyword word="GET" />, <Keyword
+      word="SET"
+    />, or <Keyword word="DEL" /> to a single central <strong
+      >Redis Server.</strong
+    > The server reads the command from the connection, <strong>parses</strong> it,
+    <strong>evaluates</strong>
+    it, and <strong>writes</strong> the response back to the client.
 
     <p>
-      For the server to understand a command, it first needs to transform it
-      into a meaningful representation — rather than treating it as plain text.
-      That process is called <strong>Parsing.</strong>
+      But how does the server actually <strong>understand a command</strong>? To
+      a computer, <Keyword word="SET userName Alejandro" /> is nothing more than
+      a raw string of characters. Before the <strong>server</strong> can act on it,
+      it needs to transform it into a <strong>meaningful representation.</strong
+      >
+      That process is called <Keyword word="Parsing" />.
     </p>
 
     <p>
@@ -56,57 +61,28 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       >, and it's done by a <Keyword word="Lexer" />.
     </p>
 
-    <p>For example, if we feed this command to our <Keyword word="Lexer" />:</p>
+    <p>For example, feeding this command to our <Keyword word="Lexer" />:</p>
 
     <SETExample />
 
-    <p>
-      What comes out of our <Keyword word="Lexer" /> looks something like this:
-    </p>
+    <p>The <Keyword word="Lexer" /> Produces the following:</p>
 
     <SETTokens />
 
     <p>
-      Notice that not all Tokens are equal. <Keyword word="SET" /> is a <strong
-        >command token</strong
-      >
-      — it represents the operation we want to perform. <Keyword
-        word=`Identifier("userName")`
-      />
-      and <Keyword word=`Identifier("Alejandro")` /> are <strong
-        >identifier tokens</strong
-      > — they carry the arguments. Each Token knows both <strong
-        >what kind it is</strong
-      > and <strong>what it contains.</strong>
+      Notice that not all <Keyword word="Tokens" /> are equal. <Keyword
+        word="SET"
+      /> is a command token — it represents the <strong
+        >operation to perform.</strong
+      > The remaining two are <strong>identifier tokens</strong> — they carry the
+      arguments. Each
+      <Keyword word="Token" /> knows both what <strong>kind</strong> it is and what
+      it <strong>contains</strong>.
     </p>
 
-    <p>This is the theory — let's take a look at the code!</p>
+    <p>This is the theory — let's define some tokens!</p>
 
     <h3 class="fraunces">Defining Tokens</h3>
-
-    <p>
-      There are <strong>several kinds</strong> of Tokens our system should handle:
-    </p>
-
-    <ul>
-      <li>
-        <strong>Commands:</strong> The instructions (e.g., <Keyword
-          word="GET"
-        />, <Keyword word="SET" />, <Keyword word="PING" />).
-      </li>
-
-      <li>
-        <strong>Identifiers:</strong> The keys or values (e.g., <Keyword
-          word="userName"
-        />, <Keyword word="Alejandro" />).
-      </li>
-
-      <li>
-        <strong>Numbers:</strong> Numeric values used in operations (e.g., <Keyword
-          word="100"
-        />).
-      </li>
-    </ul>
 
     <Picture
       src="/articles/token-example.svg"
@@ -115,31 +91,30 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
     />
 
     <p>
-      As shown in the diagram above, the command <Keyword
-        word="SET userName Alejandro"
-      /> is not treated as one long string. Instead, the Lexer identifies <strong
-        >three distinct</strong
+      As shown above, <Keyword word="SET userName Alejandro" /> is not treated as
+      one long string. The Lexer identifies three distinct Tokens: a <strong
+        >command token</strong
       >
-      Tokens: a <Keyword word="SET" /> command token followed by two <Keyword
-        word="Identifier"
-      /> tokens.
+      and two <strong>identifier tokens</strong> — each with its own <Keyword
+        word="TokenKind"
+      />.
     </p>
 
     <p>
-      The <strong>kind</strong> of these Tokens is called <Keyword
-        word="TokenKind"
-      />, and it's the <strong>first entity</strong> that we will define in our Project!
+      <Keyword word="TokenKind" /> is the first entity we will define in our project.
+      Enough theory — it's time to write our first lines of code.
     </p>
 
     <h3 class="fraunces my-20">Defining TokenKinds</h3>
 
+    <Tokens />
+
     <p>
-      Now that we've establish the concept of a Token, we need a way to
-      categorize them in code. We will create a <Keyword word="TokenKind" /> type
-      to represent every possible category our Lexer might encounter — such as <Keyword
-        word="Commands"
-      />, <Keyword word="Identifiers" />, or <Keyword word="Numbers" />. We'll
-      also include <strong>special</strong> TokenKinds that every Lexer needs.
+      As you can see, the first <Keyword word="TokenKinds" /> we define are <Keyword
+        word="EOF"
+      /> and <Keyword word="ILLEGAL" />. These two play very specific <strong
+        >roles</strong
+      > in our <Keyword word="Lexer" />:
     </p>
 
     <ul>
@@ -153,20 +128,17 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       </li>
     </ul>
 
-    <p>Enough theory — it's time to write our first lines of code.</p>
-
-    <Tokens />
-
     <strong>
       Why use a <Keyword word="byte" /> for <Keyword word="TokenKind" />?
     </strong>
 
     <p>
-      You might wonder why we chose a <Keyword word="byte" /> instead of a <Keyword
-        word="string"
-      />
-      or a standard <Keyword word="int" />. There are two primary engineering
-      reasons:
+      You might have noticed that we defined <Keyword word="TokenKind" /> as a <Keyword
+        word="byte"
+      />. This is a deliberate <strong>engineering decision</strong> — here's why
+      we chose it over a <Keyword word="string" /> or a standard <Keyword
+        word="int"
+      />:
     </p>
 
     <ol>
@@ -189,27 +161,12 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       With our <Keyword word="TokenKind" /> defined, we now need a container to hold
       two things: the <strong>kind of token</strong> it is, and the <strong
         >raw text</strong
-      > it was derived from — which we'll call the <Keyword word="Literal" />.
+      > it was derived from — which as seen in the <strong
+        >SET Tokens example</strong
+      > we'll call the <Keyword word="Literal" />.
     </p>
 
     <TokenStruct />
-
-    <p>The <Keyword word="Token" /> <strong>struct</strong> is composed of:</p>
-
-    <ol>
-      <li>
-        <Keyword word="kind" />: The <Keyword word="TokenKind" /> that tells the
-        <Keyword word="Lexer" /> how to interpret the token — whether it's a command,
-        an identifier, or something else entirely.
-      </li>
-
-      <li>
-        <Keyword word="Literal" />: The <strong>raw string</strong> value extracted
-        from the input (e.g., <Keyword word="GET" /> or <Keyword
-          word="mykey"
-        />).
-      </li>
-    </ol>
 
     <p>
       🔥 <strong>Fun Fact:</strong> Even thought i just said that the <Keyword
@@ -231,6 +188,15 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
         >Check the details here</a
       >.
     </p>
+
+    <p>
+      Now the only thing left is creating a constructor for our <Keyword
+        word="Token"
+      /> struct. This will make instantiating new Tokens clean and consistent throughout
+      the codebase:
+    </p>
+
+    <TokenNew />
   </Prose>
 
   <TokensExercise />
