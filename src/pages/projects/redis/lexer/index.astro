@@ -22,11 +22,12 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       Think of the <Keyword word="Lexer" /> — also called a <Keyword
         word="Tokenizer"
       /> — as <strong>your eyes</strong>
-      reading through a page. If you read the phrase "Redis is fast", you don't think
-      of it as 13 characters and spaces. Instead, you instantly group those characters
-      into three distinct concepts: <strong>[Redis]</strong>, <strong
-        >[is]</strong
-      >, and <strong>[fast]</strong>.
+      reading through a page. If you read the phrase <strong
+        >"Redis is fast"</strong
+      >, you don't think of it as 13 characters and spaces. Instead, you
+      instantly group those characters into three distinct concepts: <strong
+        >[Redis]</strong
+      >, <strong>[is]</strong>, and <strong>[fast]</strong>.
     </p>
 
     <p>Let's see how it operates with our classic example command:</p>
@@ -279,6 +280,15 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
     </p>
 
     <Lexer commandKind="INCRBY" command="INCRBY rewrites 3" client:only />
+
+    <p>
+      Notice how the <Keyword word="Lexer" /> correctly identifies <Keyword
+        word="INCRBY"
+      /> as a command token, <Keyword word="articleRewrites" /> as an <strong
+        >identifier</strong
+      >, and <Keyword word="1" /> as a <strong>number</strong> — exactly the token
+      kinds we have been building toward.
+    </p>
   </Prose>
 
   <LinkContainer prevSection="token" nextSection="lexer-implementation" />
