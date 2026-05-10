@@ -46,14 +46,25 @@ import Infrastructure from "@/components/Animations/Infrastructure/Infrastructur
     </Citation>
 
     <p>
-      <strong>Redis</strong> is an in-memory database that functions as a high-speed
-      <strong>cache layer</strong> for traditional databases. It uses this performance
-      gap to its advantage, <strong
-        >storing the most frequently requested data</strong
-      > in RAM to speed up operations across the entire system.
+      <strong>Redis</strong> sits between your application and your database acting
+      as a <strong>high-speed</strong> cache layer. Instead of hitting the database
+      on every request, Redis intercepts the most frequently requested data and serves
+      it directly from RAM — orders of magnitude faster. <br />
+      The difference is easier to <strong>see</strong> than to explain:
     </p>
 
     <Infrastructure client:load />
+
+    <p>
+      Notice how <strong>without Redis</strong>, every request travels the full
+      distance to the <strong>database</strong>. <strong>With Redis</strong>,
+      the most frequent requests never reach it at all — they are <strong
+        >intercepted</strong
+      >
+      and answered instantly. That single <strong>interception</strong> is the entire
+      value proposition of Redis, and building the engine behind it is what this
+      article is about.
+    </p>
 
     <h3 class="fraunces">Our Primary Requirements: Latency & Concurrency</h3>
 
