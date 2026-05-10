@@ -3,11 +3,15 @@ import Chapter from "@/layouts/Chapter.astro";
 import Heading from "@/components/Articles/Heading.astro";
 import Prose from "@/components/Articles/Prose.astro";
 import Keyword from "@/components/Articles/Keyword.astro";
-import SetExTokens from "./_components/SetExTokens.astro";
-import SetExCommand from "./_components/SetExCommand.astro";
-import SerializedExampleSet from "./_components/SerializedExampleSet.astro";
 import Lexer from "@/components/Animations/Lexer/Lexer";
-import Exercise from "@/components/Articles/Exercise/Exercise.astro";
+import LexerTokens from "./_components/LexerTokens";
+import LexerInitialization from "./_components/LexerInitialization.astro";
+import LexerHelpers from "./_components/LexerHelpers.astro";
+import LexerNext from "./_components/LexerNext.astro";
+import LexerNextToken from "./_components/LexerNextToken.astro";
+import NextTokenLetters from "./_components/NextTokenLetters.astro";
+import HandlingLetters from "./_components/HandlingLetters.astro";
+import LookupIdentDefinition from "./_components/LookupIdentDefinition.astro";
 import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 ---
 
@@ -15,9 +19,9 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
   <Heading>Understanding the Lexer Mechanics</Heading>
   <Prose>
     <p>
-      Think of the <Keyword word="Lexer" /> — also called a Scanner — as <strong
-        >your eyes</strong
-      >
+      Think of the <Keyword word="Lexer" /> — also called a <Keyword
+        word="Tokenizer"
+      /> — as <strong>your eyes</strong>
       reading through a page. If you read the phrase "Redis is fast", you don't think
       of it as 13 characters and spaces. Instead, you instantly group those characters
       into three distinct concepts: <strong>[Redis]</strong>, <strong
@@ -25,120 +29,257 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       >, and <strong>[fast]</strong>.
     </p>
 
+    <p>Let's see how it operates with our classic example command:</p>
+
+    <Lexer commandKind="SET" command="SET username Alejandro" client:only />
+
     <p>
-      In computer science, this process is known as <strong
-        >Lexical Analysis</strong
-      > — or simply lexing. A Lexer performs this exact task for our Commands: it
-      takes a raw Command string and transforms it into an organized
-      <Keyword word="[]Token" />.
+      This animation represents the process of turning a <strong
+        >raw string</strong
+      > into a <strong>meaningful representation</strong>. In computer science,
+      this process is known as <strong>Lexical Analysis</strong> — or simply lexing.
+      A <Keyword word="Lexer" /> performs this exact task for our Commands: it takes
+      a raw Command string and transforms it into an organized <Keyword
+        word="[]Token"
+      />.
     </p>
 
-    <p>Here's an example. This command is given to the Lexer:</p>
-
-    <SetExCommand />
-
-    <p>The output that the Lexer produces kinda looks like this:</p>
-
-    <SetExTokens />
+    <LexerTokens command="SET username Alejandro" client:load />
 
     <p>
-      To achieve this result we will use a <strong>Two-Pointer strategy</strong
-      >. Our two pointers each have a distinct role:
-    </p>
-
-    <ul>
-      <li>
-        <Keyword word="pos" /> is our <strong>focus</strong> — it points to the character
-        we are currently reading.
-      </li>
-
-      <li>
-        <Keyword word="readPos" /> is our <strong>scout</strong> — it always sits
-        one step ahead, allowing us to peek at what's coming next.
-      </li>
-    </ul>
-
-    <p>
-      The Redis Server never receives a raw command like <Keyword
-        word="SET author Alejandro"
-      />. What actually arrives is its <strong>serialized version</strong>,
-      which carries metadata about each "word" on our Command — its <Keyword
-        word="type"
-      /> and <Keyword word="length" /> — allowing the Lexer to make <strong
-        >assumptions</strong
-      > before it even begins reading a Token. For example, that same <Keyword
-        word="SET"
-      /> command looks like now serialized.
-    </p>
-
-    <SerializedExampleSet />
-    <p>
-      📝 <strong>Note:</strong> Don't worry about decoding every character — just
-      notice two things: the <Keyword word="\\r\\n" /> boundary markers appearing
-      <strong>repeatedly</strong>, and the numbers like <Keyword word="$3" /> and
-      <Keyword word="$6" /> that tell the server how long each element is before
-      it even begins reading it. We will unpack everything else when we get to the
-      RESP chapter.
-    </p>
-
-    <p>
-      Before we dive into code, take a moment to <strong>internalize</strong> the
-      mechanics of a Lexer through the <strong>following animation.</strong>
-    </p>
-
-    <Lexer client:load />
-  </Prose>
-
-  <Exercise class="mb-20" title="Analize Lexer Mechanics" exercise={2}>
-    <p>
-      Watch the animation above <strong>carefully</strong> and ask yourself the following
-      questions before moving on:
+      To <strong>navigate through</strong> the input efficiently, our <Keyword
+        word="Lexer"
+      /> tracks its internal state using three fields:
     </p>
 
     <ol>
       <li>
-        At what point does <Keyword word="pos" /> advance versus <Keyword
+        <Keyword word="pos" />: The index of the character we are currently
+        examining.
+      </li>
+
+      <li>
+        <Keyword word="readPos" />: Our look-ahead pointer — always one step
+        ahead of <Keyword word="pos" />, crucial for detecting multi-byte
+        sequences like <Keyword word="\\r\\n" /> (which will be seen on the <strong
+          >Redis Serialization Protocol chapter</strong
+        >).
+      </li>
+
+      <li>
+        <Keyword word="ch" />: The current character being examined at <Keyword
           word="readPos"
-        />?
-      </li>
-      <li>
-        When does the Lexer decide that a <strong>Token</strong> is complete?
-      </li>
-      <li>
-        What happens to the pointers when the Lexer moves from <strong
-          >one Token</strong
-        > to the <strong>next?</strong>
+        />.
       </li>
     </ol>
 
     <p>
-      There are no wrong answers here — the goal is to build an <strong
-        >intuition</strong
-      > for the scanning process. Keep your observations in mind, because in the
-      next section we are going to implement exactly what you just watched.
+      Putting it all together, here is how our <Keyword word="Lexer" /> is defined
+      in <strong>Go</strong>:
     </p>
 
-    <h4 class="fraunces underline">Answer :</h4>
+    <LexerInitialization />
+
     <p>
-      If you <strong>watched the animation</strong> carefully, you already know how
-      this works:
+      Before <strong>Lexing</strong>, we need to sanitize the <Keyword
+        word="input"
+      /> and initialize our <Keyword word="pointers" />. Two functions handle
+      this:
     </p>
 
-    <ul>
+    <LexerHelpers />
+
+    <ol>
       <li>
-        <Keyword word="pos" /> advances through the input one character at a time.
+        <Keyword word="trimInput()" />: Removes <strong
+          >trailing whitespace</strong
+        > from the right of the command, preventing the <Keyword word="Lexer" />
+        from processing ghost characters at the end of a line.
       </li>
 
       <li>
-        <Keyword word="readPos" /> scouts one step ahead.
+        <Keyword word="New()" />: Initializes the <Keyword word="Lexer" /> with our
+        sanitized input and zeroed pointers. It immediately calls <Keyword
+          word="next()"
+        /> — a function that <strong>advances the pointers</strong> and loads the
+        current character into <Keyword word="ch" /> — so that by the time the caller
+        receives the <Keyword word="Lexer" />, it is already positioned and
+        ready to scan.
+      </li>
+    </ol>
+
+    <p>Now let's look at what <Keyword word="next()" /> actually does:</p>
+
+    <LexerNext />
+
+    <p>
+      <Keyword word="next()" /> drives character-by-character advancement through
+      the input. It handles two cases:
+    </p>
+
+    <ol>
+      <li>
+        <strong>End of File (EOF):</strong> If <Keyword word="readPos" /> exceeds
+        the <strong>length of the input</strong>, <Keyword word="ch" /> is set to
+        <Keyword word="token.EOF" />, signaling that the input has been fully
+        consumed.
       </li>
 
       <li>
-        When a complete Token is identified, it gets added to the stream and
-        both pointers continue advancing forward through the input.
+        <strong>Advancing:</strong> Otherwise, <Keyword word="ch" /> is updated to
+        the character at <Keyword word="readPos" />. Then <Keyword word="pos" />
+        catches up to <Keyword word="readPos" />, and <Keyword word="readPos" />
+        increments to scout the <strong>next character.</strong>
       </li>
-    </ul>
-  </Exercise>
+    </ol>
+
+    <p>
+      Now that we have implemented <Keyword word="next()" />, we need to
+      implement <Keyword word="NextToken()" /> — whose purpose is to scan the input
+      and return the <Keyword word="Token" /> we defined in the
+      <a href="/projects/redis/token" target="_blank" rel="noopener noreferrer">
+        previous chapter</a
+      >. We will build it incrementally, starting with the two most fundamental
+      cases any <Keyword word="Lexer" /> must handle before anything else: knowing
+      <strong>when to stop</strong> and knowing <strong>what to ignore.</strong>
+    </p>
+
+    <ol>
+      <li>
+        <strong>EOF</strong> — <Keyword word="token.EOF" /> has the value <Keyword
+          word="0"
+        />, known as the <strong>null terminator</strong> in ASCII. When <Keyword
+          word="l.ch"
+        /> equals <Keyword word="token.EOF" />, the input has been fully
+        consumed and we return a Token with Kind set to token.EOF.
+      </li>
+
+      <li>
+        <Keyword word="Whitespace" /> — <Keyword word="skipWhitespaces()" /> advances
+        the pointers past any <strong>spaces, tabs, or newlines</strong> so that
+        <Keyword word="readPos" /> is always positioned on a meaningful character
+        when we begin scanning a new <Keyword word="Token" />.
+      </li>
+    </ol>
+
+    <LexerNextToken />
+
+    <p>
+      With our two fundamental cases handled, our <Keyword word="NextToken()" />
+      is now ready to tackle the <strong>core scanning logic.</strong> There are
+      two kinds of values our <Keyword word="Lexer" /> needs to be able to read:
+    </p>
+
+    <ol>
+      <li>
+        <strong>Letters</strong> — for commands like <Keyword word="SET" /> and identifiers
+        like <Keyword word="userName" />.
+      </li>
+
+      <li>
+        <strong>Numbers</strong> — for numeric values like <Keyword
+          word="100"
+        /> or <Keyword word="20" />.
+      </li>
+    </ol>
+
+    <p>Let's start with letters.</p>
+
+    <NextTokenLetters />
+
+    <p>Two utility functions handle letter scanning:</p>
+
+    <ol>
+      <li>
+        <Keyword word="isLetter()" /> — defines what constitutes a <strong
+          >valid character</strong
+        >
+        in our <Keyword word="Lexer" />. Notice that it includes the <strong
+          >underscore</strong
+        >
+        <Keyword word="_" />, allowing identifiers like <Keyword
+          word="author_name"
+        /> to be recognized as a single token.
+      </li>
+      <li>
+        <Keyword word="readIdent()" /> — advances through the input for as long as
+        <Keyword word="isLetter()" /> returns <strong>true</strong>, then
+        extracts the scanned word using <Keyword word="input[pos:l.pos]" />.
+      </li>
+    </ol>
+
+    <p>
+      Now let's see how <Keyword word="readIdent()" /> plugs into <Keyword
+        word="NextToken()"
+      />:
+    </p>
+
+    <HandlingLetters />
+
+    <p>
+      Once <Keyword word="skipWhitespaces()" /> has positioned us on a meaningful
+      character, we check if it is a letter. If so, two things happen:
+    </p>
+
+    <ol>
+      <li>
+        We use <Keyword word="readIdent()" /> to extract the full word as a Literal.
+      </li>
+      <li>
+        <Keyword word="token.LookupIdent()" /> examines that <Keyword
+          word="Literal"
+        /> and determines its <Keyword word="Kind" /> — whether it is a known command
+        like <Keyword word="SET" />, or a <strong>user-defined</strong> identifier
+        like <Keyword word="userName" />.
+      </li>
+    </ol>
+
+    <p>
+      The <Keyword word="Token" /> is then returned immediately, without the <Keyword
+        word="Lexer"
+      />
+      advancing any further. The next call to <Keyword word="NextToken()" /> will
+      pick up exactly where <strong>we left off</strong>.
+    </p>
+
+    <p>
+      But we haven't implemented <Keyword word="token.LookupIdent()" /> yet — let's
+      do that now.
+    </p>
+
+    <LookupIdentDefinition />
+
+    <p>
+      <Keyword word="LookupIdent()" /> consults a lookup table that associates every
+      known Redis command with its corresponding <Keyword word="TokenKind" />:
+    </p>
+
+    <ol>
+      <li>
+        If the word is a known command — for example <Keyword word={`"SET"`} />
+        returns <Keyword word="SET" /> — its specific <Keyword
+          word="TokenKind"
+        /> is returned.
+      </li>
+      <li>If not, it falls back to <Keyword word="IDENT" />.</li>
+    </ol>
+
+    <p>
+      With this design adding support for a <strong>new Redis command</strong> is
+      as simple as adding a single entry to the <Keyword word="keywords" /> map.
+    </p>
+
+    <h3 class="fraunces">Putting it all Together</h3>
+
+    <p>
+      Now that our <Keyword word="Lexer" /> knows how to identify both <strong
+        >commands</strong
+      > and
+      <strong>identifiers</strong>, let's see it in action with a new command:
+    </p>
+
+    <Lexer commandKind="INCRBY" command="INCRBY rewrites 3" client:only />
+  </Prose>
 
   <LinkContainer prevSection="token" nextSection="lexer-implementation" />
 </Chapter>
