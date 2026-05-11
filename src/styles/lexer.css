@@ -1,5 +1,4 @@
 :root {
-  --command-anchor-name: --SET-command;
   --command-letter-lenght: 12px;
 }
 
@@ -8,8 +7,8 @@
 }
 
 @property --command-anchor-name {
-  syntax: "<dashed-ident>";
-  inherits: false;
+  syntax: "*";
+  inherits: true;
   initial-value: --none;
 }
 
