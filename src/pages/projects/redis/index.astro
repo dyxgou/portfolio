@@ -2,7 +2,10 @@
 import Header from "@/components/Articles/Header.astro";
 import Chapter from "@/layouts/Chapter.astro";
 import Picture from "@/components/Picture.astro";
-import Introduction from "./_components/sections/Introduction.astro";
+import Prose from "@/components/Articles/Prose.astro";
+import Heading from "@/components/Articles/Heading.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import Link from "@/components/Articles/Links/Link.astro";
 ---
 
 <Chapter title="Introduction">
@@ -23,6 +26,116 @@ import Introduction from "./_components/sections/Introduction.astro";
       size={514}
     />
 
-    <Introduction />
+    <Prose>
+      <Heading id="introduction"> Introduction </Heading>
+
+      <p>
+        <strong>Redis</strong> is magical. You type <Keyword
+          word="SET key value"
+        />, hit enter, and in microseconds your data is stored. You type <Keyword
+          word="GET key"
+        />
+        and it comes right back. Simple, right? But the more you <strong
+          >think about it</strong
+        >, the more fascinating it becomes. Somewhere between your keystrokes
+        and that instant response, a <strong>server</strong> received raw bytes over
+        a <strong>TCP connection</strong>, decoded them into <strong
+          >meaningful commands</strong
+        >, executed logic against an <strong>in-memory store</strong>, and fired
+        a response back — all in the time it takes you to blink. By the end of
+        this article, you won't just understand every step of that journey —
+        you'll have <strong>built it yourself</strong>, in <strong
+          >Golang</strong
+        >, from the ground up.
+      </p>
+
+      <p>
+        And the best way to understand <strong>magic</strong> is to <strong
+          >learn the trick.</strong
+        >
+        In this article we aren't just <strong>building a clone</strong> — we are
+        reverse-engineering a philosophy, diving deep into how a networked system
+        actually works. We'll go from raw TCP Sockets to the implementation of RESP
+        (Redis Serialization Protocol), all the way into in-memory command evaluation.
+        The full source code is available on <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/dyxgou/redis">GitHub</a
+        >! 🚀
+      </p>
+
+      <h3 class="fraunces">How we will build our Clone:</h3>
+
+      <p>
+        To understand this system, we will follow a <strong>bottom-up</strong> path—starting
+        with the smallest unit of data and ending with a live network interface.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Tokens (The Vocabulary):</strong>
+          A Token is the smallest atomic unit of a command. Think of them as the
+          fundamental building blocks—like verbs <Keyword word="GET" /> and nouns
+          <Keyword word="mykey" />.
+        </li>
+
+        <li>
+          <strong>The Lexer (The Reader):</strong> If tokens are words, the <Keyword
+            word="Lexer"
+          /> is the "eye" that <strong>scans</strong> a sentence. It takes a raw
+          string of text and groups characters together to identify the words.
+        </li>
+
+        <li>
+          <strong>The Parser (The Grammar):</strong> Knowing the words <strong
+            >isn't enough</strong
+          >; you need to understand the sentence. The Parser acts as the
+          <Keyword word="grammarian" />, organizing tokens into a structured map
+          <Keyword word="AST" /> (Abstract Syntax Tree) so the computer knows exactly
+          what the user is asking.
+        </li>
+
+        <li>
+          <strong>The Evaluator (The Brain):</strong> Once the command is understood,
+          the <Keyword word="Evaluator" /> is the <strong>decision-maker</strong
+          >. It takes the parsed intent and translates it into a specific
+          action.
+        </li>
+
+        <li>
+          <strong>The Store (The Memory):</strong> Every system needs a place to
+          keep its data. The <Keyword word="Store" /> is our <strong
+            >vault</strong
+          > —a thread-safe, in-memory environment where information is kept for near-instant
+          retrieval.
+        </li>
+
+        <li>
+          <strong>TCP Implementation (The Telephone):</strong> Finally, we’ll build
+          the
+          <strong>communication line</strong>. While there are many ways to
+          handle networking, we’ll implement raw sockets to let the outside
+          world talk to our engine.
+        </li>
+      </ul>
+
+      <p>
+        This article has been a labor of love over the past year, and it
+        wouldn't be in its current form without the support of some incredible
+        people. I want to express my deepest gratitude to my <strong
+          >engineer friends</strong
+        > and
+        <strong>my dad</strong>: thank you for your patience in reading through
+        every single iteration of this draft—your critiques were invaluable.
+        Finally, a special thanks to <strong>Thorsten Ball</strong>; his book, <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://interpreterbook.com/">Writing An Interpreter In Go</a
+        >, was the spark that inspired this entire project and provided the
+        foundation for the <strong>Redis clone</strong> we are about to build.
+      </p>
+    </Prose>
+
+    <Link section="requirements" />
   </div>
 </Chapter>
