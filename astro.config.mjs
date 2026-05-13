@@ -17,21 +17,21 @@ export default defineConfig({
 
   fonts: [
     {
-      provider: fontProviders.fontsource(),
+      provider: fontProviders.google(),
       name: "Fraunces",
       cssVariable: "--font-fraunces",
       weights: [300],
       styles: ["normal"],
     },
     {
-      provider: fontProviders.fontsource(),
+      provider: fontProviders.google(),
       name: "Inter",
       cssVariable: "--font-inter",
       weights: [400],
       styles: ["normal"],
     },
     {
-      provider: fontProviders.fontsource(),
+      provider: fontProviders.google(),
       name: "Source Code Pro",
       cssVariable: "--font-code",
       weights: [400],
