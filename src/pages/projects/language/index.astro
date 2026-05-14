@@ -1,33 +1,327 @@
 ---
-import Section from "@/layouts/Section.astro";
-import Layout from "@/layouts/Layout.astro";
-import BackLink from "@/components/Articles/BackLink/BackLink.astro";
 import Header from "@/components/Articles/Header.astro";
 import Picture from "@/components/Picture.astro";
-import Content from "./_components/Content.astro";
+import Chapter from "@/layouts/Chapter.astro";
+import Header from "@/components/Articles/Header.astro";
+import Picture from "@/components/Picture.astro";
+import Prose from "@/components/Articles/Prose.astro";
+import ExternalLink from "@/components/Articles/ExternalLink.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import MonkeySnippet from "./_components/MonkeySnippet.astro";
+import LetTokens from "./_components/LetTokens.astro";
+import OperationPrecendence from "./_components/OperationPrecendence.astro";
+import MakeInterpreter from "./_components/MakeInterpreter.astro";
+import MakeExecuter from "./_components/MakeExecuter.astro";
+import RunningTests from "./_components/RunningTests.astro";
 ---
 
-<Layout title="Monkey Language">
-  <Section class="w-full flex sm:justify-center px-5 py-25">
-    <BackLink />
-    <div class="md:w-3/4 lg:w-2/3 flex flex-col items-center">
-      <Header
-        year="2024"
-        readingTime="1 minute"
-        codeLink="https://github.com/dyxgou/interpreter"
-      >
-        Teaching a Machine to Understand: Inside a Custom Programming Language
-      </Header>
+<Chapter>
+  <div class="md:w-3/4 lg:w-2/3 flex flex-col items-center">
+    <Header
+      year="2024"
+      readingTime="5 minute"
+      codeLink="https://github.com/dyxgou/interpreter"
+    >
+      Teaching a Machine to Understand: Inside a Custom Programming Language
+    </Header>
 
-      <Picture
-        class="appear w-full md:w-3/4 aspect-square sm:aspect-video border-4"
-        loading="eager"
-        src="/images/monkey.avif"
-        alt="Language"
-        size={514}
-      />
+    <Picture
+      class="appear w-full md:w-3/4 aspect-square sm:aspect-video border-4"
+      loading="eager"
+      src="/images/monkey.avif"
+      alt="Language"
+      size={514}
+    />
+  </div>
+  <Prose>
+    <h3 class="fraunces">
+      Following Thorsten Ball's Writing An Interpreter In Go
+    </h3>
 
-      <Content />
-    </div>
-  </Section>
-</Layout>
+    <p>
+      I've always been drawn to <strong>books</strong> as a way to learn, and at
+      some point I found myself wanting a serious project involving <strong
+        >parsers</strong
+      > — something that wasn't going to feel like a toy, something that would demand
+      real focus over a long period of time. So I did what felt natural: I searched
+      for a book about parsers and Go. <ExternalLink
+        text="Writing An Interpreter In Go"
+        href="https://interpreterbook.com/"
+      /> by <strong>Thorsten Ball</strong> was the first result that came up. I picked
+      it up, and about six months later I had built a fully <strong
+        >functional programming language</strong
+      > from scratch — no libraries, no shortcuts, just Go and a much deeper understanding
+      of how interpreters work under the hood. This is the story of that project:
+      <ExternalLink
+        text="dyxgou/interpreter"
+        href="https://github.com/dyxgou/interpreter"
+      />.
+    </p>
+    <h3 class="fraunces">The Monkey Programming Language</h3>
+
+    <p>
+      The language implemented here is <strong>Monkey</strong> — a small, expressive
+      language invented by <strong>Thorsten Ball</strong> which implementes a rich
+      set of features.
+    </p>
+
+    <ol>
+      <li><Keyword word="Integer" /> and <Keyword word="Booleans" />.</li>
+      <li><Keyword word="String" /> manipulation</li>
+      <li>Variables and bindings (<Keyword word="let" /> statements)</li>
+      <li>First-class and higher-order functions</li>
+      <li>Closures</li>
+      <li>Arrays and hash maps</li>
+      <li>
+        A built-in library (e.g., <Keyword word="len" />, <Keyword
+          word="print"
+        />, <Keyword word="first" />, <Keyword word="last" />, <Keyword
+          word="push"
+        />, <Keyword word="pop" />)
+      </li>
+    </ol>
+
+    <p>Here's a taste of what <strong>Monkey code</strong> looks like:</p>
+
+    <MonkeySnippet />
+
+    <p>
+      You can find <strong>more examples</strong> in the <ExternalLink
+        text="example/"
+        href="https://github.com/dyxgou/interpreter/tree/main/example"
+      /> folder of the repository.
+    </p>
+
+    <h3 class="fraunces">Architecture: How the Interpreter Works</h3>
+
+    <p>
+      The interpreter is structured as a classic <strong>pipeline</strong> — source
+      code <strong>enters</strong> one end, and computed results <strong
+        >come out</strong
+      > the other. There are four core components, each with a clearly defined responsibility.
+    </p>
+
+    <ol>
+      <li>
+        The <Keyword word="Lexer" /> (<ExternalLink
+          text="src/lexer"
+          href="https://github.com/dyxgou/interpreter/tree/main/src/lexer"
+        />)
+
+        <p>
+          The <Keyword word="Lexer" /> is the very first stage of interpretation.
+          Its job is to read <strong>raw source code</strong> — and convert it into
+          a stream of <Keyword word="" />. A token is a <strong
+            >meaningful unit</strong
+          > of the language: a <strong>keyword</strong> like <Keyword
+            word="let"
+          /> or <Keyword word="fn" />, an operator like <Keyword word="+" /> or <Keyword
+            word="==,"
+          />
+          an integer, an identifier, or a delimiter like <Keyword word="{" /> and
+          <Keyword word="}" />. For example, the code <Keyword
+            word="let x = 5 + 3;"
+          />
+          gets <strong>transformed</strong> into a sequence like:
+        </p>
+
+        <LetTokens />
+
+        <p>
+          The <Keyword word="Lexer" /> doesn't care whether the code makes sense
+          — that's someone else's problem. It only cares about <strong
+            >recognizing</strong
+          > and <strong>categorizing</strong> individual pieces of text.
+        </p>
+      </li>
+
+      <li>
+        The <Keyword word="AST" /> (<ExternalLink
+          text="src/ast"
+          href="https://github.com/dyxgou/interpreter/tree/main/src/ast"
+        />)
+
+        <p>
+          Before the <Keyword word="Parser" /> can do anything useful, we need a
+          <strong>data structure</strong> to represent the shape of the program.
+          That's the <strong>Abstract Syntax Tree</strong> (<Keyword
+            word="AST"
+          />). It's a <strong>tree</strong> of nodes where each node represents a
+          syntactic construct: a <Keyword word="Statement" />, an <Keyword
+            word="Expression"
+          />, a <Keyword word="Function" />, an <Keyword
+            word="infix operation"
+          />, and so on.
+        </p>
+
+        <p>
+          For example, the expression <Keyword word="5 + 3 * 2" /> doesn't get treated
+          as a <strong>flat list</strong> — it gets structured as a tree that encodes
+          <strong>operator precedence</strong>:
+        </p>
+
+        <OperationPrecendence />
+        <p>
+          The <strong>AST package</strong> defines all the <Keyword
+            word="Node"
+          />
+          types and ensures every node in the tree implements a <strong
+            >common interface</strong
+          >, making it easy for the <Keyword word="Parser" /> and <Keyword
+            word="Evaluator"
+          /> to work with them <strong>uniformly</strong>.
+        </p>
+      </li>
+
+      <li>
+        The <Keyword word="Parser" /> (<ExternalLink
+          text="src/parser"
+          href="https://github.com/dyxgou/interpreter/tree/main/src/parser"
+        />)
+
+        <p>
+          The <Keyword word="Parser" /> takes the <Keyword word="Token" /> stream
+          from the <Keyword word="Lexer" /> and builds the <Keyword
+            word="AST"
+          />. This is the most <strong>intellectually interesting</strong> component
+          of the whole project.
+        </p>
+
+        <p>
+          The implementation follows a <strong>Pratt parser</strong> (also called
+          a top-down operator precedence parser), a technique described elegantly
+          in the book. The key insight of a <strong>Pratt parser</strong> is that
+          each token type can have <strong>prefix</strong> and <strong
+            >infix</strong
+          > parse functions associated with it. When the parser encounters a <Keyword
+            word="Token"
+          />, it calls the appropriate <strong>parsing function</strong>, which
+          returns an <Keyword word="AST" /> node. This approach handles operator
+          precedence <strong>naturally</strong> and <strong>elegantly</strong>,
+          without resorting to complicated grammar rules.
+        </p>
+
+        <p>
+          The parser also performs <strong>syntax validation</strong> — if the token
+          stream doesn't form a valid Monkey program, the parser <strong
+            >reports errors</strong
+          > rather than silently producing garbage.
+        </p>
+      </li>
+
+      <li>
+        The <Keyword word="Evaluator" /> (<ExternalLink
+          text="src/evaluator"
+          href="https://github.com/dyxgou/interpreter/tree/main/src/evaluator"
+        />)
+
+        <p>
+          The <Keyword word="Evaluator" /> is where the <strong
+            >magic happens</strong
+          >. It walks the
+          <Keyword word="AST" /> recursively — a tree-walking interpreter — and computes
+          the value of every <Keyword word="Node" /> it <strong>visits</strong>.
+        </p>
+
+        <ol>
+          <li>
+            An <Keyword word="IntegerLiteral" /> node evaluates to its <strong
+              >numeric value</strong
+            >.
+          </li>
+          <li>
+            An <Keyword word="InfixExpression" /> node evaluates both sides and applies
+            the operator.
+          </li>
+          <li>
+            An <Keyword word="IfExpression" /> evaluates the <strong
+              >condition</strong
+            >, then takes the appropriate branch.
+          </li>
+          <li>
+            A <Keyword word="FunctionLiteral" /> captures the outer <strong
+              >environment</strong
+            >.
+          </li>
+          <li>
+            A <Keyword word="CallExpression" /> extends <strong
+              >the environment</strong
+            >, binds arguments, and <strong>evaluates</strong> the function body.
+          </li>
+        </ol>
+
+        <p>
+          The <Keyword word="Evaluator" /> also manages the <Keyword
+            word="Object"
+          /> system — every value in Monkey <strong
+            >(integers, strings, booleans, arrays, hashes, functions, null)</strong
+          > is represented as a Go struct implementing a common <Keyword
+            word="Object"
+          /> interface. This makes it easy to pass values around and <strong
+            >pattern-match</strong
+          >
+          on their types.
+        </p>
+      </li>
+
+      <li>
+        The <Keyword word="REPL" /> (<ExternalLink
+          text="src/repl"
+          href="https://github.com/dyxgou/interpreter/tree/main/src/repl"
+        />)
+
+        <p>
+          All of this comes together in a <strong>Read-Eval-Print Loop</strong>.
+          The <Keyword word="REPL" /> reads a line of <Keyword word="code" />,
+          runs it through the full pipeline <strong
+            >(lexer → parser → evaluator)</strong
+          >, and prints the result. You can launch it with a single <strong
+            >make command:
+          </strong>
+        </p>
+
+        <MakeInterpreter />
+
+        <p>Or execute a Monkey source file directly:</p>
+
+        <MakeExecuter />
+      </li>
+
+      <li>
+        <Keyword word="Testing" />
+
+        <p>
+          This project was built following <strong
+            >Test Driven Development (TDD)</strong
+          >, as guided by the book itself. Every component was written
+          <strong>test-first</strong> — before implementing a feature, leading to
+          an extensive test suite where every major component — the <Keyword
+            word="Lexer"
+          />, <Keyword word="Parser" />, <Keyword word="AST" />, and <Keyword
+            word="Evaluator"
+          /> — has dedicated tests that verify correct behavior across a wide range
+          of inputs, including <strong>edge cases</strong> and <strong
+            >error conditions</strong
+          >.
+        </p>
+
+        <RunningTests />
+      </li>
+    </ol>
+
+    <ol>
+      <li>
+        Repository: <ExternalLink
+          text="github.com/dyxgou/interpreter"
+          href="https://github.com/dyxgou/interpreter"
+        />
+      </li>
+      <li>
+        Book: <ExternalLink
+          text="Writing An Interpreter In Go by Thorsten Ball"
+          href="https://interpreterbook.com/"
+        />
+      </li>
+    </ol>
+  </Prose>
+</Chapter>
