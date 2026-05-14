@@ -6,6 +6,7 @@ import Prose from "@/components/Articles/Prose.astro";
 import Heading from "@/components/Articles/Heading.astro";
 import Keyword from "@/components/Articles/Keyword.astro";
 import Link from "@/components/Articles/Links/Link.astro";
+import ExternalLink from "@/components/Articles/ExternalLink.astro";
 ---
 
 <Chapter title="Introduction">
@@ -57,11 +58,10 @@ import Link from "@/components/Articles/Links/Link.astro";
         reverse-engineering a philosophy, diving deep into how a networked system
         actually works. We'll go from raw TCP Sockets to the implementation of RESP
         (Redis Serialization Protocol), all the way into in-memory command evaluation.
-        The full source code is available on <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://github.com/dyxgou/redis">GitHub</a
-        >! 🚀
+        The full source code is available on <ExternalLink
+          text="Github."
+          href="https://github.com/dyxgou/redis"
+        /> 🚀
       </p>
 
       <p>
@@ -137,11 +137,11 @@ import Link from "@/components/Articles/Links/Link.astro";
         > and
         <strong>my dad</strong>: thank you for your patience in reading through
         every single iteration of this draft—your critiques were invaluable.
-        Finally, a special thanks to <strong>Thorsten Ball</strong>; his book, <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://interpreterbook.com/">Writing An Interpreter In Go</a
-        >, was the spark that inspired this entire project and provided the
+        Finally, a special thanks to <strong>Thorsten Ball</strong>; his book,
+        <ExternalLink
+          href="https://interpreterbook.com/"
+          text="Writing An Interpreter In Go"
+        />, was the spark that inspired this entire project and provided the
         foundation for the <strong>Redis clone</strong> we are about to build.
       </p>
     </Prose>

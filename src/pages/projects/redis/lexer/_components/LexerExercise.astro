@@ -1,6 +1,7 @@
 ---
 import Exercise from "@/components/Articles/Exercise/Exercise.astro";
 import Keyword from "@/components/Articles/Keyword.astro";
+import ExternalLink from "@/components/Articles/ExternalLink.astro";
 ---
 
 <Exercise class="mb-20" exercise={2} title="Implementing Number Handling">
@@ -27,15 +28,13 @@ import Keyword from "@/components/Articles/Keyword.astro";
   </ol>
 
   <p>
-    💡 <strong>Need help?</strong> Check the full implementation in the <a
+    💡 <strong>Need help?</strong> Check the full implementation in the <ExternalLink
       href="https://github.com/dyxgou/redis/blob/ebbb821dc3e9b8743190cd728fd11678aae9e731/pkg/lexer/lexer.go#L102"
-      rel="noopener noreferer"
-      target="_blank">pkg/lexer/lexer.go</a
-    > file of the source code. And if you still have questions, don't hesitate to
-    reach out on <a
-      target="_blank"
-      rel="noopener noreferer"
-      href="https://www.linkedin.com/in/diego-alejandro-417357219/">LinkedIn</a
-    >.
+      text="pkg/lexer/lexer.go"
+    /> file of the source code. And if you still have questions, don't hesitate to
+    reach out on <ExternalLink
+      href="https://www.linkedin.com/in/diego-alejandro-417357219/"
+      text="LinkedIn"
+    />.
   </p>
 </Exercise>

@@ -12,6 +12,7 @@ import LexerNextToken from "./_components/LexerNextToken.astro";
 import NextTokenLetters from "./_components/NextTokenLetters.astro";
 import HandlingLetters from "./_components/HandlingLetters.astro";
 import LookupIdentDefinition from "./_components/LookupIdentDefinition.astro";
+import ExternalLink from "@/components/Articles/ExternalLink.astro";
 import LexerExercise from "./_components/LexerExercise.astro";
 import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 ---
@@ -139,10 +140,9 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       Now that we have implemented <Keyword word="next()" />, we need to
       implement <Keyword word="NextToken()" /> — whose purpose is to scan the input
       and return the <Keyword word="Token" /> we defined in the
-      <a href="/projects/redis/token" target="_blank" rel="noopener noreferrer">
-        previous chapter</a
-      >. We will build it incrementally, starting with the two most fundamental
-      cases any <Keyword word="Lexer" /> must handle before anything else: knowing
+      <ExternalLink href="/projects/redis/token" text="previous chapter" />. We
+      will build it incrementally, starting with the two most fundamental cases
+      any <Keyword word="Lexer" /> must handle before anything else: knowing
       <strong>when to stop</strong> and knowing <strong>what to ignore.</strong>
     </p>
 
@@ -294,5 +294,5 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 
   <LexerExercise />
 
-  <LinkContainer prevSection="token" nextSection="lexer-implementation" />
+  <LinkContainer prevSection="token" nextSection="parser" />
 </Chapter>

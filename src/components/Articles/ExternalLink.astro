@@ -9,15 +9,4 @@ interface Props {
 const { href, text } = Astro.props;
 ---
 
-<a
-  class="group inline-flex items-center cursor-pointer"
-  href={href}
-  target="_blank"
-  rel="noopener noreferer"
->
-  <span>{text}</span>
-
-  <Arrow
-    class="size-5 -rotate-45 transition-transform duration-200 group-hover:rotate-0"
-  />
-</a>
+<a class="group" href={href} target="_blank" rel="noopener noreferer">{text}</a>

@@ -2,6 +2,7 @@
 import Exercise from "@/components/Articles/Exercise/Exercise.astro";
 import Keyword from "@/components/Articles/Keyword.astro";
 import ExerciseSnippet from "@/components/Articles/Exercise/ExerciseSnippet.astro";
+import ExternalLink from "@/components/Articles/ExternalLink.astro";
 ---
 
 <Exercise exercise={1} title="Identifing Redis Tokens">
@@ -28,18 +29,15 @@ INCR articleRewrites`}
 
   <p>
     💡 <strong>Want to check your work?</strong> Compare your solution against the
-    <a
-      target="_blank"
-      rel="noopener noreferer"
+    <ExternalLink
       href="https://github.com/dyxgou/redis/blob/a2c128bd7000104b1f9bb3ecb2a7fcb7b4c4b8d4/pkg/token/token.go#L15"
-      >pkg/token/token.go</a
-    > file in the source code. <br />
+      text="pkg/token/token.go"
+    /> file in the source code.
   </p>
   <p>
-    Have questions or want to share your solution? Reach out on <a
-      target="_blank"
-      rel="noopener noreferer"
-      href="https://www.linkedin.com/in/diego-alejandro-417357219/">LinkedIn</a
-    > — I'd love to see what you come up with.
+    Have questions or want to share your solution? Reach out on <ExternalLink
+      href="https://www.linkedin.com/in/diego-alejandro-417357219/"
+      text="LinkedIn"
+    /> — I'd love to see what you come up with.
   </p>
 </Exercise>

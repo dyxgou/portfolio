@@ -5,6 +5,7 @@ import Prose from "@/components/Articles/Prose.astro";
 import Keyword from "@/components/Articles/Keyword.astro";
 import Picture from "@/components/Picture.astro";
 import Citation from "@/components/Articles/Citation.astro";
+import ExternalLink from "@/components/Articles/ExternalLink.astro";
 import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 import Infrastructure from "@/components/Animations/Infrastructure/Infrastructure";
 ---
@@ -102,13 +103,11 @@ import Infrastructure from "@/components/Animations/Infrastructure/Infrastructur
       <li>
         <strong>RESP Compliance:</strong> We will build our own custom Client to
         handle <strong>serialization and communication.</strong> To ensure absolute
-        accuracy, our implementation will strictly follow the official <a
+        accuracy, our implementation will strictly follow the official <ExternalLink
           href="https://redis.io/docs/latest/develop/reference/protocol-spec/"
-          rel="noopener noreferer"
-          target="_blank">RESP specifications</a
-        >
-        provided by Redis. This allows us to master the protocol from both the sender
-        and receiver perspective.
+          text="RESP specifications"
+        /> provided by Redis. This allows us to master the protocol from both the
+        sender and receiver perspective.
       </li>
     </ol>
 

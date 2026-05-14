@@ -9,7 +9,7 @@ import SETTokens from "./_components/SETTokens.astro";
 import Tokens from "./_components/Tokens.astro";
 import TokenStruct from "./_components/TokenStruct.astro";
 import TokensExercise from "./_components/TokensExercise.astro";
-
+import ExternalLink from "@/components/Articles/ExternalLink.astro";
 import TokenNew from "./_components/TokenNew.astro";
 import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
 ---
@@ -181,12 +181,10 @@ import LinkContainer from "@/components/Articles/Links/LinkContainer.astro";
       a piece of text in the struct as we do, they just store the <strong
         >indices</strong
       > from where the piece of text beings and ends, a simple and ingenious trick
-      if you want to implement it, <a
-        target="_blank"
-        rel="noopener noreferrer"
+      if you want to implement it, <ExternalLink
         href="https://github.com/golang/go/blob/3fd729b2a14a7efcf08465cbea60a74da5457f06/src/go/token/position.go#L83"
-        >Check the details here</a
-      >.
+        text="Check the details here"
+      />.
     </p>
 
     <p>
