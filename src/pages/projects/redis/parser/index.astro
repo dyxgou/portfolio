@@ -1,0 +1,45 @@
+---
+import Chapter from "@/layouts/Chapter.astro";
+import Heading from "@/components/Articles/Heading.astro";
+import Prose from "@/components/Articles/Prose.astro";
+import ExternalLink from "@/components/Articles/ExternalLink.astro";
+import Picture from "@/components/Picture.astro";
+---
+
+<Chapter title="Using a Lexer to create a Parser">
+  <Heading>Coming soon...</Heading>
+
+  <Prose>
+    <p>
+      This article has been in development <strong>for over a year</strong>
+      — and honestly, it has changed me as a developer. I have rewritten <strong
+        >it three times</strong
+      >, each time with a deeper understanding of the systems it covers. New
+      chapters will be added incrementally.
+    </p>
+
+    <p>
+      If you are curious about how the animations were built, you can find the
+      full source code of this portfolio <ExternalLink
+        text="here"
+        href="https://github.com/dyxgou/portfolio"
+      />.
+    </p>
+
+    <p>
+      If you are enjoying it, a thumbs up and a repost on <ExternalLink
+        href="https://www.linkedin.com/in/diego-alejandro-417357219/"
+        text="LinkedIn"
+      /> would mean a lot and help it <strong>reach more developers</strong> like
+      you.
+    </p>
+
+    <Picture
+      class="appear w-full m-auto sm:w-3/4 aspect-square sm:aspect-video border-4"
+      loading="eager"
+      src="/images/redis.webp"
+      alt="redis"
+      size={514}
+    />
+  </Prose>
+</Chapter>

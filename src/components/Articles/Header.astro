@@ -7,7 +7,7 @@ import Code from "@/assets/articles/code.svg";
 interface Props {
   year: string;
   readingTime: string;
-  codeLink: `https://github.com/dyxgou/${string}`;
+  codeLink?: `https://github.com/dyxgou/${string}`;
 }
 
 const { year, readingTime, codeLink } = Astro.props;
@@ -23,16 +23,20 @@ const { year, readingTime, codeLink } = Astro.props;
     <Label text={readingTime}>
       <Clock />
     </Label>
-    <a
-      class="cursor-pointer transition-colors duration-400 text-transparent hover:underline hover:text-gray-400"
-      href={codeLink}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <Label text="Code" class:list={["text-blue-300 underline"]}>
-        <Code />
-      </Label>
-    </a>
+    {
+      codeLink && (
+        <a
+          class="cursor-pointer transition-colors duration-400 text-transparent hover:underline hover:text-gray-400"
+          href={codeLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Label text="Code" class:list={["text-blue-300 underline"]}>
+            <Code />
+          </Label>
+        </a>
+      )
+    }
   </ul>
   <h1
     class="appear mb-5 fraunces text-black/90 tracking-tighter text-4xl md:text-[38px] lg:text-5xl sm:text-center"
