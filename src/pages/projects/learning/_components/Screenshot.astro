@@ -1,0 +1,8 @@
+---
+import type { ComponentProps } from "astro/types";
+import Picture from "@/components/Picture.astro";
+
+interface Props extends ComponentProps<typeof Picture> {}
+---
+
+<Picture {...Astro.props} loading="lazy" class="w-full object-contain" />

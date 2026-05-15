@@ -1,33 +1,105 @@
 ---
-import Section from "@/layouts/Section.astro";
-import Layout from "@/layouts/Layout.astro";
-import BackLink from "@/components/Articles/BackLink/BackLink.astro";
+import Chapter from "@/layouts/Chapter.astro";
 import Header from "@/components/Articles/Header.astro";
 import Picture from "@/components/Picture.astro";
-import Content from "./_components/Content.astro";
+import Prose from "@/components/Articles/Prose.astro";
+import Keyword from "@/components/Articles/Keyword.astro";
+import Technologies from "./_components/Technologies.astro";
+import Screenshots from "./_components/Screenshots.astro";
 ---
 
-<Layout title="My Learning">
-  <Section class="w-full flex sm:justify-center px-5 py-25">
-    <BackLink />
-    <div class="md:w-3/4 lg:w-2/3 flex flex-col items-center">
-      <Header
-        year="2025"
-        readingTime="1 minute"
-        codeLink="https://github.com/dyxgou/notes-backend"
-      >
-        From Paper to Platform: Engineering Academic Operations at Scale
-      </Header>
+<Chapter title="Introduction">
+  <div class="px-1 md:w-3/4 lg:w-2/3 flex flex-col items-center">
+    <Header year="2025" readingTime="5 minutes">
+      From Paper to Platform: Engineering Academic Operations at Scale
+    </Header>
 
-      <Picture
-        class="appear w-full md:w-3/4 object-center aspect-square sm:aspect-video border-4"
-        loading="eager"
-        src="/images/learning.webp"
-        alt="Language"
-        size={514}
-      />
+    <Picture
+      class="appear w-full sm:w-3/4 aspect-square sm:aspect-video border-4"
+      loading="eager"
+      src="/images/learning.webp"
+      alt="redis"
+      size={514}
+    />
+  </div>
+  <Prose>
+    <p>
+      A local conglomerate schools in my home-town were managing student
+      <strong>records</strong>, <strong>grades</strong>, and <strong
+        >subject notes</strong
+      > through <Keyword word="Excel" /> spreadsheets that broke constantly. When
+      they did, staff had to wait days for someone to fix them, <strong
+        >blocking</strong
+      > the entire workflow.
+    </p>
 
-      <Content />
-    </div>
-  </Section>
-</Layout>
+    <p>
+      Uploading the notes for a single subject could take a <strong
+        >full day</strong
+      >. Generating a student report had to be assembled manually every time —
+      slow, error-prone, and exhausting at the end of each period.
+    </p>
+
+    <p>
+      They platform needed to automate all of this. The catch: deployment
+      targets were small school servers, with no dedicated IT team. It had to be
+      <strong>easy to deploy</strong>, cheap to run, and maintenance-free.
+    </p>
+
+    <h3 class="fraunces">The Stack</h3>
+
+    <Technologies />
+
+    <p>
+      This stack was chosen because the system should be as <strong
+        >small</strong
+      > and <strong>self-contained</strong> as possible. <Keyword word="Go" /> compiles
+      to a single static binary and <Keyword word="SQLite" /> runs embedded, allowing
+      the <Keyword word="Docker" /> image of just
+      <strong>30 MB</strong>.
+    </p>
+
+    <h3 class="fraunces">What It Does</h3>
+
+    <p>
+      The Staff manages <strong>students</strong>, <strong>subjects</strong>,
+      and <strong>notes</strong> through a structured interface. The platform understands
+      the relationships between all of them which enable to generate the <strong
+        >student notes report</strong
+      > automatically.
+    </p>
+
+    <h3 class="fraunces">Before and After</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Before</th>
+          <th>After</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Upload notes for all subjects</td>
+          <td><strong>~1 day</strong> per subject</td>
+          <td><strong>~1 hour</strong> total</td>
+        </tr>
+        <tr>
+          <td>Generate student report</td>
+          <td><strong>Hand-crafted</strong> manually</td>
+          <td><strong>Instant</strong></td>
+        </tr>
+        <tr>
+          <td>System reliability</td>
+          <td>Spreadsheets breaking, <strong>days of downtime</strong></td>
+          <td><strong>Always up</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="fraunces">Screenshots of the Project:</h3>
+
+    <Screenshots />
+  </Prose>
+</Chapter>

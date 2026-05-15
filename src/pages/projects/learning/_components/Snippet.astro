@@ -1,0 +1,20 @@
+---
+import type { ComponentProps } from "astro/types";
+import { Code } from "astro:components";
+
+interface Props extends ComponentProps<typeof Code> {
+  title: string;
+}
+
+const { title, ...code } = Astro.props;
+---
+
+<div>
+  <div
+    class="flex bg-[#272834] inter text-white text-base py-2 px-5 rounded-t-lg items-center justify-between"
+  >
+    <span>{title}</span>
+  </div>
+
+  <Code {...code} tabindex={-1} theme="tokyo-night" />
+</div>
